@@ -25,7 +25,8 @@
         "tsx": "never"
       }
     ],
-    "arrow-body-style": "off"
+    "arrow-body-style": "off",
+    "comma-dangle": "off"
   },
   "settings": {
     "import/resolver": {
