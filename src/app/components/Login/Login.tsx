@@ -1,10 +1,25 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import firebase from 'firebase';
+import { useHistory } from 'react-router-dom';
+import { Form, Input, Button, Checkbox, message } from 'antd';
+
 import DependecyInjection from '../../../dependecy-injection';
 
 const Login = () => {
+  const history = useHistory();
+
   const { apiRepository } = DependecyInjection.getInstance();
+
+  const initializeFirebaseSession = async (token: string) => {
+    try {
+      const respSign = await firebase.auth().signInWithCustomToken(token);
+      console.log('userCredential -->', respSign);
+      history.push('/task/list');
+    } catch (error) {
+      console.log('Erron en initializeSession', error.message);
+    }
+  };
 
   const onFinish = async (values: any) => {
     console.log('Success:', values);
@@ -14,7 +29,13 @@ const Login = () => {
     };
 
     const resp = await apiRepository.login(dataLogin.email, dataLogin.password);
+    if (!resp) {
+      message.error('Usuario o contraseña incorrectas');
+      return;
+    }
     console.log('resp -->', resp);
+
+    await initializeFirebaseSession(resp.token);
 
     /* fetch(`${host}/api/v1/users/login`, {
       method: 'POST',

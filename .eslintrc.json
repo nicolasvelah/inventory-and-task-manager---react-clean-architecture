@@ -26,7 +26,8 @@
       }
     ],
     "arrow-body-style": "off",
-    "comma-dangle": "off"
+    "comma-dangle": "off",
+    "no-console": "warn"
   },
   "settings": {
     "import/resolver": {

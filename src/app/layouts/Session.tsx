@@ -1,25 +1,28 @@
 /* eslint-disable react/prop-types */
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import firebase from 'firebase';
 import { useHistory } from 'react-router-dom';
-import firebaseConfig from '../../firebase-config';
 
 const Session: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
   const history = useHistory();
-  useEffect(() => {
-    firebase.initializeApp(firebaseConfig);
 
+  const [checkSigned, setCheckSigned] = useState<boolean>(false);
+
+  useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // User is signed in.
-        // console.log('User is signed in. -->', user);
+        console.log('User is signed in. -->', user);
+        history.push('/task/list');
       } else {
         // No user is signed in.
-        // console.log('usNo user is signed in.er');
+        console.log('No user is signed in');
         history.push('/login');
       }
+      setCheckSigned(true);
     });
   }, []);
+  if (!checkSigned) return null;
   return <>{children}</>;
 };
 

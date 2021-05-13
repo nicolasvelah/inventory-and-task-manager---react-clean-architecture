@@ -1,6 +1,7 @@
 /* eslint-disable object-curly-newline */
 import React, { useEffect } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
+// import firebase from 'firebase';
 
 import Session from './layouts/Session';
 
@@ -10,18 +11,22 @@ import TasksListPage from './pages/TaskListPage';
 
 import DependecyInjection from '../dependecy-injection';
 
+// import firebaseConfig from '../firebase-config';
+
 import 'antd/dist/antd.css';
 
 function App() {
   useEffect(() => {
+    // firebase.initializeApp(firebaseConfig);
     DependecyInjection.getInstance();
   }, []);
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/public-page" component={PublicPage} />
-        <Route exact path="/login" component={LoginPage} />
+
         <Session>
+          <Route exact path="/login" component={LoginPage} />
           <Route exact path="/task/list" component={TasksListPage} />
         </Session>
       </Switch>
