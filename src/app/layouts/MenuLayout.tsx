@@ -1,31 +1,58 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/jsx-fragments */
-/* eslint-disable react/destructuring-assignment */
+/* eslint-disable no-plusplus */
 /* eslint-disable object-curly-newline */
-/* eslint-disable react/prop-types */
 import { Button, Layout, Menu } from 'antd';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  UserOutlined,
   VideoCameraOutlined,
-  UploadOutlined
+  TeamOutlined
 } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
+
+import menuItemsList from '../../menu-items-list';
 
 const { Header, Sider, Footer, Content } = Layout;
+const { SubMenu } = Menu;
 
-/* function AvoidRender(props: { child: React.ReactNode }) {
-  return props.child;
-} */
-
-// eslint-disable-next-line no-unused-vars
-const MenuLayout: FunctionComponent<{ menuItem: string }> = ({ menuItem, children }) => {
-  // console.log({ children });
+const MenuLayout: FunctionComponent<{ menuItem: string; children: React.ReactNode }> = ({
+  menuItem,
+  children
+}) => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [currentItem, setCurrentItem] = useState<string[]>([]);
+  const [openKeys, setOpenKeys] = useState<string[]>([]);
+
+  const history = useHistory();
+
+  useEffect(() => {
+    setCurrentItem([menuItem]);
+    const keys = menuItemsList.find((item) => {
+      if (item.subItems) {
+        for (let index = 0; index < item.subItems.length; index++) {
+          const subItem = `${item.name}-${item.subItems[index].name}`;
+          if (menuItem === subItem) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+    setOpenKeys(keys ? [keys.name] : []);
+  }, []);
 
   const toggle = () => {
     setCollapsed(!collapsed);
+  };
+
+  const toggleSubMenu = ({ key }: { key: string }) => {
+    const included = openKeys.includes(key);
+    const newOpenKeys = !included ? [key, ...openKeys] : openKeys.filter((o) => o !== key);
+    setOpenKeys(newOpenKeys);
+  };
+
+  const goTo = (url: string) => {
+    history.push(url);
   };
 
   return (
@@ -34,34 +61,67 @@ const MenuLayout: FunctionComponent<{ menuItem: string }> = ({ menuItem, childre
         <div className="logo" style={{ background: '#fff' }}>
           LOGO
         </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<UserOutlined />}>
-            nav 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-            nav 2
-          </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined />}>
-            nav 3
-          </Menu.Item>
+
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={[menuItem]}
+          selectedKeys={currentItem}
+          openKeys={openKeys}
+        >
+          {menuItemsList.map((mainMenu) => {
+            if (!mainMenu.subItems) {
+              return (
+                <Menu.Item
+                  key={mainMenu.name}
+                  icon={<VideoCameraOutlined />}
+                  onClick={() => {
+                    goTo(mainMenu.url);
+                  }}
+                >
+                  {mainMenu.name}
+                </Menu.Item>
+              );
+            }
+
+            return (
+              <SubMenu
+                key={mainMenu.name}
+                icon={<TeamOutlined />}
+                title={mainMenu.name}
+                onTitleClick={toggleSubMenu}
+              >
+                {mainMenu.subItems.map((subMenu) => {
+                  return (
+                    <Menu.Item
+                      key={`${mainMenu.name}-${subMenu.name}`}
+                      onClick={() => {
+                        goTo(subMenu.url);
+                      }}
+                    >
+                      {subMenu.name}
+                    </Menu.Item>
+                  );
+                })}
+              </SubMenu>
+            );
+          })}
         </Menu>
-        <button
-          type="button"
+
+        <Button
           id="collapse-menu-btn"
           onClick={toggle}
           style={{ position: 'absolute', bottom: 0, width: '100%' }}
         >
           {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-        </button>
+        </Button>
       </Sider>
+
       <Layout className="site-layout">
         <Header style={{ padding: 0, background: '#fff' }}>
-          <div>
-            {/* <button type="button" id="collapse-menu-btn" onClick={toggle}>
-              {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            </button> */}
-          </div>
+          <div>MI PERFIL</div>
         </Header>
+
         <Content
           className="site-layout-background"
           style={{

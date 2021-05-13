@@ -36,19 +36,6 @@ const Login = () => {
     console.log('resp -->', resp);
 
     await initializeFirebaseSession(resp.token);
-
-    /* fetch(`${host}/api/v1/users/login`, {
-      method: 'POST',
-      body: JSON.stringify(dataLogin),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('token -->', data.token);
-      })
-      .catch((e) => console.log('Error:', e.message)); */
   };
 
   const onFinishFailed = (errorInfo: any) => {
