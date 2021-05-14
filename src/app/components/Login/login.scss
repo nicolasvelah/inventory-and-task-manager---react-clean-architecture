@@ -1,0 +1,14 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+
+  .ant-form-item {
+    margin-bottom: 10px;
+  }
+
+  .ant-btn {
+    width: 100%;
+  }
+}

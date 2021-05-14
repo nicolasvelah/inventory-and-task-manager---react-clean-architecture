@@ -4,7 +4,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import Session from './layouts/Session';
 
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/login/LoginPage';
 import PublicPage from './pages/PublicPage';
 import TasksListPage from './pages/TaskListPage';
 import DevicesPage from './pages/DevicesPage';

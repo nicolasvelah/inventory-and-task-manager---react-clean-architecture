@@ -1,40 +1,49 @@
 /* eslint-disable object-curly-newline */
-import React from 'react';
-import firebase from 'firebase';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, message } from 'antd';
 
 import DependecyInjection from '../../../dependecy-injection';
 
+import './login.scss';
+
 const Login = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const history = useHistory();
 
-  const { apiRepository } = DependecyInjection.getInstance();
+  const { apiRepository, firebaseAdminRepository } = DependecyInjection.getInstance();
 
   const initializeFirebaseSession = async (token: string) => {
-    try {
-      const respSign = await firebase.auth().signInWithCustomToken(token);
+    const respSign = await firebaseAdminRepository.sign(token);
+    if (respSign) {
       console.log('userCredential -->', respSign);
       history.push('/task/list');
-    } catch (error) {
-      console.log('Erron en initializeSession', error.message);
+    } else {
+      message.error('Usuario o contraseña incorrectas');
     }
   };
 
-  const onFinish = async (values: any) => {
+  const onFinish = async (values: { password: string; remember: boolean; username: string }) => {
+    setLoading(true);
     console.log('Success:', values);
-    const dataLogin = {
+    /* const dataLogin = {
       email: 'bjuanacio@pas-hq.com',
       password: '12345'
+    }; */
+    const dataLogin = {
+      email: values.username,
+      password: values.password
     };
 
     const resp = await apiRepository.login(dataLogin.email, dataLogin.password);
     if (!resp) {
       message.error('Usuario o contraseña incorrectas');
+      setLoading(false);
       return;
     }
     console.log('resp -->', resp);
-
+    setLoading(false);
     await initializeFirebaseSession(resp.token);
   };
 
@@ -43,7 +52,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login">
       <Form
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -53,7 +62,7 @@ const Login = () => {
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="Username"
+          label="Correo"
           name="username"
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
@@ -61,7 +70,7 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item
-          label="Password"
+          label="Contraseña"
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
@@ -69,12 +78,12 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }} name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
+          <Checkbox>Recordarme</Checkbox>
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
+        <Form.Item wrapperCol={{ offset: 0, span: 0 }}>
+          <Button type="primary" htmlType="submit" shape="round" loading={loading}>
+            Entrar
           </Button>
         </Form.Item>
       </Form>
