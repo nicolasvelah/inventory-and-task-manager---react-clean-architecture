@@ -1,5 +1,5 @@
 /* eslint-disable object-curly-newline */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import Session from './layouts/Session';
@@ -9,14 +9,9 @@ import PublicPage from './pages/PublicPage';
 import TasksListPage from './pages/TaskListPage';
 import DevicesPage from './pages/DevicesPage';
 
-import DependecyInjection from '../dependecy-injection';
-
 import 'antd/dist/antd.css';
 
 function App() {
-  useEffect(() => {
-    DependecyInjection.getInstance();
-  }, []);
   return (
     <BrowserRouter>
       <Switch>

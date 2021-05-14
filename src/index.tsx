@@ -1,11 +1,12 @@
 import React from 'react';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app/App';
+import DependecyInjection from './dependecy-injection';
 
-import firebaseConfig from './firebase-config';
+// import firebaseConfig from './firebase-config';
 
-firebase.initializeApp(firebaseConfig);
+DependecyInjection.getInstance();
 
 ReactDOM.render(<App />, document.getElementById('root'));

@@ -3,7 +3,7 @@ import User from '../../domain/models/user';
 import ApiRepository from '../../domain/repositories/api-repository';
 
 export default class ApiRepositoryImpl implements ApiRepository {
-  private host = 'http://localhost:5000';
+  private host = process.env.REACT_APP_API_URL ?? 'http://localhost:5000';
 
   async login(email: string, password: string): Promise<{ user: User; token: string } | null> {
     try {

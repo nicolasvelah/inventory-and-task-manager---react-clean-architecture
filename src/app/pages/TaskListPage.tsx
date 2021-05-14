@@ -2,6 +2,7 @@ import { Button } from 'antd';
 import firebase from 'firebase';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import SocketClient from '../../helpers/socket-client';
 import MenuLayout from '../layouts/MenuLayout';
 
 const TasksListPage = () => {
@@ -17,7 +18,8 @@ const TasksListPage = () => {
               .signOut()
               .then(() => {
                 // Sign-out successful.
-                history.push('login');
+                history.push('/login');
+                SocketClient.getInstance().disconnect();
               })
               .catch((error) => {
                 // An error happened.
