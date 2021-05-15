@@ -14,6 +14,7 @@ export type taskType = keyof typeof TaskType;
 export const TASK_TYPE_LIST = Object.keys(TaskType);
 
 export default interface Task {
+  _id: string;
   technical: User;
   place: Place;
   scheduledDate: Date;

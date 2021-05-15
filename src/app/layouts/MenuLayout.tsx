@@ -10,7 +10,10 @@ import {
 } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 
+import MyProfile from '../components/my-profile/MyProfile';
+
 import menuItemsList from '../../menu-items-list';
+import { userGlobalContext } from '../context/UserGlobalContext';
 
 const { Header, Sider, Footer, Content } = Layout;
 const { SubMenu } = Menu;
@@ -24,6 +27,8 @@ const MenuLayout: FunctionComponent<{ menuItem: string; children: React.ReactNod
   const [openKeys, setOpenKeys] = useState<string[]>([]);
 
   const history = useHistory();
+
+  const { user } = userGlobalContext();
 
   useEffect(() => {
     setCurrentItem([menuItem]);
@@ -118,8 +123,9 @@ const MenuLayout: FunctionComponent<{ menuItem: string; children: React.ReactNod
       </Sider>
 
       <Layout className="site-layout">
-        <Header style={{ padding: 0, background: '#fff' }}>
+        <Header style={{ padding: 0, background: '#fff', display: 'flex' }}>
           <div>MI PERFIL</div>
+          {user && <MyProfile user={user} />}
         </Header>
 
         <Content

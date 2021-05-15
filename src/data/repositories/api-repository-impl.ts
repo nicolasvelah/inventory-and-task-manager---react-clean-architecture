@@ -26,4 +26,21 @@ export default class ApiRepositoryImpl implements ApiRepository {
       return null;
     }
   }
+
+  async getUserById(id: string): Promise<User | null> {
+    try {
+      const url = `${this.host}/api/v1/users/id/${id}`;
+      const response = await axios({
+        url,
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      return response.data.user;
+    } catch (error) {
+      console.log('Error getUserById', error.message);
+      return null;
+    }
+  }
 }

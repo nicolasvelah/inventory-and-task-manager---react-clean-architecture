@@ -6,6 +6,8 @@ import { Form, Input, Button, Checkbox, message } from 'antd';
 import DependecyInjection from '../../../dependecy-injection';
 
 import './login.scss';
+import User from '../../../domain/models/user';
+import { userGlobalContext } from '../../context/UserGlobalContext';
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -14,10 +16,14 @@ const Login = () => {
 
   const { apiRepository, firebaseAdminRepository } = DependecyInjection.getInstance();
 
-  const initializeFirebaseSession = async (token: string) => {
+  const { setUser } = userGlobalContext();
+
+  const initializeFirebaseSession = async (token: string, user: User) => {
     const respSign = await firebaseAdminRepository.sign(token);
     if (respSign) {
       console.log('userCredential -->', respSign);
+      console.log('user -->', user);
+      setUser(user);
       history.push('/task/list');
     } else {
       message.error('Usuario o contraseña incorrectas');
@@ -44,7 +50,7 @@ const Login = () => {
     }
     console.log('resp -->', resp);
     setLoading(false);
-    await initializeFirebaseSession(resp.token);
+    await initializeFirebaseSession(resp.token, resp.user);
   };
 
   const onFinishFailed = (errorInfo: any) => {
