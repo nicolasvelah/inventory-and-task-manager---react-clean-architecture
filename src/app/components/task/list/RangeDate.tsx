@@ -78,8 +78,6 @@ const RangeDate: FunctionComponent<{
   }, [inUse]);
 
   const onChange = (values: [Moment, Moment]) => {
-    console.log('values -->', values);
-
     setTasks([baseItem, { ...baseItem, _id: '123445' }], 'range');
     setValue(values);
   };

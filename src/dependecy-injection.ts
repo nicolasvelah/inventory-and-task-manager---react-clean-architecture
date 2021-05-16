@@ -2,7 +2,7 @@ import ApiRepositoryImpl from './data/repositories/api-repository-impl';
 import FirebaseAdminRepositoryImpl from './data/repositories/firebase-admin-repository-impl';
 import ApiRepository from './domain/repositories/api-repository';
 import FirebaseAdminRepository from './domain/repositories/firebase-admin-repository';
-import firebaseConfig from './firebase-config';
+import firebaseConfig from './utils/firebase-config';
 
 export default class DependecyInjection {
   apiRepository: ApiRepository | null = null;

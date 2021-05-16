@@ -19,7 +19,7 @@ const TasksListPage = () => {
     setSearchType(searchTypeArg);
     setTasks(newTasks);
   };
-  console.log('tasks -->', tasks);
+
   return (
     <MenuLayout menuItem="Tareas-Lista">
       <div>

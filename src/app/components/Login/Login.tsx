@@ -21,8 +21,6 @@ const Login = () => {
   const initializeFirebaseSession = async (token: string, user: User) => {
     const respSign = await firebaseAdminRepository.sign(token);
     if (respSign) {
-      console.log('userCredential -->', respSign);
-      console.log('user -->', user);
       setUser(user);
       history.push('/task/list');
     } else {
@@ -32,29 +30,21 @@ const Login = () => {
 
   const onFinish = async (values: { password: string; remember: boolean; username: string }) => {
     setLoading(true);
-    console.log('Success:', values);
-    /* const dataLogin = {
-      email: 'bjuanacio@pas-hq.com',
-      password: '12345'
-    }; */
+
     const dataLogin = {
       email: values.username,
       password: values.password
     };
-
     const resp = await apiRepository.login(dataLogin.email, dataLogin.password);
     if (!resp) {
       message.error('Usuario o contraseña incorrectas');
       setLoading(false);
       return;
     }
-    console.log('resp -->', resp);
-    setLoading(false);
-    await initializeFirebaseSession(resp.token, resp.user);
-  };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+    setLoading(false);
+
+    await initializeFirebaseSession(resp.token, resp.user);
   };
 
   return (
@@ -65,7 +55,6 @@ const Login = () => {
         name="basic"
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
       >
         <Form.Item
           label="Correo"

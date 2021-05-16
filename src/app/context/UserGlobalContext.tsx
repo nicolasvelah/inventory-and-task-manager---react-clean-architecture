@@ -2,7 +2,7 @@
 import React, { createContext, FunctionComponent, useContext, useState } from 'react';
 import User from '../../domain/models/user';
 
-export type GlobalContent = {
+type GlobalContent = {
   user: User | null;
   // eslint-disable-next-line no-unused-vars
   setUser: (user: User | null) => void;

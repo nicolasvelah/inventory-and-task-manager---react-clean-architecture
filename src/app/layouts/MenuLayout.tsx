@@ -12,8 +12,10 @@ import { useHistory } from 'react-router-dom';
 
 import MyProfile from '../components/my-profile/MyProfile';
 
-import menuItemsList from '../../menu-items-list';
+import menuItemsList from '../../utils/menu-items-list';
 import { userGlobalContext } from '../context/UserGlobalContext';
+import MenuItemsList from '../../domain/models/generic/menu-items-list-interface';
+import Permissions from '../../utils/permissions-user';
 
 const { Header, Sider, Footer, Content } = Layout;
 const { SubMenu } = Menu;
@@ -25,6 +27,7 @@ const MenuLayout: FunctionComponent<{ menuItem: string; children: React.ReactNod
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [currentItem, setCurrentItem] = useState<string[]>([]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
+  const [itemsList, setItemsList] = useState<MenuItemsList[]>(menuItemsList ?? []);
 
   const history = useHistory();
 
@@ -44,6 +47,15 @@ const MenuLayout: FunctionComponent<{ menuItem: string; children: React.ReactNod
       return false;
     });
     setOpenKeys(keys ? [keys.name] : []);
+
+    const actualPermission = Permissions[user.role];
+    const userItemsList = menuItemsList?.filter((itemList) => {
+      const menu = actualPermission.menuItems.find((item) => item.name === itemList.name);
+      return !!menu;
+    });
+    if (userItemsList) {
+      setItemsList(userItemsList);
+    }
   }, []);
 
   const toggle = () => {
@@ -74,7 +86,7 @@ const MenuLayout: FunctionComponent<{ menuItem: string; children: React.ReactNod
           selectedKeys={currentItem}
           openKeys={openKeys}
         >
-          {menuItemsList.map((mainMenu) => {
+          {itemsList.map((mainMenu) => {
             if (!mainMenu.subItems) {
               return (
                 <Menu.Item
@@ -123,8 +135,14 @@ const MenuLayout: FunctionComponent<{ menuItem: string; children: React.ReactNod
       </Sider>
 
       <Layout className="site-layout">
-        <Header style={{ padding: 0, background: '#fff', display: 'flex' }}>
-          <div>MI PERFIL</div>
+        <Header
+          style={{
+            padding: '0px 30px',
+            background: '#fff',
+            display: 'flex',
+            justifyContent: 'flex-end'
+          }}
+        >
           {user && <MyProfile user={user} />}
         </Header>
 
