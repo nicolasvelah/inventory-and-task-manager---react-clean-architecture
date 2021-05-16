@@ -5,7 +5,7 @@ const menuItemsList: MenuItemsList[] = [
     name: 'Tareas',
     subItems: [
       { name: 'Lista', url: '/task/list' },
-      { name: 'Tablero', url: '/task/table' }
+      { name: 'Tablero', url: '/task/board' }
     ]
   },
   {

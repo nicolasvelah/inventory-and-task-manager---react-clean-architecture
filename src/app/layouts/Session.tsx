@@ -1,22 +1,24 @@
 /* eslint-disable react/prop-types */
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import DependecyInjection from '../../dependecy-injection';
-import { userGlobalContext } from '../context/UserGlobalContext';
+import { userGlobalContext } from '../context/global/UserGlobalContext';
 // import SocketClient from '../../helpers/socket-client';
 
 const Session: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
-  const history = useHistory();
-
   const [checkSigned, setCheckSigned] = useState<boolean>(false);
 
   const { apiRepository, firebaseAdminRepository } = DependecyInjection.getInstance();
 
   const { setUser } = userGlobalContext();
 
+  const history = useHistory();
+  const location = useLocation();
+
   const verifySession = async () => {
     const stateSession = await firebaseAdminRepository.currentSessionState();
     console.log('stateSession -->', stateSession);
+
     if (!stateSession) {
       setUser(null);
       history.push('/login');
@@ -32,6 +34,7 @@ const Session: FunctionComponent<{ children: React.ReactNode }> = ({ children })
       setCheckSigned(true);
       return;
     }
+    if (location.pathname === '/login') history.push('/task/list');
     setUser(userResp);
     setCheckSigned(true);
   };

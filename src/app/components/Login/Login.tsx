@@ -7,7 +7,7 @@ import DependecyInjection from '../../../dependecy-injection';
 
 import './login.scss';
 import User from '../../../domain/models/user';
-import { userGlobalContext } from '../../context/UserGlobalContext';
+import { userGlobalContext } from '../../context/global/UserGlobalContext';
 
 const Login = () => {
   const [loading, setLoading] = useState<boolean>(false);

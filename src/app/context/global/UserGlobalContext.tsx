@@ -1,6 +1,6 @@
 // eslint-disable-next-line object-curly-newline
 import React, { createContext, FunctionComponent, useContext, useState } from 'react';
-import User from '../../domain/models/user';
+import User from '../../../domain/models/user';
 
 type GlobalContent = {
   user: User | null;

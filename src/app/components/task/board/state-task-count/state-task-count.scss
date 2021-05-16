@@ -1,0 +1,17 @@
+.state-task-count {
+  display: flex;
+  .state-task-count-container {
+    display: flex;
+    margin: 0px 2px;
+
+    .count-container {
+        /* border: 1px solid gray; */
+        border-radius: 5px;
+        min-width: 30px;
+        max-width: 80px;
+        text-align: center;
+        margin-left: 5px;
+        background-color: #fff;
+    }
+  }
+}

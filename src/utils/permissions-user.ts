@@ -1,4 +1,4 @@
-import Permissions from '../domain/models/generic/Permissions';
+import Permissions from '../domain/models/generic/permissions';
 
 const permissions: Permissions = {
   administrator: {
@@ -6,10 +6,7 @@ const permissions: Permissions = {
     menuItems: [
       {
         name: 'Tareas',
-        subItems: [
-          { name: 'Lista' },
-          { name: 'Tablero' }
-        ]
+        subItems: [{ name: 'Lista' }, { name: 'Tablero' }]
       }
     ]
   },
@@ -18,10 +15,7 @@ const permissions: Permissions = {
     menuItems: [
       {
         name: 'Tareas',
-        subItems: [
-          { name: 'Lista' },
-          { name: 'Tablero' }
-        ]
+        subItems: [{ name: 'Lista' }, { name: 'Tablero' }]
       },
       {
         name: 'Dispositivos'

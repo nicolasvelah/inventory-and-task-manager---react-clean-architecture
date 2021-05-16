@@ -13,7 +13,7 @@ import { useHistory } from 'react-router-dom';
 import MyProfile from '../components/my-profile/MyProfile';
 
 import menuItemsList from '../../utils/menu-items-list';
-import { userGlobalContext } from '../context/UserGlobalContext';
+import { userGlobalContext } from '../context/global/UserGlobalContext';
 import MenuItemsList from '../../domain/models/generic/menu-items-list-interface';
 import Permissions from '../../utils/permissions-user';
 

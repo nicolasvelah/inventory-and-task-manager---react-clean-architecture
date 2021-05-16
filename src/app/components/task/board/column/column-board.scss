@@ -1,0 +1,16 @@
+.column-board {
+  background-color: #f0f2f5;
+  height: 100%;
+  min-width: 350px;
+
+  .column-board-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+  }
+  .column-board-body {
+      overflow-y: scroll;
+      height: calc(100% - 35px);
+      padding: 10px;
+  }
+}

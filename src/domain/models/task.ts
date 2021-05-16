@@ -18,12 +18,12 @@ export default interface Task {
   technical: User;
   place: Place;
   scheduledDate: Date;
-  arrivalDate: Date;
-  arrivalLatLong: Point;
-  arrivalPhoto: string;
-  closedDate: Date;
-  closedLatLong: Point;
-  closedPhoto: string;
+  arrivalDate?: Date;
+  arrivalLatLong?: Point;
+  arrivalPhoto?: string;
+  closedDate?: Date;
+  closedLatLong?: Point;
+  closedPhoto?: string;
   type: taskType;
   createdAt?: Date;
   updatedAt?: Date;
