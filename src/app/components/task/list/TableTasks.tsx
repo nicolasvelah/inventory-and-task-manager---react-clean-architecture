@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Table } from 'antd';
+import moment from 'moment';
 import { ColumnsType } from 'antd/lib/table';
 import Task from '../../../../domain/models/task';
 
@@ -14,6 +15,12 @@ interface DataTask {
   closedDate: string;
 }
 
+const formatDate = 'DD/MM/YYYY HH:mm:ss';
+
+function momentFormat(date: string) {
+  return moment.utc(date).format(formatDate);
+}
+
 const TableTasks: FunctionComponent<{ tasks: Task[] }> = ({ tasks }) => {
   const [data, setData] = useState<DataTask[]>([]);
 
@@ -23,9 +30,9 @@ const TableTasks: FunctionComponent<{ tasks: Task[] }> = ({ tasks }) => {
       coordinator: `${task.technical.coordinator?.name} ${task.technical.coordinator?.lastName}`,
       technical: `${task.technical.name} ${task.technical.lastName}`,
       address: `${task.place.city} ${task.place.addressNumber}`,
-      scheduledDate: task.scheduledDate.toString(),
-      arrivalDate: task.arrivalDate.toString(),
-      closedDate: task.closedDate.toString()
+      scheduledDate: task.scheduledDate ? momentFormat(task.scheduledDate) : '',
+      arrivalDate: task.arrivalDate ? momentFormat(task.arrivalDate) : '',
+      closedDate: task.closedDate ? momentFormat(task.closedDate) : ''
     }));
     setData(newData);
   }, [tasks]);

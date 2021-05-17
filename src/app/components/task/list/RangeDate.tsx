@@ -2,6 +2,8 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import moment, { Moment } from 'moment';
 import { DatePicker } from 'antd';
 import Task from '../../../../domain/models/task';
+import DependecyInjection from '../../../../dependecy-injection';
+import { userGlobalContext } from '../../../context/global/UserGlobalContext';
 
 const { RangePicker } = DatePicker;
 
@@ -14,7 +16,7 @@ const defaultValue: [Moment, Moment] = [
   moment(actualDate, dateFormat)
 ];
 
-const baseItem: Task = {
+/* const baseItem: Task = {
   _id: '1234',
   arrivalDate: new Date(),
   arrivalLatLong: {
@@ -64,7 +66,7 @@ const baseItem: Task = {
     }
   },
   type: 'installation'
-};
+}; */
 
 const RangeDate: FunctionComponent<{
   // eslint-disable-next-line no-unused-vars
@@ -73,13 +75,31 @@ const RangeDate: FunctionComponent<{
 }> = ({ setTasks, inUse }) => {
   const [value, setValue] = useState<[Moment, Moment]>(defaultValue);
 
+  const { tasksRepository } = DependecyInjection.getInstance();
+  const { user } = userGlobalContext();
+
+  const getData = (start: string, end: string): Promise<Task[]> => {
+    return tasksRepository.getAllByIdUserAndRangeDates(user._id, start, end);
+  };
+
+  useEffect(() => {
+    getData(defaultValue[0].format(dateFormat), defaultValue[1].format(dateFormat)).then(
+      (tasks) => {
+        setTasks(tasks, 'range');
+      }
+    );
+  }, []);
+
   useEffect(() => {
     if (!inUse) setValue(defaultValue);
   }, [inUse]);
 
-  const onChange = (values: [Moment, Moment]) => {
-    setTasks([baseItem, { ...baseItem, _id: '123445' }], 'range');
-    setValue(values);
+  const onChange = async (values: [Moment, Moment] | null) => {
+    if (!values) return;
+    getData(values[0].format(dateFormat), values[1].format(dateFormat)).then((tasks) => {
+      setTasks(tasks, 'range');
+      setValue(values);
+    });
   };
 
   return (

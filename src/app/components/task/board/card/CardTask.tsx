@@ -6,7 +6,7 @@
 import { Timeline } from 'antd';
 import moment from 'moment';
 import React, { FunctionComponent } from 'react';
-import Task from '../../../../../domain/models/task';
+import Task, { TaskType } from '../../../../../domain/models/task';
 import { taskContext } from '../../../../context/task/TaskContext';
 import TimerCard from '../../../generic/timer/TimerCard';
 
@@ -41,7 +41,7 @@ const CardTask: FunctionComponent<{ task: Task; active: boolean }> = ({ task, ac
       <RenderItem label="Tipo" value={task.place.type} />
       <RenderItem label="Sitio" value={task.place.addressNumber} />
       <RenderItem label="Técnico" value={`${task.technical.name} ${task.technical.lastName}`} />
-      <RenderItem label="Tipo" value={task.type} />
+      <RenderItem label="Tipo" value={TaskType[task.type] ?? task.type} />
 
       <Timeline>
         <Timeline.Item>

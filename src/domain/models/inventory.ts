@@ -21,6 +21,6 @@ export default interface Inventory {
   task: Task;
   state: inventoryStateType;
   dataCollected: Object;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }

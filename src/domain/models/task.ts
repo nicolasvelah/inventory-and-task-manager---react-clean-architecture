@@ -5,10 +5,10 @@ import User from './user';
 import Place from './place';
 import Point from './point';
 
-enum TaskType {
-  installation,
-  service,
-  maintenance
+export enum TaskType {
+  installation = 'Instalación',
+  service= 'Servicio',
+  maintenance = 'Mantenimiento',
 }
 export type taskType = keyof typeof TaskType;
 export const TASK_TYPE_LIST = Object.keys(TaskType);
@@ -17,11 +17,11 @@ export default interface Task {
   _id: string;
   technical: User;
   place: Place;
-  scheduledDate: Date;
-  arrivalDate?: Date;
+  scheduledDate: string;
+  arrivalDate?: string;
   arrivalLatLong?: Point;
   arrivalPhoto?: string;
-  closedDate?: Date;
+  closedDate?: string;
   closedLatLong?: Point;
   closedPhoto?: string;
   type: taskType;

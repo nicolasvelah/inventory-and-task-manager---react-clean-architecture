@@ -21,4 +21,34 @@ export default class TasksRepositoryImpl implements TasksRepository {
       return [];
     }
   }
+
+  async getAllByIdUser(userId: string): Promise<Task[]> {
+    try {
+      const url = `${this.host}/api/v1/tasks/user/${userId}`;
+
+      const response = await this.http.request<{ tasks: Task[] }>(url);
+      if (response.error) throw new Error(response.error?.message ?? 'fail request');
+      return response.data?.tasks ?? [];
+    } catch (error) {
+      console.log('Error getAllByIdUser', error.message);
+      return [];
+    }
+  }
+
+  async getAllByIdUserAndRangeDates(
+    userId: string,
+    startDate: string,
+    endDate: string
+  ): Promise<Task[]> {
+    try {
+      const url = `${this.host}/api/v1/tasks/user/${userId}/range/${startDate}/${endDate}`;
+
+      const response = await this.http.request<{ tasks: Task[] }>(url);
+      if (response.error) throw new Error(response.error?.message ?? 'fail request');
+      return response.data?.tasks ?? [];
+    } catch (error) {
+      console.log('Error getAllByIdUser', error.message);
+      return [];
+    }
+  }
 }

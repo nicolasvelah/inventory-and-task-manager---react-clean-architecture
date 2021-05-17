@@ -20,6 +20,6 @@ export default interface Place {
   city: string;
   state: string;
   type: placeType;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }

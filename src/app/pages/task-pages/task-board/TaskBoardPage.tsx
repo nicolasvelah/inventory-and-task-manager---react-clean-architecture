@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import DependecyInjection from '../../../../dependecy-injection';
 import Task from '../../../../domain/models/task';
 import ColumnBoard from '../../../components/task/board/column/ColumnBoard';
+import { userGlobalContext } from '../../../context/global/UserGlobalContext';
 import { TaskContextProvider, taskContext } from '../../../context/task/TaskContext';
 import MenuLayout from '../../../layouts/MenuLayout';
 
@@ -14,162 +15,6 @@ interface GroupTasks {
   closed: Task[];
 }
 
-/* const baseItem: Task = {
-  _id: '1234',
-  arrivalDate: new Date(),
-  arrivalLatLong: {
-    type: 'Point',
-    coordinates: [0, 0]
-  },
-  arrivalPhoto: '',
-  closedDate: new Date(),
-  closedLatLong: {
-    type: 'Point',
-    coordinates: [0, 0]
-  },
-  closedPhoto: '',
-  place: {
-    addressNumber: 'Caupicho, 123',
-    city: 'Quito',
-    colony: '',
-    coords: {
-      type: 'Point',
-      coordinates: [0, 0]
-    },
-    mainStreet: '',
-    municipality: '',
-    name: 'place',
-    state: '',
-    type: 'ATM'
-  },
-  scheduledDate: new Date(),
-  technical: {
-    dateOfBirth: new Date(),
-    email: '',
-    enabled: true,
-    lastName: 'Ramirez',
-    name: 'Tecnico',
-    permissions: [],
-    phone: '',
-    role: 'technical',
-    coordinator: {
-      dateOfBirth: new Date(),
-      email: '',
-      enabled: true,
-      lastName: 'Perez',
-      name: 'Coodinador',
-      permissions: [],
-      phone: '',
-      role: 'coordinator'
-    }
-  },
-  type: 'installation'
-};
-
-const baseItem2: Task = {
-  _id: '12345',
-  arrivalDate: new Date(),
-  arrivalLatLong: {
-    type: 'Point',
-    coordinates: [0, 0]
-  },
-  arrivalPhoto: '',
-  closedDate: new Date(),
-  closedLatLong: {
-    type: 'Point',
-    coordinates: [0, 0]
-  },
-  closedPhoto: '',
-  place: {
-    addressNumber: 'Caupicho, 123',
-    city: 'Quito',
-    colony: '',
-    coords: {
-      type: 'Point',
-      coordinates: [0, 0]
-    },
-    mainStreet: '',
-    municipality: '',
-    name: 'place',
-    state: '',
-    type: 'ATM'
-  },
-  scheduledDate: new Date(),
-  technical: {
-    dateOfBirth: new Date(),
-    email: '',
-    enabled: true,
-    lastName: 'Ramirez',
-    name: 'Tecnico',
-    permissions: [],
-    phone: '',
-    role: 'technical',
-    coordinator: {
-      dateOfBirth: new Date(),
-      email: '',
-      enabled: true,
-      lastName: 'Perez',
-      name: 'Coodinador',
-      permissions: [],
-      phone: '',
-      role: 'coordinator'
-    }
-  },
-  type: 'installation'
-};
-
-const baseItem3: Task = {
-  _id: '123456',
-  arrivalDate: new Date(),
-  arrivalLatLong: {
-    type: 'Point',
-    coordinates: [0, 0]
-  },
-  arrivalPhoto: '',
-  closedDate: new Date(),
-  closedLatLong: {
-    type: 'Point',
-    coordinates: [0, 0]
-  },
-  closedPhoto: '',
-  place: {
-    addressNumber: 'Caupicho, 123',
-    city: 'Quito',
-    colony: '',
-    coords: {
-      type: 'Point',
-      coordinates: [0, 0]
-    },
-    mainStreet: '',
-    municipality: '',
-    name: 'place',
-    state: '',
-    type: 'ATM'
-  },
-  scheduledDate: new Date(),
-  technical: {
-    dateOfBirth: new Date(),
-    email: '',
-    enabled: true,
-    lastName: 'Ramirez',
-    name: 'Tecnico',
-    permissions: [],
-    phone: '',
-    role: 'technical',
-    coordinator: {
-      dateOfBirth: new Date(),
-      email: '',
-      enabled: true,
-      lastName: 'Perez',
-      name: 'Coodinador',
-      permissions: [],
-      phone: '',
-      role: 'coordinator'
-    }
-  },
-  type: 'installation'
-}; */
-
 const TaskBoardPageMain = () => {
   const [visibleDrawer, setVisibleDrawer] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -179,10 +24,12 @@ const TaskBoardPageMain = () => {
     toRun: []
   });
 
+  const { user } = userGlobalContext();
+
   const { tasksRepository } = DependecyInjection.getInstance();
 
   const getTasks = async () => {
-    const tasksResponse = await tasksRepository.getTasks();
+    const tasksResponse = await tasksRepository.getAllByIdUser(user._id);
     console.log('tasksResponse -->', tasksResponse);
     setTasks(tasksResponse);
 

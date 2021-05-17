@@ -15,6 +15,6 @@ export default interface Catalogue {
   referenceModel: string;
   dataToCollectInterface: Object;
   typePlace: placeCatalogueType;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }

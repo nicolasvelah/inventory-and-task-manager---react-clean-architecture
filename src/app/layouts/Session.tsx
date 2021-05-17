@@ -21,7 +21,10 @@ const Session: FunctionComponent<{ children: React.ReactNode }> = ({ children })
 
     if (!stateSession) {
       setUser(null);
-      history.push('/login');
+      if (!location.pathname.includes('public')) {
+        history.push('/login');
+      }
+
       setCheckSigned(true);
       return;
     }
@@ -34,16 +37,17 @@ const Session: FunctionComponent<{ children: React.ReactNode }> = ({ children })
       setCheckSigned(true);
       return;
     }
-    if (location.pathname === '/login') history.push('/task/list');
+
     setUser(userResp);
     setCheckSigned(true);
+    if (location.pathname === '/login') history.push('/task/list');
   };
 
   useEffect(() => {
     verifySession();
   }, []);
 
-  if (!checkSigned) return null;
+  if (!checkSigned) return <div>Cargando ...</div>;
   return <>{children}</>;
 };
 

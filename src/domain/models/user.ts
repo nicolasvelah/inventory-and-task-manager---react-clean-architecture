@@ -12,9 +12,10 @@ export const USER_ROLES_LIST = Object.values(UserRoles);
 export const defaultRole: userRolesType = 'technical';
 
 export default interface User {
+  _id: string;
   name: string;
   lastName: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   email: string;
   phone: string;
   password?: string;
@@ -22,6 +23,6 @@ export default interface User {
   permissions: string[];
   enabled: boolean;
   coordinator?: User;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }
