@@ -25,6 +25,6 @@ export default interface Task {
   closedLatLong?: Point;
   closedPhoto?: string;
   type: taskType;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt?: string;
+  updatedAt?: string;
 }
