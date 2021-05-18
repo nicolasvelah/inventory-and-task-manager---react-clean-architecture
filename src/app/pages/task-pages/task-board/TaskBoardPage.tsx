@@ -1,7 +1,8 @@
-import { Drawer } from 'antd';
+import { Drawer, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 import DependecyInjection from '../../../../dependecy-injection';
 import Task from '../../../../domain/models/task';
+import DetailTask from '../../../components/generic/detail-task/DetailTask';
 import ColumnBoard from '../../../components/task/board/column/ColumnBoard';
 import { userGlobalContext } from '../../../context/global/UserGlobalContext';
 import { TaskContextProvider, taskContext } from '../../../context/task/TaskContext';
@@ -17,6 +18,7 @@ interface GroupTasks {
 
 const TaskBoardPageMain = () => {
   const [visibleDrawer, setVisibleDrawer] = useState<boolean>(false);
+  // eslint-disable-next-line no-unused-vars
   const [tasks, setTasks] = useState<Task[]>([]);
   const [groupTasks, setGroupTasks] = useState<GroupTasks>({
     arrived: [],
@@ -25,6 +27,7 @@ const TaskBoardPageMain = () => {
   });
 
   const { user } = userGlobalContext();
+  const { activeTask, setActiveTask } = taskContext();
 
   const { tasksRepository } = DependecyInjection.getInstance();
 
@@ -58,18 +61,38 @@ const TaskBoardPageMain = () => {
     getTasks();
   }, []);
 
-  const { activeTask, setActiveTask } = taskContext();
+  useEffect(() => {
+    if (activeTask && !visibleDrawer) {
+      setVisibleDrawer(true);
+    }
+  }, [activeTask, visibleDrawer]);
 
   const onCloseDrawer = () => {
     setVisibleDrawer(false);
     setActiveTask(null);
   };
 
-  useEffect(() => {
-    if (activeTask && !visibleDrawer) {
-      setVisibleDrawer(true);
+  const getStateTask = (task: Task | null) => {
+    if (!task) return null;
+    if (task.closedDate) {
+      return { title: 'Cerrado', color: 'red' };
     }
-  }, [activeTask, visibleDrawer]);
+    if (task.arrivalDate) {
+      return { title: 'Arrivo', color: 'orange' };
+    }
+    return { title: 'Por ejecutar', color: 'green' };
+  };
+
+  const activeTaskState = getStateTask(activeTask);
+
+  // eslint-disable-next-line operator-linebreak
+  const rendertitleDrawer =
+    activeTask && activeTaskState ? (
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <b>{`Tarea ${activeTask._id}`}</b>
+        <Tag color={activeTaskState.color}>{activeTaskState.title}</Tag>
+      </div>
+    ) : undefined;
 
   return (
     <div className="task-board-page">
@@ -77,18 +100,13 @@ const TaskBoardPageMain = () => {
       <ColumnBoard state="Arrivo" tasks={groupTasks.arrived} />
       <ColumnBoard state="Cerrada" tasks={groupTasks.closed} />
       <Drawer
-        title="Multi-level drawer"
+        title={rendertitleDrawer}
         width={520}
         closable={false}
         onClose={onCloseDrawer}
         visible={visibleDrawer}
       >
-        {activeTask && (
-          <div>
-            <div>{tasks.length}</div>
-            {activeTask._id}
-          </div>
-        )}
+        <DetailTask task={activeTask} />
       </Drawer>
     </div>
   );

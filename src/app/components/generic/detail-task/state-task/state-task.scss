@@ -1,0 +1,29 @@
+.state-task {
+  margin: 10px 0px;
+
+  .container-assets {
+    display: flex;
+    height: 200px;
+    .photo {
+      margin-right: 15px;
+      max-width: 100px;
+      .photo-img {
+        background-color: #d2d2d2;
+        height: 175px;
+        display: flex;
+        align-items: center;
+        img {
+          width: 100%;
+          cursor: pointer;
+        }
+      }
+    }
+    .point {
+      width: 100%;
+      .point-map {
+        background-color: #d2d2d2;
+        height: 175px;
+      }
+    }
+  }
+}
