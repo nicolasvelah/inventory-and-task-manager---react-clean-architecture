@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { Socket, io } from 'socket.io-client';
 import DependecyInjection from '../dependecy-injection';
-import INotification from '../domain/models/generic/notification';
+import INotification from '../domain/models/generic/Notification';
 
 export default class SocketClient {
   private static _instance: SocketClient | null = null;

@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../../components/login/Login';
+import Login from '../../components/Login/Login';
 // import Session from '../../layouts/Session';
 
 import './login-page.scss';

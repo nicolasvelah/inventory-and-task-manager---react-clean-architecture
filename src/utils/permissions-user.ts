@@ -1,4 +1,4 @@
-import Permissions from '../domain/models/generic/permissions';
+import Permissions from '../domain/models/generic/Permissions';
 
 const permissions: Permissions = {
   administrator: {
