@@ -1,8 +1,7 @@
 import { Button } from 'antd';
-import firebase from 'firebase';
+
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import SocketClient from '../../../../helpers/socket-client';
+
 import MenuLayout from '../../../layouts/MenuLayout';
 import Task from '../../../../domain/models/task';
 import RangeDate from '../../../components/task/list/RangeDate';
@@ -14,8 +13,6 @@ import './task-list-page.scss';
 const TasksListPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [searchType, setSearchType] = useState<'range' | 'search'>('range');
-
-  const history = useHistory();
 
   const setTaskList = (newTasks: Task[], searchTypeArg: 'range' | 'search') => {
     setSearchType(searchTypeArg);
@@ -37,24 +34,6 @@ const TasksListPage = () => {
           </div>
         </div>
         <TableTasks tasks={tasks} />
-        <Button
-          onClick={() => {
-            firebase
-              .auth()
-              .signOut()
-              .then(() => {
-                // Sign-out successful.
-                history.push('/login');
-                SocketClient.getInstance().disconnect();
-              })
-              .catch((error) => {
-                // An error happened.
-                console.log('Error', error.message);
-              });
-          }}
-        >
-          Log Out
-        </Button>
       </div>
     </MenuLayout>
   );
