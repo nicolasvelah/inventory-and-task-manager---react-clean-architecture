@@ -9,6 +9,10 @@ const menuItemsList: MenuItemsList[] = [
     ]
   },
   {
+    name: 'Usuarios',
+    url: '/users'
+  },
+  {
     name: 'Dispositivos',
     url: '/devices'
   }

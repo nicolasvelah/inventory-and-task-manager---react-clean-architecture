@@ -13,6 +13,7 @@ import DevicesPage from './pages/DevicesPage';
 import 'antd/dist/antd.css';
 import { UserContextProvider } from './context/global/UserGlobalContext';
 import NotFound from './pages/not-found/NotFound';
+import UserPage from './pages/user/UserPage';
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
 
             <Route exact path="/task/list" component={TasksListPage} />
             <Route exact path="/task/board" component={TasksBoardPage} />
+
+            <Route exact path="/users" component={UserPage} />
 
             <Route exact path="/devices" component={DevicesPage} />
 

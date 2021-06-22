@@ -7,6 +7,9 @@ const permissions: Permissions = {
       {
         name: 'Tareas',
         subItems: [{ name: 'Lista' }, { name: 'Tablero' }]
+      },
+      {
+        name: 'Usuarios'
       }
     ]
   },
