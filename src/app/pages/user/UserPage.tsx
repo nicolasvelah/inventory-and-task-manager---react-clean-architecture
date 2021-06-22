@@ -1,10 +1,23 @@
 import { Button } from 'antd';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MenuLayout from '../../layouts/MenuLayout';
 import TableUsers from '../../components/users/TableUsers';
+import User from '../../../domain/models/user';
+import DependecyInjection from '../../../dependecy-injection';
 
 const UserPage = () => {
+  const [users, setUsers] = useState<User[]>([]);
+
+  const { usersRepository } = DependecyInjection.getInstance();
+
+  useEffect(() => {
+    usersRepository.getCoordinatorsAndTechnicals().then((usersList) => {
+      console.log('usersList -->', usersList);
+      setUsers(usersList);
+    });
+  }, []);
+
   return (
     <MenuLayout menuItem="Usuarios">
       <div className="user-page">
@@ -16,7 +29,7 @@ const UserPage = () => {
           </div>
           <Button>Crear</Button>
         </div>
-        <TableUsers users={[]} />
+        <TableUsers users={users} />
       </div>
     </MenuLayout>
   );
