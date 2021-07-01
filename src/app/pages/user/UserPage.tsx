@@ -1,11 +1,12 @@
-import { Button } from 'antd';
-
 import React, { useState, useEffect } from 'react';
 import MenuLayout from '../../layouts/MenuLayout';
 import TableUsers from '../../components/users/TableUsers';
 import User from '../../../domain/models/user';
 import DependecyInjection from '../../../dependecy-injection';
 import SearchUsers from '../../components/users/SearchUsers';
+import CreateUser from '../../components/users/CreateUser';
+
+import './user-page.scss';
 
 const UserPage = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -23,16 +24,17 @@ const UserPage = () => {
     setUsers(newUsers);
   };
 
+  const addNewUser = (user: User) => {
+    setUsers((prevState) => [user, ...prevState]);
+  };
+
   return (
     <MenuLayout menuItem="Usuarios">
       <div className="user-page">
         Usuarios
         <div className="header">
-          <div className="header-first-block">
-            {/* <RangeDate setTasks={setTaskList} inUse={searchType === 'range'} /> */}
-            <SearchUsers setUsers={setUsersList} />
-          </div>
-          <Button>Crear</Button>
+          <SearchUsers setUsers={setUsersList} />
+          <CreateUser addNewUser={addNewUser} />
         </div>
         <TableUsers users={users} />
       </div>

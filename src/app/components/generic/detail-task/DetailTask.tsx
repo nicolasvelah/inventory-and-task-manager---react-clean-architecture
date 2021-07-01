@@ -4,12 +4,10 @@ import Task from '../../../../domain/models/task';
 import BlockPopover from './block-popover/BlockPopover';
 import RenderItem from '../render-item/RenderItem';
 
-import momentUtils from '../../../../utils/moment-utils';
+import { localDate } from '../../../../utils/moment-utils';
 
 import './detail-task.scss';
 import StateTask from './state-task/StateTask';
-
-const { localDate } = momentUtils;
 
 const DetailTask: FunctionComponent<{ task: Task | null }> = ({ task }) => {
   if (!task) return null;

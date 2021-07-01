@@ -25,7 +25,7 @@ const SearchUsers: FunctionComponent<{
   return (
     <div>
       <Search
-        placeholder="Buscar tarea"
+        placeholder="Buscar usuario por nombre, apellido o email"
         onSearch={onSearch}
         value={value}
         onChange={onChange}

@@ -5,15 +5,12 @@
 import { Popover } from 'antd';
 import React, { FunctionComponent } from 'react';
 import Point from '../../../../../domain/models/point';
-import momentUtils from '../../../../../utils/moment-utils';
+import { localDate } from '../../../../../utils/moment-utils';
 import RenderItem from '../../render-item/RenderItem';
 
 import './state-task.scss';
 
-const { localDate } = momentUtils;
-
-const anyPhoto =
-  'https://i.pinimg.com/736x/48/cd/30/48cd30da0700a8f99fa97ac4cf652278.jpg';
+const anyPhoto = 'https://i.pinimg.com/736x/48/cd/30/48cd30da0700a8f99fa97ac4cf652278.jpg';
 
 const StateTask: FunctionComponent<{
   state: 'arrivo' | 'cierre';
