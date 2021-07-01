@@ -7,12 +7,26 @@ export default class UsersRepositoryImpl implements UsersRepository {
 
   private http = new Http('', false);
 
+  async findByValue(value: string): Promise<User[]> {
+    try {
+      const url = `${this.host}/search?value=${value}`;
+      // console.log('url findByValue -->', url);
+      const response = await this.http.request<{ users: User[] }>(url);
+      // console.log('response -->', response);
+      if (response.error) throw new Error(response.error?.message ?? 'fail request');
+      return response.data?.users ?? [];
+    } catch (error) {
+      console.log('Error findByValue:', error.message);
+      return [];
+    }
+  }
+
   async getCoordinatorsAndTechnicals(): Promise<User[]> {
     try {
       const url = `${this.host}/coordinators-technicals`;
-      console.log('url getCoordinatorsAndTechnicals -->', url);
+      // console.log('url getCoordinatorsAndTechnicals -->', url);
       const response = await this.http.request<{ users: User[] }>(url);
-      console.log('response -->', response);
+      // console.log('response -->', response);
       if (response.error) throw new Error(response.error?.message ?? 'fail request');
       return response.data?.users ?? [];
     } catch (error) {
