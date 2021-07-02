@@ -5,27 +5,34 @@ import { Button, Form, DatePicker, Select, Input, Radio, message } from 'antd';
 import User, { USER_ROLES_LIST } from '../../../domain/models/user';
 import FormUserInterface from '../../../domain/models/generic/form-user-interface';
 import permissions from '../../../utils/permissions-user';
+import DependecyInjection from '../../../dependecy-injection';
 
 const FormUser: FunctionComponent<{
   // eslint-disable-next-line no-unused-vars
   handleOk: (user: User) => void;
   initValues?: FormUserInterface;
 }> = ({ handleOk, initValues }) => {
+  const { usersRepository } = DependecyInjection.getInstance();
+
   const disabledDate = (current) => {
     const years = moment().diff(current, 'years');
     if (years < 18) return true;
     return false;
   };
 
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     try {
       const newUser = {
         ...values,
         dateOfBirth: (values.dateOfBirth as Moment).format('YYYY-MM-DD'),
         enabled: values.enabled === 'SI'
       };
-      handleOk({ ...newUser, _id: initValues ? initValues.id : '666' });
       console.log('newUser -->', newUser);
+      if (initValues) {
+        const userUpdated = await usersRepository.update(initValues.id, newUser);
+        console.log('userUpdated -->', userUpdated);
+        handleOk(userUpdated);
+      }
     } catch (error) {
       console.error('Error en onFinish create user:', error.message);
       message.error('Error al crear usuario');

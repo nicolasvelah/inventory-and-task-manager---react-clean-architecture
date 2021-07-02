@@ -34,4 +34,21 @@ export default class UsersRepositoryImpl implements UsersRepository {
       return [];
     }
   }
+
+  async update(_id: string, data: Partial<User>): Promise<User | null> {
+    try {
+      const url = `${this.host}/${_id}`;
+      console.log('url update user -->', url);
+      const response = await this.http.request<{ user: User }>(url, {
+        method: 'PUT',
+        data
+      });
+      console.log('response -->', response);
+      if (response.error) throw new Error(response.error?.message ?? 'fail request');
+      return response.data?.user ?? null;
+    } catch (error) {
+      console.error('Error update user:', error.message);
+      return null;
+    }
+  }
 }
