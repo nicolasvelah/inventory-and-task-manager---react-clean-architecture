@@ -79,7 +79,7 @@ const RangeDate: FunctionComponent<{
   const { user } = userGlobalContext();
 
   const getData = (start: string, end: string): Promise<Task[]> => {
-    return tasksRepository.getAllByIdUserAndRangeDates(user._id, start, end);
+    return tasksRepository!.getAllByIdUserAndRangeDates(user!._id!, start, end);
   };
 
   useEffect(() => {
@@ -94,17 +94,28 @@ const RangeDate: FunctionComponent<{
     if (!inUse) setValue(defaultValue);
   }, [inUse]);
 
-  const onChange = async (values: [Moment, Moment] | null) => {
+  /* const onChange = async (values: [Moment, Moment] | null) => {
     if (!values) return;
     getData(values[0].format(dateFormat), values[1].format(dateFormat)).then((tasks) => {
       setTasks(tasks, 'range');
       setValue(values);
     });
-  };
+  }; */
 
   return (
     <div>
-      <RangePicker defaultValue={defaultValue} value={value} onChange={onChange} />
+      <RangePicker
+        defaultValue={defaultValue}
+        value={value}
+        onChange={(values) => {
+          if (!values) return;
+
+          getData(values[0]!.format(dateFormat), values[1]!.format(dateFormat)).then((tasks) => {
+            setTasks(tasks, 'range');
+            setValue(values as [Moment, Moment]);
+          });
+        }}
+      />
     </div>
   );
 };

@@ -48,7 +48,7 @@ const MenuLayout: FunctionComponent<{ menuItem: string; children: React.ReactNod
     });
     setOpenKeys(keys ? [keys.name] : []);
 
-    const actualPermission = Permissions[user.role];
+    const actualPermission = Permissions[user!.role];
     const userItemsList = menuItemsList?.filter((itemList) => {
       const menu = actualPermission.menuItems.find((item) => item.name === itemList.name);
       return !!menu;
@@ -93,7 +93,7 @@ const MenuLayout: FunctionComponent<{ menuItem: string; children: React.ReactNod
                   key={mainMenu.name}
                   icon={<VideoCameraOutlined />}
                   onClick={() => {
-                    goTo(mainMenu.url);
+                    goTo(mainMenu.url!);
                   }}
                 >
                   {mainMenu.name}

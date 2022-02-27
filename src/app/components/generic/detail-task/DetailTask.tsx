@@ -77,7 +77,10 @@ const DetailTask: FunctionComponent<{ task: Task | null }> = ({ task }) => {
 
       <div>
         <RenderItem label="Tipo" value={task.type} />
-        <RenderItem label="Fecha de creación" value={localDate(task.createdAt)} />
+        <RenderItem
+          label="Fecha de creación"
+          value={task.createdAt ? localDate(task.createdAt) : ''}
+        />
         <RenderItem label="Fecha programada" value={localDate(task.scheduledDate)} />
       </div>
 

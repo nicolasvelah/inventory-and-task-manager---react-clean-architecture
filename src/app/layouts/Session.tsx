@@ -16,7 +16,7 @@ const Session: FunctionComponent<{ children: React.ReactNode }> = ({ children })
   const location = useLocation();
 
   const verifySession = async () => {
-    const stateSession = await firebaseAdminRepository.currentSessionState();
+    const stateSession = await firebaseAdminRepository!.currentSessionState();
     console.log('stateSession -->', stateSession);
 
     if (!stateSession) {
@@ -29,9 +29,9 @@ const Session: FunctionComponent<{ children: React.ReactNode }> = ({ children })
       return;
     }
 
-    const userResp = await apiRepository.getUserById(stateSession.uid);
+    const userResp = await apiRepository!.getUserById(stateSession.uid);
     if (!userResp) {
-      await firebaseAdminRepository.signOut();
+      await firebaseAdminRepository!.signOut();
       setUser(null);
       history.push('/login');
       setCheckSigned(true);

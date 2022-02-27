@@ -6,13 +6,13 @@ const { Search } = Input;
 
 const baseItem: Task = {
   _id: '1234',
-  arrivalDate: new Date(),
+  arrivalDate: new Date().toString(),
   arrivalLatLong: {
     type: 'Point',
     coordinates: [0, 0]
   },
   arrivalPhoto: '',
-  closedDate: new Date(),
+  closedDate: new Date().toString(),
   closedLatLong: {
     type: 'Point',
     coordinates: [0, 0]
@@ -32,9 +32,9 @@ const baseItem: Task = {
     state: '',
     type: 'ATM'
   },
-  scheduledDate: new Date(),
+  scheduledDate: new Date().toString(),
   technical: {
-    dateOfBirth: new Date(),
+    dateOfBirth: new Date().toString(),
     email: '',
     enabled: true,
     lastName: 'Ramirez',
@@ -43,7 +43,7 @@ const baseItem: Task = {
     phone: '',
     role: 'technical',
     coordinator: {
-      dateOfBirth: new Date(),
+      dateOfBirth: new Date().toString(),
       email: '',
       enabled: true,
       lastName: 'Perez',

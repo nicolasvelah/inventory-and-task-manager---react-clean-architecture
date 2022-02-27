@@ -5,26 +5,21 @@ import ApiRepository from '../../domain/repositories/api-repository';
 export default class ApiRepositoryImpl implements ApiRepository {
   private host = process.env.REACT_APP_API_URL ?? 'http://localhost:5000';
 
-  async login(email: string, password: string): Promise<{ user: User; token: string } | null> {
-    try {
-      const url = `${this.host}/api/v1/users/login`;
-      const data = {
-        email,
-        password
-      };
-      const response = await axios({
-        url,
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        data
-      });
-      return response.data;
-    } catch (error) {
-      console.log('Error login', error.message);
-      return null;
-    }
+  async login(email: string, password: string): Promise<{ user: User; token: string }> {
+    const url = `${this.host}/api/v1/users/login`;
+    const data = {
+      email,
+      password
+    };
+    const response = await axios({
+      url,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data
+    });
+    return response.data;
   }
 
   async getUserById(id: string): Promise<User | null> {
@@ -35,7 +30,7 @@ export default class ApiRepositoryImpl implements ApiRepository {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
-        },
+        }
       });
       return response.data.user;
     } catch (error) {

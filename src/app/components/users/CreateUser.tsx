@@ -3,8 +3,10 @@ import React, { useState, FunctionComponent } from 'react';
 import { Button, Modal } from 'antd';
 
 import FormUser from './FormUser';
+import User from '../../../domain/models/user';
 
-const CreateUser: FunctionComponent<{ addNewUser }> = ({ addNewUser }) => {
+// eslint-disable-next-line no-unused-vars
+const CreateUser: FunctionComponent<{ addNewUser: (user: User) => void }> = ({ addNewUser }) => {
   const [visible, setVisible] = useState<boolean>(false);
 
   const handleOk = () => {

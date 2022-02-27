@@ -1,16 +1,12 @@
 /* eslint-disable object-curly-newline */
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Form, Input, Button, Checkbox, message } from 'antd';
-
-import DependecyInjection from '../../../dependecy-injection';
+import React from 'react';
+import { Form, Input, Button, Checkbox } from 'antd';
 
 import './login.scss';
-import User from '../../../domain/models/user';
-import { userGlobalContext } from '../../context/global/UserGlobalContext';
+import useLogin from './state/useLogin';
 
 const Login = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  /* const [loading, setLoading] = useState<boolean>(false);
 
   const history = useHistory();
 
@@ -19,7 +15,7 @@ const Login = () => {
   const { setUser } = userGlobalContext();
 
   const initializeFirebaseSession = async (token: string, user: User) => {
-    const respSign = await firebaseAdminRepository.sign(token);
+    const respSign = await firebaseAdminRepository!.sign(token);
     if (respSign) {
       setUser(user);
       history.push('/task/list');
@@ -35,7 +31,7 @@ const Login = () => {
       email: values.username,
       password: values.password
     };
-    const resp = await apiRepository.login(dataLogin.email, dataLogin.password);
+    const resp = await apiRepository!.login(dataLogin.email, dataLogin.password);
     if (!resp) {
       message.error('Usuario o contraseña incorrectas');
       setLoading(false);
@@ -45,7 +41,12 @@ const Login = () => {
     setLoading(false);
 
     await initializeFirebaseSession(resp.token, resp.user);
-  };
+  }; */
+
+  const {
+    actions: { onFinish },
+    loading
+  } = useLogin();
 
   return (
     <div className="login">

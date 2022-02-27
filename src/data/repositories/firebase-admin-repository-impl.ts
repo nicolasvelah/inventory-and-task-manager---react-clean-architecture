@@ -27,12 +27,8 @@ export default class FirebaseAdminRepositoryImpl implements FirebaseAdminReposit
 
   // eslint-disable-next-line class-methods-use-this
   async sign(token: string): Promise<any> {
-    try {
-      const respSign = await firebase.auth().signInWithCustomToken(token);
-      return respSign;
-    } catch (error) {
-      return null;
-    }
+    const respSign = await firebase.auth().signInWithCustomToken(token);
+    return respSign;
   }
 
   // eslint-disable-next-line class-methods-use-this

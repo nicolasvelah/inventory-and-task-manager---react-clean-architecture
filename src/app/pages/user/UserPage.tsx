@@ -14,7 +14,7 @@ const UserPage = () => {
   const { usersRepository } = DependecyInjection.getInstance();
 
   useEffect(() => {
-    usersRepository.getCoordinatorsAndTechnicals().then((usersList) => {
+    usersRepository!.getCoordinatorsAndTechnicals().then((usersList) => {
       console.log('usersList -->', usersList);
       setUsers(usersList);
     });

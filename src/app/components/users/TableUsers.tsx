@@ -6,7 +6,7 @@ import User, { userRolesType } from '../../../domain/models/user';
 import FormUser from './FormUser';
 import FormUserInterface from '../../../domain/models/generic/form-user-interface';
 import { localDate } from '../../../utils/moment-utils';
-import permissions from '../../../utils/permissions-user';
+// import permissions from '../../../utils/permissions-user';
 
 interface DataUser {
   key: string;
@@ -28,7 +28,7 @@ const TableUsers: FunctionComponent<{ users: User[] }> = ({ users }) => {
 
   useEffect(() => {
     const newData: DataUser[] = users.map((user) => ({
-      key: user._id,
+      key: user._id!,
       name: user.name,
       lastName: user.lastName,
       dateOfBirth: localDate(user.dateOfBirth),
@@ -126,7 +126,7 @@ const TableUsers: FunctionComponent<{ users: User[] }> = ({ users }) => {
       title: 'Rol',
       dataIndex: 'role',
       key: 'role',
-      render: (text) => <b>{permissions[text]?.translate ?? ''}</b>
+      render: (text: string) => <b>{`permissions[text]?.translate ?? ''${text}`}</b>
     },
     {
       title: 'Estado',

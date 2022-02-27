@@ -21,13 +21,13 @@ export default class SocketClient {
     if (this.socket !== null) return; // si ya tenemos una conexion anterior
 
     const { firebaseAdminRepository } = DependecyInjection.getInstance();
-    const token = await firebaseAdminRepository.getFirebaseToken();
+    const token = await firebaseAdminRepository!.getFirebaseToken();
 
     const URI = `${process.env.REACT_APP_API_URL!}/v1`;
     console.log('URI -->', URI);
     this.socket = io(URI, {
       query: {
-        token
+        token: token!
       },
       reconnection: true,
       transports: ['websocket'],

@@ -4,7 +4,7 @@ import moment, { Moment } from 'moment';
 import { Button, Form, DatePicker, Select, Input, Radio, message } from 'antd';
 import User, { USER_ROLES_LIST } from '../../../domain/models/user';
 import FormUserInterface from '../../../domain/models/generic/form-user-interface';
-import permissions from '../../../utils/permissions-user';
+// import permissions from '../../../utils/permissions-user';
 import DependecyInjection from '../../../dependecy-injection';
 
 const FormUser: FunctionComponent<{
@@ -14,7 +14,7 @@ const FormUser: FunctionComponent<{
 }> = ({ handleOk, initValues }) => {
   const { usersRepository } = DependecyInjection.getInstance();
 
-  const disabledDate = (current) => {
+  const disabledDate = (current: Moment) => {
     const years = moment().diff(current, 'years');
     if (years < 18) return true;
     return false;
@@ -29,9 +29,9 @@ const FormUser: FunctionComponent<{
       };
       console.log('newUser -->', newUser);
       if (initValues) {
-        const userUpdated = await usersRepository.update(initValues.id, newUser);
+        const userUpdated = await usersRepository!.update(initValues.id, newUser);
         console.log('userUpdated -->', userUpdated);
-        handleOk(userUpdated);
+        handleOk(userUpdated!);
       }
     } catch (error) {
       console.error('Error en onFinish create user:', error.message);
@@ -92,7 +92,14 @@ const FormUser: FunctionComponent<{
       <Form.Item label="Rol" name="role" rules={[{ required: true, message: 'Rol es requerido' }]}>
         <Select>
           {USER_ROLES_LIST.map((item) => (
-            <Select.Option key={item}>{permissions[item]?.translate}</Select.Option>
+            <>
+              {/* <Select.Option key={item}>{permissions[item]?.translate as string}
+              </Select.Option>
+              */}
+              <Select.Option key={item} value={item}>
+                <span>Optio_TEST</span>
+              </Select.Option>
+            </>
           ))}
         </Select>
       </Form.Item>

@@ -18,7 +18,7 @@ const MyProfile: FunctionComponent<{ user: User }> = ({ user }) => {
   const actualPermission = Permissions[user.role];
 
   const signOut = async () => {
-    const resp = await firebaseAdminRepository.signOut();
+    const resp = await firebaseAdminRepository!.signOut();
     if (resp) {
       // Sign-out successful.
       history.push('/login');

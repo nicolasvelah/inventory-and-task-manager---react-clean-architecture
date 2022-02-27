@@ -32,7 +32,7 @@ const TaskBoardPageMain = () => {
   const { tasksRepository } = DependecyInjection.getInstance();
 
   const getTasks = async () => {
-    const tasksResponse = await tasksRepository.getAllByIdUser(user._id);
+    const tasksResponse = await tasksRepository!.getAllByIdUser(user!._id!);
     console.log('tasksResponse -->', tasksResponse);
     setTasks(tasksResponse);
 

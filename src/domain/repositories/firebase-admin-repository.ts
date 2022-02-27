@@ -4,7 +4,7 @@ import firebase from 'firebase';
 export default interface FirebaseAdminRepository {
   initializeApp(): void;
   currentSessionState(): Promise<firebase.User | null>;
-  sign(token: string): Promise<any | null>;
+  sign(token: string): Promise<any>;
   getFirebaseToken(forceRefresh?: boolean): Promise<string | null>;
   signOut(): Promise<boolean>
 }
