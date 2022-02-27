@@ -8,20 +8,17 @@ $line-color: #d2d2d2;
   align-items: center;
 
   .login-page-card {
-    border: 1px solid $line-color;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    -webkit-box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.43);
-    box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.43);
-    width: 260px;
+    width: 550px;
+    margin: 0px 25px;
 
     .login-page-logo {
       height: 100%;
       width: 225px;
-      border-bottom: 1px solid $line-color;
       margin: 20px;
       display: flex;
       justify-content: center;
@@ -33,13 +30,8 @@ $line-color: #d2d2d2;
 @media (min-width: 600px) {
   #login-page {
     .login-page-card {
-      flex-direction: row-reverse;
       height: 250px;
       width: 550px;
-      .login-page-logo {
-        border-bottom: none;
-        border-left: 1px solid $line-color;
-      }
     }
   }
 }

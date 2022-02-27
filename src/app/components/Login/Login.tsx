@@ -1,48 +1,11 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 import './login.scss';
 import useLogin from './state/useLogin';
 
 const Login = () => {
-  /* const [loading, setLoading] = useState<boolean>(false);
-
-  const history = useHistory();
-
-  const { apiRepository, firebaseAdminRepository } = DependecyInjection.getInstance();
-
-  const { setUser } = userGlobalContext();
-
-  const initializeFirebaseSession = async (token: string, user: User) => {
-    const respSign = await firebaseAdminRepository!.sign(token);
-    if (respSign) {
-      setUser(user);
-      history.push('/task/list');
-    } else {
-      message.error('Usuario o contraseña incorrectas');
-    }
-  };
-
-  const onFinish = async (values: { password: string; remember: boolean; username: string }) => {
-    setLoading(true);
-
-    const dataLogin = {
-      email: values.username,
-      password: values.password
-    };
-    const resp = await apiRepository!.login(dataLogin.email, dataLogin.password);
-    if (!resp) {
-      message.error('Usuario o contraseña incorrectas');
-      setLoading(false);
-      return;
-    }
-
-    setLoading(false);
-
-    await initializeFirebaseSession(resp.token, resp.user);
-  }; */
-
   const {
     actions: { onFinish },
     loading
@@ -51,14 +14,20 @@ const Login = () => {
   return (
     <div className="login">
       <Form
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+        labelCol={{
+          xs: { span: 5 },
+          sm: { span: 5 }
+        }}
+        wrapperCol={{
+          xs: { span: 19 },
+          sm: { span: 19 }
+        }}
         name="basic"
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
         <Form.Item
-          label="Correo"
+          label="Username"
           name="username"
           rules={[{ required: true, message: 'Please input your username!' }]}
         >
@@ -66,20 +35,21 @@ const Login = () => {
         </Form.Item>
 
         <Form.Item
-          label="Contraseña"
+          label="Password"
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
           <Input.Password />
         </Form.Item>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }} name="remember" valuePropName="checked">
-          <Checkbox>Recordarme</Checkbox>
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 0, span: 0 }}>
+        <Form.Item
+          wrapperCol={{
+            xs: { offset: 11, span: 13 },
+            sm: { offset: 10, span: 14 }
+          }}
+        >
           <Button type="primary" htmlType="submit" shape="round" loading={loading}>
-            Entrar
+            Ingresar
           </Button>
         </Form.Item>
       </Form>
