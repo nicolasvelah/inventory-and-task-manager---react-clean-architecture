@@ -2,7 +2,7 @@ import { Button } from 'antd';
 
 import React, { useState } from 'react';
 
-import MenuLayout from '../../../layouts/MenuLayout';
+import MenuLayout from '../../../layouts/MenuLayout/MenuLayout';
 import Task from '../../../../domain/models/task';
 import RangeDate from '../../../components/task/list/RangeDate';
 import TableTasks from '../../../components/task/list/TableTasks';

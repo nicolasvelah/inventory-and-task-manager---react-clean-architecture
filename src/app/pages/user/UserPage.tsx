@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MenuLayout from '../../layouts/MenuLayout';
+import MenuLayout from '../../layouts/MenuLayout/MenuLayout';
 import TableUsers from '../../components/users/TableUsers';
 import User from '../../../domain/models/user';
 import DependecyInjection from '../../../dependecy-injection';

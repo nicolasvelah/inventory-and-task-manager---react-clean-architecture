@@ -6,7 +6,7 @@ import DetailTask from '../../../components/generic/detail-task/DetailTask';
 import ColumnBoard from '../../../components/task/board/column/ColumnBoard';
 import { userGlobalContext } from '../../../context/global/UserGlobalContext';
 import { TaskContextProvider, taskContext } from '../../../context/task/TaskContext';
-import MenuLayout from '../../../layouts/MenuLayout';
+import MenuLayout from '../../../layouts/MenuLayout/MenuLayout';
 
 import './task-board-page.scss';
 

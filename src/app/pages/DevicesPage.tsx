@@ -1,5 +1,5 @@
 import React from 'react';
-import MenuLayout from '../layouts/MenuLayout';
+import MenuLayout from '../layouts/MenuLayout/MenuLayout';
 
 const DevicesPage = () => (
   <MenuLayout menuItem="Dispositivos">
