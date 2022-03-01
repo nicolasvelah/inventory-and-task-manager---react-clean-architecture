@@ -3,6 +3,7 @@ import { Button } from 'antd';
 import RangeDate from '../../components/task/list/RangeDate';
 import TableTasks from '../../components/task/list/TableTasks/TableTasks';
 import SearchTasks from '../../components/task/list/SearchTasks';
+import CreateTask from '../../components/task/list/CreateTask/CreateTask';
 import useTasks from './state/useTasks';
 
 const TaskListContainer: React.FC = () => {
@@ -21,7 +22,7 @@ const TaskListContainer: React.FC = () => {
         </div>
         <div>
           <Button>Excel</Button>
-          <Button>Crear</Button>
+          <CreateTask />
         </div>
       </div>
       <TableTasks tasks={tasks} />

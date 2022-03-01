@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import Task from '../../../../../../domain/models/task';
 import { momentFormat } from '../../../../../../utils/moment-utils';
-import { DataTask } from './useTasks.interfaces';
+import { DataTask, UseTasksTable } from './useTasks.interfaces';
 
-const useTasksTable = (tasks: Task[]) => {
+const useTasksTable: UseTasksTable = (tasks: Task[]) => {
   const [data, setData] = useState<DataTask[]>([]);
 
   useEffect(() => {

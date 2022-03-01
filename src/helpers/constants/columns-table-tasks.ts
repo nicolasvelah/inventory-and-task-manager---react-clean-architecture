@@ -1,7 +1,7 @@
 import { ColumnsType } from 'antd/lib/table';
 
 // eslint-disable-next-line import/prefer-default-export
-export const columnsTableTasks: ColumnsType<any> = [
+export const COLUMNS_TABLE_TASKS: ColumnsType<any> = [
   {
     title: 'Id',
     dataIndex: 'key',

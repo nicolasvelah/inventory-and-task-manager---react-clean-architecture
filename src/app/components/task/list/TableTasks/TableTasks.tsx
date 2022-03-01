@@ -3,7 +3,7 @@ import React from 'react';
 import { Table } from 'antd';
 
 import Task from '../../../../../domain/models/task';
-import { columnsTableTasks } from '../../../../../helpers/constants/columns-table-tasks';
+import { COLUMNS_TABLE_TASKS } from '../../../../../helpers/constants/columns-table-tasks';
 import useTasksTable from './state/useTasks';
 
 const TableTasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
@@ -11,7 +11,7 @@ const TableTasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
 
   return (
     <div>
-      <Table columns={columnsTableTasks} dataSource={dataTable} scroll={{ x: 1100 }} />
+      <Table columns={COLUMNS_TABLE_TASKS} dataSource={dataTable} scroll={{ x: 1100 }} />
     </div>
   );
 };

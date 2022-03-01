@@ -12,7 +12,7 @@ export const USER_ROLES_LIST = Object.values(UserRoles).filter((rol) => typeof r
 export const defaultRole: userRolesType = 'technical';
 
 export default interface User {
-  _id?: string;
+  _id: string;
   name: string;
   lastName: string;
   dateOfBirth: string;

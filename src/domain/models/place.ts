@@ -11,6 +11,7 @@ export type placeType = keyof typeof PlaceType;
 export const PLACE_TYPE_LIST = Object.keys(PlaceType);
 
 export default interface Place {
+  _id: string;
   name: string;
   coords: Point;
   mainStreet: string;
