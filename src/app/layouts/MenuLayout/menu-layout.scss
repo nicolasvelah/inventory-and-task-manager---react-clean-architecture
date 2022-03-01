@@ -15,7 +15,10 @@
     height: 100%;
 
     .content {
-        padding: 20px;
+      padding: 20px;
+      height: calc(100% - 70px);
+      background-color: #fff;
+      border-radius: 5px;
     }
   }
 }

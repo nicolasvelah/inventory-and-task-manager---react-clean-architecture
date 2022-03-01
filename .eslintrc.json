@@ -30,7 +30,8 @@
     "comma-dangle": "off",
     "no-console": 0,
     "no-underscore-dangle": "off",
-    "no-throw-literal": "off"
+    "no-throw-literal": "off",
+    "operator-linebreak": "off"
   },
   "settings": {
     "import/resolver": {

@@ -1,14 +1,20 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { LoadingOutlined } from '@ant-design/icons';
+import { Result } from 'antd';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import DependecyInjection from '../../dependecy-injection';
 import { userGlobalContext } from '../context/global/UserGlobalContext';
 // import SocketClient from '../../helpers/socket-client';
 
-const Session: FunctionComponent<{ children: React.ReactNode }> = ({ children }) => {
+const Session: FunctionComponent<{ children: React.ReactNode }> = ({
+  children
+}) => {
   const [checkSigned, setCheckSigned] = useState<boolean>(false);
 
-  const { apiRepository, firebaseAdminRepository } = DependecyInjection.getInstance();
+  const { apiRepository, firebaseAdminRepository } =
+    DependecyInjection.getInstance();
 
   const { setUser } = userGlobalContext();
 
@@ -47,7 +53,20 @@ const Session: FunctionComponent<{ children: React.ReactNode }> = ({ children })
     verifySession();
   }, []);
 
-  if (!checkSigned) return <div>Cargando ...</div>;
+  if (!checkSigned) {
+    return (
+      <Result
+        icon={<LoadingOutlined />}
+        title="Cargando ..."
+        style={{
+          height: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
+        }}
+      />
+    );
+  }
   return <>{children}</>;
 };
 

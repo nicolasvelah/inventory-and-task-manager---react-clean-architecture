@@ -1,7 +1,10 @@
 .state-task-count {
   display: flex;
+  justify-content: space-between;
+  width: 100%;
   .state-task-count-container {
     display: flex;
+    flex-direction: column;
     margin: 0px 2px;
 
     .count-container {
@@ -12,6 +15,15 @@
         text-align: center;
         margin-left: 5px;
         background-color: #fff;
+    }
+  }
+}
+
+@media (min-width: 1000px) {
+  .state-task-count {
+    width: auto;
+    .state-task-count-container {
+     flex-direction: row;
     }
   }
 }

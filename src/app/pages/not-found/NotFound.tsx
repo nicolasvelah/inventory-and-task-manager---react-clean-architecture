@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-wrap-multilines */
+import React from 'react';
 import { Button, Result } from 'antd';
 
-import React from 'react';
-
-const NotFound = () => {
+const NotFound: React.FC = () => {
   const goToInitPage = () => {
     window.history.pushState({}, '', '/login');
     window.location.reload();
