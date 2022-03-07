@@ -4,18 +4,26 @@ import { Button, Form, DatePicker, Select, Input } from 'antd';
 
 import { FormTaskProps } from './FormTask.interfaces';
 import useFormTaskState from './state/useFormTaskState';
-import { taskType, TaskType, TASK_TYPE_LIST } from '../../../../../../domain/models/task';
+import {
+  taskType,
+  TaskType,
+  TASK_TYPE_LIST
+} from '../../../../../../domain/models/task';
+import AddMaterialItem from './AddMaterialItem/AddMaterialItem';
+import './form-task.scss';
 
 const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
   const {
     placesFiltered,
     technicalsFiltered,
     coordinatorsFiltered,
+    disabledAddMaterialButton,
     actions: {
       onFinishForm,
       onSearchPlaces,
       onSearchTechnicals,
-      onSearchCoordinators
+      onSearchCoordinators,
+      onValuesChange
     }
   } = useFormTaskState();
 
@@ -25,6 +33,8 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 14 }}
       onFinish={onFinishForm}
+      onValuesChange={onValuesChange}
+      className="form"
     >
       <Form.Item
         label="Buscar lugar"
@@ -94,6 +104,8 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
       >
         <Input.TextArea showCount maxLength={100} />
       </Form.Item>
+
+      <AddMaterialItem disabled={disabledAddMaterialButton} />
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">

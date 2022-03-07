@@ -103,15 +103,11 @@ export class Http {
 
       if (options && options.parser) {
         const parsedData = options.parser(response.data);
-        // if (logs) {
-        //   console.info('😉 parsed data: ', parsedData);
-        //   console.info('😉😉😉😉😉😉😉😉😉😉😉😉😉😉');
-        // }
         return HttpResponse.success<T>(parsedData, response.status);
       }
 
       return HttpResponse.success<T>(response.data, response.status);
-    } catch (e) {
+    } catch (e: any) {
       console.log('😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡😡');
       console.error('❌ http request error:::', e.message);
       if (e.response) {

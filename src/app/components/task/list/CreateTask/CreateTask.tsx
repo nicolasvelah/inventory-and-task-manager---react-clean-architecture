@@ -20,6 +20,7 @@ const CreateTask: React.FC = () => {
         onOk={handleOpen}
         onCancel={handleCancel}
         footer={null}
+        width={800}
       >
         <FormTask />
       </Modal>

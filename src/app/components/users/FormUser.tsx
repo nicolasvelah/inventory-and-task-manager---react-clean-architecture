@@ -27,14 +27,14 @@ const FormUser: FunctionComponent<{
         dateOfBirth: (values.dateOfBirth as Moment).format('YYYY-MM-DD'),
         enabled: values.enabled === 'SI'
       };
-      console.log('newUser -->', newUser);
       if (initValues) {
-        const userUpdated = await usersRepository!.update(initValues.id, newUser);
-        console.log('userUpdated -->', userUpdated);
+        const userUpdated = await usersRepository!.update(
+          initValues.id,
+          newUser
+        );
         handleOk(userUpdated!);
       }
     } catch (error) {
-      console.error('Error en onFinish create user:', error.message);
       message.error('Error al crear usuario');
     }
   };
@@ -71,14 +71,18 @@ const FormUser: FunctionComponent<{
       <Form.Item
         label="Fecha de nacimiento"
         name="dateOfBirth"
-        rules={[{ required: true, message: 'Fecha de nacimiento es requerido' }]}
+        rules={[
+          { required: true, message: 'Fecha de nacimiento es requerido' }
+        ]}
       >
         <DatePicker disabledDate={disabledDate} />
       </Form.Item>
       <Form.Item
         label="Email"
         name="email"
-        rules={[{ required: true, type: 'email', message: 'Email es requerido' }]}
+        rules={[
+          { required: true, type: 'email', message: 'Email es requerido' }
+        ]}
       >
         <Input />
       </Form.Item>
@@ -89,7 +93,11 @@ const FormUser: FunctionComponent<{
       >
         <Input />
       </Form.Item>
-      <Form.Item label="Rol" name="role" rules={[{ required: true, message: 'Rol es requerido' }]}>
+      <Form.Item
+        label="Rol"
+        name="role"
+        rules={[{ required: true, message: 'Rol es requerido' }]}
+      >
         <Select>
           {USER_ROLES_LIST.map((item) => (
             <>

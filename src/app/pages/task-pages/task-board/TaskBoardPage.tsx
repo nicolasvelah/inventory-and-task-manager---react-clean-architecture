@@ -33,7 +33,6 @@ const TaskBoardPageMain = () => {
 
   const getTasks = async () => {
     const tasksResponse = await tasksRepository!.getAllByIdUser(user!._id!);
-    console.log('tasksResponse -->', tasksResponse);
     setTasks(tasksResponse);
 
     const arrivedTasks: Task[] = [];

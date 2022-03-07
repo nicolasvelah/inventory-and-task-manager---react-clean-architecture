@@ -23,7 +23,6 @@ const Session: FunctionComponent<{ children: React.ReactNode }> = ({
 
   const verifySession = async () => {
     const stateSession = await firebaseAdminRepository!.currentSessionState();
-    console.log('stateSession -->', stateSession);
 
     if (!stateSession) {
       setUser(null);

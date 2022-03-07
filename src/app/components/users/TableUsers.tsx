@@ -61,7 +61,6 @@ const TableUsers: FunctionComponent<{ users: User[] }> = ({ users }) => {
       enabled: values.enabled === 'Disponible',
       role: values.role as userRolesType
     };
-    console.log('valuesUser -->', valuesUser);
     setValuesEdit(valuesUser);
     handleOkModalEdit();
   };
@@ -150,7 +149,6 @@ const TableUsers: FunctionComponent<{ users: User[] }> = ({ users }) => {
                 type="primary"
                 size="small"
                 onClick={() => {
-                  console.log('row -->', row);
                   valuesToEdit(row);
                 }}
               >

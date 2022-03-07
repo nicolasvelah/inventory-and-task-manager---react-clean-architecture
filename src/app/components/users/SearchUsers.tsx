@@ -14,7 +14,6 @@ const SearchUsers: FunctionComponent<{
   const [value, setValue] = useState<string>('');
 
   const onSearch = async (valueSearch: string) => {
-    console.log('values -->', valueSearch);
     const resp = await usersRepository!.findByValue(valueSearch);
     setUsers(resp);
   };

@@ -14,10 +14,11 @@ export default class TasksRepositoryImpl implements TasksRepository {
       const url = `${this.host}/api/v1/tasks/`;
 
       const response = await this.http.request<{ tasks: Task[] }>(url);
-      if (response.error) throw new Error(response.error?.message ?? 'fail request');
+      if (response.error) {
+        throw new Error(response.error?.message ?? 'fail request');
+      }
       return response.data?.tasks ?? [];
     } catch (error) {
-      console.log('Error getTasks', error.message);
       return [];
     }
   }
@@ -27,10 +28,11 @@ export default class TasksRepositoryImpl implements TasksRepository {
       const url = `${this.host}/api/v1/tasks/user/${userId}`;
 
       const response = await this.http.request<{ tasks: Task[] }>(url);
-      if (response.error) throw new Error(response.error?.message ?? 'fail request');
+      if (response.error) {
+        throw new Error(response.error?.message ?? 'fail request');
+      }
       return response.data?.tasks ?? [];
     } catch (error) {
-      console.log('Error getAllByIdUser', error.message);
       return [];
     }
   }
@@ -44,10 +46,11 @@ export default class TasksRepositoryImpl implements TasksRepository {
       const url = `${this.host}/api/v1/tasks/user/${userId}/range/${startDate}/${endDate}`;
 
       const response = await this.http.request<{ tasks: Task[] }>(url);
-      if (response.error) throw new Error(response.error?.message ?? 'fail request');
+      if (response.error) {
+        throw new Error(response.error?.message ?? 'fail request');
+      }
       return response.data?.tasks ?? [];
     } catch (error) {
-      console.log('Error getAllByIdUser', error.message);
       return [];
     }
   }

@@ -15,7 +15,6 @@ const UserPage = () => {
 
   useEffect(() => {
     usersRepository!.getCoordinatorsAndTechnicals().then((usersList) => {
-      console.log('usersList -->', usersList);
       setUsers(usersList);
     });
   }, []);

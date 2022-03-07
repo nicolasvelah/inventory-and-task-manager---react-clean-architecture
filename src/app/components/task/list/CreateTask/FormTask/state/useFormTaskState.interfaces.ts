@@ -7,11 +7,13 @@ export type UseFormTaskState = () => {
   placesFiltered: Place[];
   technicalsFiltered: User[];
   coordinatorsFiltered: User[];
+  disabledAddMaterialButton: boolean;
   actions: {
     onFinishForm: (values: any) => Promise<void>;
     onSearchPlaces: (value: string) => void;
     onSearchTechnicals: (value: string) => void;
     onSearchCoordinators: (value: string) => void;
+    onValuesChange: (value: { [k: string]: any }) => void;
   };
 };
 

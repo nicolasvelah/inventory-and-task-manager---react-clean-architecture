@@ -24,19 +24,15 @@ export default class SocketClient {
     const token = await firebaseAdminRepository!.getFirebaseToken();
 
     const URI = `${process.env.REACT_APP_API_URL!}/v1`;
-    console.log('URI -->', URI);
     this.socket = io(URI, {
       query: {
         token: token!
       },
       reconnection: true,
-      transports: ['websocket'],
+      transports: ['websocket']
     });
 
-    console.log('this.socket -->', this.socket);
-
     this.socket.on('connected', () => {
-      console.log('ws connected');
       this.connected = true;
     });
     this.socket.on('error', (data: any) => {
@@ -44,7 +40,6 @@ export default class SocketClient {
     });
 
     this.socket.on('disconnect', () => {
-      console.log('ws disconnect', this.socket);
       this.connected = false;
     });
     this.socket.on('on-notification', (data: INotification) => {

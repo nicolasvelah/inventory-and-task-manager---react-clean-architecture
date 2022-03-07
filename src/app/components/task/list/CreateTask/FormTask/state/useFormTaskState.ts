@@ -99,6 +99,8 @@ const useFormTaskState: UseFormTaskState = () => {
   const [technicalsFiltered, setTechnicalsFiltered] = useState<User[]>([]);
   const [baseCoordinators, setBaseCoordinators] = useState<User[]>([]);
   const [coordinatorsFiltered, setCoordinatorsFiltered] = useState<User[]>([]);
+  const [disabledAddMaterialButton, setDisabledAddMaterialButton] =
+    useState<boolean>(true);
 
   useEffect(() => {
     setBasePlaces(examplePlaces);
@@ -114,7 +116,6 @@ const useFormTaskState: UseFormTaskState = () => {
   const onFinishForm = async (values: ValuesFormTask) => {
     const hide = message.loading('Cargando ...');
     try {
-      console.log(values);
       await new Promise((resolve) => {
         setTimeout(() => {
           resolve(true);
@@ -145,15 +146,23 @@ const useFormTaskState: UseFormTaskState = () => {
     );
   };
 
+  const onValuesChange = (value: { [k: string]: any }) => {
+    if (value.idTechnical) {
+      setDisabledAddMaterialButton(false);
+    }
+  };
+
   return {
     placesFiltered,
     technicalsFiltered,
     coordinatorsFiltered,
+    disabledAddMaterialButton,
     actions: {
       onFinishForm,
       onSearchPlaces,
       onSearchTechnicals,
-      onSearchCoordinators
+      onSearchCoordinators,
+      onValuesChange
     }
   };
 };

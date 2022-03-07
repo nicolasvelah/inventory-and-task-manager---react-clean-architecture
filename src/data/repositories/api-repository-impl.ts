@@ -34,7 +34,6 @@ export default class ApiRepositoryImpl implements ApiRepository {
       });
       return response.data.user;
     } catch (error) {
-      console.log('Error getUserById', error.message);
       return null;
     }
   }
