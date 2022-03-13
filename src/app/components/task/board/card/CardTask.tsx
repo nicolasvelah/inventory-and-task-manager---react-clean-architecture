@@ -7,7 +7,7 @@ import { Timeline } from 'antd';
 import moment from 'moment';
 import React, { FunctionComponent } from 'react';
 import Task, { TaskType } from '../../../../../domain/models/task';
-import { taskContext } from '../../../../context/task/TaskContext';
+import { useTaskContext } from '../../../../context/task/TaskContext';
 import RenderItem from '../../../generic/render-item/RenderItem';
 import TimerCard from '../../../generic/timer/TimerCard';
 
@@ -16,7 +16,7 @@ import './card-task.scss';
 const formatDate = 'DD/MM/YYYY HH:mm:ss';
 
 const CardTask: FunctionComponent<{ task: Task; active: boolean }> = ({ task, active }) => {
-  const { setActiveTask } = taskContext();
+  const { setActiveTask } = useTaskContext();
 
   const selectTask = () => {
     setActiveTask(task);

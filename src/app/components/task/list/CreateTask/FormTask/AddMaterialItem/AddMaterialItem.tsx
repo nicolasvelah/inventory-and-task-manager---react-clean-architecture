@@ -23,6 +23,7 @@ const AddMaterialItem: React.FC<AddMaterialItemProps> = ({ disabled }) => {
       <Form.Item
         name="material"
         label="Material"
+        help="Primero debe seleccionar un técnico antes de asignar los dispositivos"
         rules={[
           {
             async validator() {

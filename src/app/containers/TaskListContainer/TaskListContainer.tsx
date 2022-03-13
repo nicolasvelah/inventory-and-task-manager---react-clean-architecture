@@ -1,24 +1,21 @@
 import React from 'react';
 import { Button } from 'antd';
-import RangeDate from '../../components/task/list/RangeDate';
 import TableTasks from '../../components/task/list/TableTasks/TableTasks';
-import SearchTasks from '../../components/task/list/SearchTasks';
 import CreateTask from '../../components/task/list/CreateTask/CreateTask';
 import useTasks from './state/useTasks';
+import HeaderList from '../../components/generic/header-list/HeaderList';
 
 const TaskListContainer: React.FC = () => {
   const {
     tasks,
-    searchType,
-    actions: { setTaskList }
+    actions: { handleChangeFilters }
   } = useTasks();
 
   return (
     <div>
       <div className="header">
         <div className="header-first-block">
-          <RangeDate setTasks={setTaskList} inUse={searchType === 'range'} />
-          <SearchTasks setTasks={setTaskList} inUse={searchType === 'search'} />
+          <HeaderList handleChangeFilters={handleChangeFilters} />
         </div>
         <div>
           <Button>Excel</Button>

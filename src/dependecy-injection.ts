@@ -7,7 +7,10 @@ import TasksRepository from './domain/repositories/tasks-repository';
 import firebaseConfig from './utils/firebase-config';
 import UsersRepository from './domain/repositories/users-repository';
 import UsersRepositoryImpl from './data/repositories/users-repository-impl';
-import { getApiRepositoryMock, getFirebaseAdminRepository } from './utils/utils-testing';
+import {
+  getApiRepositoryMock,
+  getFirebaseAdminRepository
+} from './utils/utils-testing';
 import {
   ArgsDependecyInjection,
   DependeciesMock
@@ -60,7 +63,9 @@ export default class DependecyInjection {
 
     console.log('INIT DEPENDENCY INJECTION');
     this.apiRepository = new ApiRepositoryImpl();
-    this.firebaseAdminRepository = new FirebaseAdminRepositoryImpl(firebaseConfig);
+    this.firebaseAdminRepository = new FirebaseAdminRepositoryImpl(
+      firebaseConfig
+    );
     this.tasksRepository = new TasksRepositoryImpl();
     this.usersRepository = new UsersRepositoryImpl();
 
@@ -68,3 +73,5 @@ export default class DependecyInjection {
     this.firebaseAdminRepository!.initializeApp();
   }
 }
+
+export const repository = DependecyInjection.getInstance();

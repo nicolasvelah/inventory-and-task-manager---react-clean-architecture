@@ -1,5 +1,5 @@
 // eslint-disable-next-line object-curly-newline
-import React, { createContext, FunctionComponent, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import Task from '../../../domain/models/task';
 
 type TaskContent = {
@@ -13,9 +13,9 @@ const ActiveTaskContext = createContext<TaskContent>({
   setActiveTask: (activeTask: Task | null) => {}
 });
 
-export const taskContext = () => useContext(ActiveTaskContext);
+export const useTaskContext = () => useContext(ActiveTaskContext);
 
-export const TaskContextProvider: FunctionComponent<{}> = ({ children }) => {
+export const TaskContextProvider: React.FC = ({ children }) => {
   const [activeTask, setActiveTask] = useState<Task | null>(null);
   return (
     <ActiveTaskContext.Provider value={{ activeTask, setActiveTask }}>

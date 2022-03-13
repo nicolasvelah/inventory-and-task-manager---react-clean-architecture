@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Task from '../../../../../domain/models/task';
-import { taskContext } from '../../../../context/task/TaskContext';
+import { useTaskContext } from '../../../../context/task/TaskContext';
 import CardTask from '../card/CardTask';
 import StateTaskCount from '../state-task-count/StateTaskCount';
 
@@ -10,7 +10,7 @@ const ColumnBoard: FunctionComponent<{
   state: 'Por ejecutar' | 'Arrivo' | 'Cerrada';
   tasks: Task[];
 }> = ({ state, tasks }) => {
-  const { activeTask } = taskContext();
+  const { activeTask } = useTaskContext();
 
   return (
     <div className="column-board">
@@ -20,7 +20,11 @@ const ColumnBoard: FunctionComponent<{
       </div>
       <div className="column-board-body">
         {tasks.map((item) => (
-          <CardTask key={item._id} task={item} active={activeTask?._id === item._id} />
+          <CardTask
+            key={item._id}
+            task={item}
+            active={activeTask?._id === item._id}
+          />
         ))}
       </div>
     </div>
