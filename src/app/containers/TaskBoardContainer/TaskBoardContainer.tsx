@@ -13,7 +13,7 @@ const TaskBoardContainer: React.FC = () => {
     visibleDrawer
   } = useTaskBoardContainerState();
 
-  const rendertitleDrawer = () => {
+  const renderTitleDrawer = () => {
     return activeTask && activeTaskState ? (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <b>{`Tarea ${activeTask._id}`}</b>
@@ -28,7 +28,7 @@ const TaskBoardContainer: React.FC = () => {
       <ColumnBoard state="Arrivo" tasks={groupTasks.arrived} />
       <ColumnBoard state="Cerrada" tasks={groupTasks.closed} />
       <Drawer
-        title={rendertitleDrawer()}
+        title={renderTitleDrawer()}
         width={520}
         closable={false}
         onClose={onCloseDrawer}

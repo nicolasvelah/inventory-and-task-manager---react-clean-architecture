@@ -10,6 +10,9 @@ const permissions: Permissions = {
       },
       {
         name: 'Usuarios'
+      },
+      {
+        name: 'Dispositivos'
       }
     ]
   },

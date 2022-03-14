@@ -1,3 +1,5 @@
+import React from 'react';
+import { AppstoreOutlined, SnippetsOutlined, TeamOutlined } from '@ant-design/icons';
 import MenuItemsList from '../domain/models/generic/menu-items-list-interface';
 
 const menuItemsList: MenuItemsList[] = [
@@ -6,15 +8,18 @@ const menuItemsList: MenuItemsList[] = [
     subItems: [
       { name: 'Lista', url: '/task/list' },
       { name: 'Tablero', url: '/task/board' }
-    ]
+    ],
+    icon: <SnippetsOutlined />
   },
   {
     name: 'Usuarios',
-    url: '/users'
+    url: '/users',
+    icon: <TeamOutlined />
   },
   {
     name: 'Dispositivos',
-    url: '/devices'
+    url: '/devices',
+    icon: <AppstoreOutlined />
   }
 ];
 

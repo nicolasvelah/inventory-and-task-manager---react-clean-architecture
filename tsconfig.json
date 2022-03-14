@@ -16,5 +16,5 @@
     "jsx": "react-jsx",
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["./src/**/*.ts", "./src/**/*.test.tsx"]
+  "include": ["./src/**/*.ts", "./src/**/*.test.tsx", "src/utils/menu-items-list.tsx"]
 }
