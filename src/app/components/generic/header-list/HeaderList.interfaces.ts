@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 export interface FiltersValue {
-  text: string;
-  rangeDates: {
+  text?: string;
+  rangeDates?: {
     from: string;
     to: string;
   };
@@ -9,4 +9,6 @@ export interface FiltersValue {
 
 export interface HeaderListProps {
   handleChangeFilters: (filtersValue: FiltersValue) => void;
+  showSearch?: boolean;
+  showRangePicker?: boolean;
 }

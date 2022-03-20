@@ -4,7 +4,8 @@
 import Place from './place';
 import User from './user';
 import Task from './task';
-import Catalogue from './catalogue';
+import Catalog from './catalog';
+import Fragment from './fragment';
 
 enum InventoryState {
   installed,
@@ -14,13 +15,22 @@ enum InventoryState {
 export type inventoryStateType = keyof typeof InventoryState;
 export const INVENTORY_STATE_TYPE_LIST = Object.keys(InventoryState);
 
+export interface Photos {
+  url: string;
+  fecha: Date;
+  description: string;
+}
+
 export default interface Inventory {
-  device: Catalogue;
-  place: Place;
-  user: User;
-  task: Task;
-  state: inventoryStateType;
-  dataCollected: Object;
-  createdAt?: string;
-  updatedAt?: string;
+  _id: string;
+  device: Catalog | string;
+  fragment?: Fragment | string;
+  place?: Place | string | null;
+  user?: User | string;
+  task?: Task | string;
+  state: inventoryStateType | string;
+  installationDate?: Date;
+  spentMaterial?: number;
+  photos?: Photos;
+  dataCollected?: [JSON];
 }

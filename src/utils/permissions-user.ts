@@ -13,6 +13,9 @@ const permissions: Permissions = {
       },
       {
         name: 'Dispositivos'
+      },
+      {
+        name: 'Sitios'
       }
     ]
   },

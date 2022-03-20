@@ -1,6 +1,7 @@
 /* eslint-disable no-shadow */
 /* eslint-disable semi */
 /* eslint-disable no-unused-vars */
+import Inventory from './inventory';
 import Point from './point';
 
 enum PlaceType {
@@ -21,6 +22,7 @@ export default interface Place {
   city: string;
   state: string;
   type: placeType;
+  IntalledMaterial?: Inventory[] | string[] | null;
   createdAt?: string;
   updatedAt?: string;
 }

@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { Moment } from 'moment';
 import { ChangeEventHandler } from 'react';
-import { FiltersValue } from '../HeaderList.interfaces';
+import { HeaderListProps } from '../HeaderList.interfaces';
 
-export type UseHeaderListState = (
-  handleChangeFilters: (filtersValue: FiltersValue) => void
-) => {
+export type UseHeaderListState = (props: HeaderListProps) => {
   valueDates: [string, string];
   searchText: string;
   actions: {

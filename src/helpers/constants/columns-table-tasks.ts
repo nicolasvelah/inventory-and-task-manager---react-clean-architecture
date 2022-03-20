@@ -38,3 +38,56 @@ export const COLUMNS_TABLE_TASKS: ColumnsType<any> = [
     key: 'closedDate'
   }
 ];
+
+export const COLUMNS_TABLE_PLACES: ColumnsType<any> = [
+  {
+    title: 'Id',
+    dataIndex: 'key',
+    key: 'key'
+  },
+  {
+    title: 'Nombre',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Calle Principal',
+    dataIndex: 'mainStreet',
+    key: 'mainStreet'
+  },
+  {
+    title: 'Número de casa',
+    dataIndex: 'addressNumber',
+    key: 'addressNumber'
+  },
+  {
+    title: 'Colonia',
+    dataIndex: 'colony',
+    key: 'colony'
+  },
+  {
+    title: 'Municipio',
+    dataIndex: 'municipality',
+    key: 'municipality'
+  },
+  {
+    title: 'Ciudad',
+    dataIndex: 'city',
+    key: 'city'
+  },
+  {
+    title: 'Provincia',
+    dataIndex: 'state',
+    key: 'state'
+  },
+  {
+    title: 'Tipo',
+    dataIndex: 'type',
+    key: 'type'
+  },
+  {
+    title: 'Fecha',
+    dataIndex: 'createdAt',
+    key: 'createdAt'
+  }
+];

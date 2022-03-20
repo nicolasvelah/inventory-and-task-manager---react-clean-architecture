@@ -9,12 +9,16 @@ import { defaultDateValue } from '../../../../helpers/default-date';
 const { RangePicker } = DatePicker;
 const { Search } = Input;
 
-const HeaderList: React.FC<HeaderListProps> = ({ handleChangeFilters }) => {
+const HeaderList: React.FC<HeaderListProps> = ({
+  handleChangeFilters,
+  showSearch = true,
+  showRangePicker = true
+}) => {
   const {
     valueDates,
     searchText,
     actions: { onChangeDates, onSearchText, onChangeText }
-  } = useHeaderListState(handleChangeFilters);
+  } = useHeaderListState({ handleChangeFilters, showSearch, showRangePicker });
 
   const valueDatesFormat = valueDates.map((date) => {
     return moment(date, FORMAT_DATE_DAY_MONTH_YEAR_TWO);
@@ -22,18 +26,22 @@ const HeaderList: React.FC<HeaderListProps> = ({ handleChangeFilters }) => {
 
   return (
     <Space>
-      <RangePicker
-        defaultValue={defaultDateValue}
-        value={valueDatesFormat}
-        onChange={onChangeDates as any}
-      />
-      <Search
-        placeholder="Buscar tarea"
-        onSearch={onSearchText}
-        value={searchText}
-        onChange={onChangeText}
-        enterButton
-      />
+      {showRangePicker && (
+        <RangePicker
+          defaultValue={defaultDateValue}
+          value={valueDatesFormat}
+          onChange={onChangeDates as any}
+        />
+      )}
+      {showSearch && (
+        <Search
+          placeholder="Buscar tarea"
+          onSearch={onSearchText}
+          value={searchText}
+          onChange={onChangeText}
+          enterButton
+        />
+      )}
     </Space>
   );
 };

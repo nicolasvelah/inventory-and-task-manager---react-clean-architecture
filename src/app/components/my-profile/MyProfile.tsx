@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import { DownOutlined } from '@ant-design/icons';
 // eslint-disable-next-line object-curly-newline
 import { Avatar, Popover, Button, message } from 'antd';
@@ -9,7 +9,7 @@ import User from '../../../domain/models/user';
 import DependecyInjection from '../../../dependecy-injection';
 import SocketClient from '../../../helpers/socket-client';
 
-const MyProfile: FunctionComponent<{ user: User }> = ({ user }) => {
+const MyProfile: React.FC<{ user: User }> = ({ user }) => {
   const { firebaseAdminRepository } = DependecyInjection.getInstance();
   const history = useHistory();
 
@@ -24,7 +24,9 @@ const MyProfile: FunctionComponent<{ user: User }> = ({ user }) => {
       history.push('/login');
       SocketClient.getInstance().disconnect();
     } else {
-      message.error('La solicitud no pudo ser finalizada. Vuelve a intentarlo.');
+      message.error(
+        'La solicitud no pudo ser finalizada. Vuelve a intentarlo.'
+      );
     }
   };
 
@@ -42,9 +44,20 @@ const MyProfile: FunctionComponent<{ user: User }> = ({ user }) => {
 
   return (
     <div>
-      <Popover placement="bottomLeft" content={renderContentPopover} trigger="click">
+      <Popover
+        placement="bottomLeft"
+        content={renderContentPopover}
+        trigger="click"
+      >
         <div>
-          <Avatar style={{ color: '#f56a00', backgroundColor: '#fde3cf', cursor: 'pointer' }}>
+          <Avatar
+            style={{
+              fontSize: '10px',
+              color: '#f56a00',
+              backgroundColor: '#fde3cf',
+              cursor: 'pointer'
+            }}
+          >
             {firstCharacter(user.name)}
             {firstCharacter(user.lastName)}
           </Avatar>

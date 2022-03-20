@@ -11,7 +11,12 @@ const TableTasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
 
   return (
     <div>
-      <Table columns={COLUMNS_TABLE_TASKS} dataSource={dataTable} scroll={{ x: 1100 }} />
+      <Table
+        columns={COLUMNS_TABLE_TASKS}
+        dataSource={dataTable}
+        scroll={{ x: 1100 }}
+        pagination={{ pageSize: 5 }}
+      />
     </div>
   );
 };

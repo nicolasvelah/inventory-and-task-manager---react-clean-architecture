@@ -3,10 +3,15 @@
   display: flex;
   flex-direction: column;
 
+  .ant-layout-header {
+    line-height: 32px;
+  }
+
   .content-header {
     background-color: #888888;
     display: flex;
     justify-content: space-between;
+    height: 35px;
   }
 
   .content-main {

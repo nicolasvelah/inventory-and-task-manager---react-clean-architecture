@@ -1,5 +1,10 @@
 import React from 'react';
-import { AppstoreOutlined, SnippetsOutlined, TeamOutlined } from '@ant-design/icons';
+import {
+  AppstoreOutlined,
+  EnvironmentOutlined,
+  SnippetsOutlined,
+  TeamOutlined
+} from '@ant-design/icons';
 import MenuItemsList from '../domain/models/generic/menu-items-list-interface';
 
 const menuItemsList: MenuItemsList[] = [
@@ -20,6 +25,11 @@ const menuItemsList: MenuItemsList[] = [
     name: 'Dispositivos',
     url: '/devices',
     icon: <AppstoreOutlined />
+  },
+  {
+    name: 'Sitios',
+    url: '/places',
+    icon: <EnvironmentOutlined />
   }
 ];
 

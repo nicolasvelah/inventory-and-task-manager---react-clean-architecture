@@ -15,6 +15,8 @@ import {
   ArgsDependecyInjection,
   DependeciesMock
 } from './domain/interfaces/dependecy-injection.interfaces';
+import PlacesRepository from './domain/repositories/places-repository';
+import PlacesRepositoryImpl from './data/repositories/places-repository-impl';
 
 export default class DependecyInjection {
   apiRepository: ApiRepository | null = null;
@@ -24,6 +26,8 @@ export default class DependecyInjection {
   tasksRepository: TasksRepository | null = null;
 
   usersRepository: UsersRepository | null = null;
+
+  placesRepository: PlacesRepository | null = null;
 
   private static instance: DependecyInjection;
 
@@ -68,6 +72,7 @@ export default class DependecyInjection {
     );
     this.tasksRepository = new TasksRepositoryImpl();
     this.usersRepository = new UsersRepositoryImpl();
+    this.placesRepository = new PlacesRepositoryImpl();
 
     // Init FirebaseAdmin
     this.firebaseAdminRepository!.initializeApp();
