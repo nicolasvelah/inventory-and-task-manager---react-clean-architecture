@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { defaultDateValueString } from '../../../../../helpers/default-date';
 import { FiltersValue } from '../HeaderList.interfaces';
@@ -14,6 +14,22 @@ const useHeaderListState: UseHeaderListState = ({
     defaultDateValueString
   );
   const [searchText, setSearchText] = useState<string>('');
+
+  useEffect(() => {
+    const payload: FiltersValue = {};
+
+    if (showSearch) {
+      payload.text = searchText;
+    }
+
+    if (showRangePicker) {
+      payload.rangeDates = {
+        from: valueDates[0],
+        to: valueDates[1]
+      };
+    }
+    handleChangeFilters(payload);
+  }, []);
 
   const onChangeDates = (
     values: [Moment, Moment],

@@ -9,7 +9,8 @@ import {
   TaskType,
   TASK_TYPE_LIST
 } from '../../../../../../domain/models/task';
-import AddMaterialItem from './AddMaterialItem/AddMaterialItem';
+import AddCatalogslItem from './AddCatalogsItem/AddCatalogsItem';
+
 import './form-task.scss';
 
 const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
@@ -105,7 +106,7 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
         <Input.TextArea showCount maxLength={100} />
       </Form.Item>
 
-      <AddMaterialItem disabled={disabledAddMaterialButton} />
+      <AddCatalogslItem disabled={disabledAddMaterialButton} />
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">

@@ -1,5 +1,7 @@
 import { ColumnsType } from 'antd/lib/table';
 
+export const LIMIT_ROWS = 10;
+
 // eslint-disable-next-line import/prefer-default-export
 export const COLUMNS_TABLE_TASKS: ColumnsType<any> = [
   {

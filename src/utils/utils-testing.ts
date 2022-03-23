@@ -28,7 +28,9 @@ export const apiRepository: ApiRepository = {
   getUserById: () => Promise.resolve(user)
 };
 
-export const getApiRepositoryMock = (values?: Partial<ApiRepository>): ApiRepository => ({
+export const getApiRepositoryMock = (
+  values?: Partial<ApiRepository>
+): ApiRepository => ({
   login: values?.login ?? apiRepository!.login,
   getUserById: values?.getUserById ?? apiRepository!.getUserById
 });
@@ -46,13 +48,23 @@ export const getFirebaseAdminRepository = (
 ): FirebaseAdminRepository => ({
   sign: values?.sign ?? (() => Promise.resolve({})),
   signOut: values?.signOut ?? (() => Promise.resolve(true)),
-  currentSessionState: values?.currentSessionState ?? (() => Promise.resolve({} as any)),
+  currentSessionState:
+    values?.currentSessionState ?? (() => Promise.resolve({} as any)),
   getFirebaseToken: values?.getFirebaseToken ?? (() => Promise.resolve('')),
   initializeApp: values?.initializeApp ?? (() => {})
 });
 
 export const tasksRepository: TasksRepository = {
-  getTasks: callbackPromiseEmptyArray,
+  getTasks: () => {
+    return Promise.resolve({
+      tasks: {
+        itemsPerPage: 0,
+        pages: 0,
+        task: [],
+        total: 0
+      }
+    });
+  },
   getAllByIdUser: callbackPromiseEmptyArray,
   getAllByIdUserAndRangeDates: callbackPromiseEmptyArray
 };

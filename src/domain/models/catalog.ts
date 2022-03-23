@@ -24,6 +24,7 @@ export type typeCatalogType = keyof typeof TypeCatalogType
 export const TYPE_CATALOG_TYPE_LIST = Object.keys(TypeCatalogType);
 
 export default interface Catalog {
+  _id: string;
   device: string; // equipo
   brand: string;
   referenceModel: string;
