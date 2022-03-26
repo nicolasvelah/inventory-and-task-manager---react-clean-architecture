@@ -8,6 +8,7 @@ import { localDate } from '../../../../utils/moment-utils';
 
 import './detail-task.scss';
 import StateTask from './state-task/StateTask';
+import { getValue } from '../../../../utils/get-value';
 
 const DetailTask: FunctionComponent<{ task: Task | null }> = ({ task }) => {
   if (!task) return null;
@@ -16,32 +17,32 @@ const DetailTask: FunctionComponent<{ task: Task | null }> = ({ task }) => {
     contentPopover: [
       {
         label: 'Calle Principal',
-        value: task.place.mainStreet
+        value: getValue(task.place, 'mainStreet') ?? ''
       },
       {
         label: 'Número de casa',
-        value: task.place.addressNumber
+        value: getValue(task.place, 'addressNumber') ?? ''
       },
       {
         label: 'Colonia',
-        value: task.place.colony
+        value: getValue(task.place, 'colony') ?? ''
       },
       {
         label: 'Municipio',
-        value: task.place.municipality
+        value: getValue(task.place, 'municipality') ?? ''
       },
       {
         label: 'Ciudad',
-        value: task.place.city
+        value: getValue(task.place, 'city') ?? ''
       },
       {
         label: 'Estado',
-        value: task.place.state
+        value: getValue(task.place, 'state') ?? ''
       }
     ],
     renderItems: [
-      { label: 'Tarea', value: task.place.name },
-      { label: 'Tipo', value: task.place.type }
+      { label: 'Tarea', value: getValue(task.place, 'name') ?? '' },
+      { label: 'Tipo', value: getValue(task.place, 'type') ?? '' }
     ]
   };
 
@@ -49,11 +50,11 @@ const DetailTask: FunctionComponent<{ task: Task | null }> = ({ task }) => {
     contentPopover: [
       {
         label: 'Teléfono',
-        value: task.technical.phone
+        value: getValue(task.technical, 'phone') ?? ''
       },
       {
         label: 'Email',
-        value: task.technical.email
+        value: getValue(task.technical, 'email') ?? ''
       },
       {
         label: 'Rol',
@@ -61,10 +62,17 @@ const DetailTask: FunctionComponent<{ task: Task | null }> = ({ task }) => {
       },
       {
         label: 'Fecha de nacimiento',
-        value: localDate(task.technical.dateOfBirth)
+        value: localDate(getValue(task.technical, 'dateOfBirth') ?? '')
       }
     ],
-    renderItems: [{ label: 'Técnico', value: `${task.technical.name} ${task.technical.lastName}` }]
+    renderItems: [
+      {
+        label: 'Técnico',
+        value: `${getValue(task.technical, '') ?? ''} ${
+          getValue(task.technical, 'lastName') ?? ''
+        }`
+      }
+    ]
   };
 
   return (
@@ -81,7 +89,10 @@ const DetailTask: FunctionComponent<{ task: Task | null }> = ({ task }) => {
           label="Fecha de creación"
           value={task.createdAt ? localDate(task.createdAt) : ''}
         />
-        <RenderItem label="Fecha programada" value={localDate(task.scheduledDate)} />
+        <RenderItem
+          label="Fecha programada"
+          value={localDate(task.scheduledDate)}
+        />
       </div>
 
       <StateTask

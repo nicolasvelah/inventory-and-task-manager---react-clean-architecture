@@ -18,9 +18,9 @@ export const TASK_TYPE_LIST_VALUES = Object.keys(TaskType).map(
 
 export default interface Task {
   _id: string;
-  technical: User;
-  coordinator: User;
-  place: Place;
+  technical: User | string;
+  coordinator: User | string;
+  place: Place | string;
   scheduledDate: string;
   arrivalDate?: string;
   arrivalLatLong?: Point;
@@ -32,6 +32,7 @@ export default interface Task {
   emnployeePhoto?: string;
   type: taskType;
   description: string;
+  catalogToInstall: string[];
   createdAt?: string;
   updatedAt?: string;
 }

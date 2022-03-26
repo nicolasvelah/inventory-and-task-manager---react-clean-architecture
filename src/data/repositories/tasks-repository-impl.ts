@@ -3,6 +3,7 @@
 import Task from '../../domain/models/task';
 
 import TasksRepository, {
+  PayloadCreateTask,
   TaskResponse
 } from '../../domain/repositories/tasks-repository';
 import { Http } from '../../helpers/http';
@@ -12,6 +13,16 @@ export default class TasksRepositoryImpl implements TasksRepository {
   private host = process.env.REACT_APP_API_URL ?? 'http://localhost:5000';
 
   private http = new Http('', false);
+
+  async createTask(payload: PayloadCreateTask): Promise<Task> {
+    const axios = await axiosRequest();
+    const responseTasks = await axios.post<Task>(
+      '/api/v1/tasks/create',
+      payload
+    );
+
+    return responseTasks.data;
+  }
 
   async getTasks(values: {
     from: string;

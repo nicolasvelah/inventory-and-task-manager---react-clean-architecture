@@ -4,6 +4,7 @@ import { CheckOutlined } from '@ant-design/icons';
 import { ListCatalogProps } from './ListCatalog.interfaces';
 import useListCatalogState from './state/useListCatalogState';
 import { CatalogItem } from '../catalog/AddCatalog/AddCatalog.interfaces';
+import Category from '../../../../domain/models/category';
 
 const ListCatalog: React.FC<ListCatalogProps> = ({
   catalogs,
@@ -52,7 +53,14 @@ const ListCatalog: React.FC<ListCatalogProps> = ({
         <List.Item actions={[renderButtonLink(item)]}>
           <Space>
             {renderIconSelected(item)}
-            <div />
+            <div>
+              <h3>
+                <b>{`${item.device} | ${item.brand}`}</b>
+              </h3>
+              {item.categoryId && typeof item.categoryId !== 'string' && (
+                <h4>{(item.categoryId as Category).description}</h4>
+              )}
+            </div>
           </Space>
         </List.Item>
       )}

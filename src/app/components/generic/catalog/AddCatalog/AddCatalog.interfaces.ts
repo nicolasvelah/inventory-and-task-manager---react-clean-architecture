@@ -10,4 +10,5 @@ export interface AddCatalogProps {
   catalogs: CatalogItem[];
   linkedCatalogs: CatalogItem[]
   handleLinkedCatalogs: (linkedCatalogs: CatalogItem[]) => void;
+  handleCancelModal: () => void
 }

@@ -2,25 +2,27 @@
 /* eslint-disable semi */
 /* eslint-disable no-unused-vars */
 
+import Category from './category';
+
 enum PlaceCatalogueType {
   ATM,
-  sucursal,
+  sucursal
 }
-export type placeCatalogType = keyof typeof PlaceCatalogueType
+export type placeCatalogType = keyof typeof PlaceCatalogueType;
 export const PLACE_CATALOGUE_TYPE_LIST = Object.keys(PlaceCatalogueType);
 
 enum StateCatalogType {
   stock,
-  empty,
+  empty
 }
-export type stateCatalogType = keyof typeof StateCatalogType
+export type stateCatalogType = keyof typeof StateCatalogType;
 export const STATE_CATALOG_TYPE_LIST = Object.keys(StateCatalogType);
 
 enum TypeCatalogType {
   controlled,
-  notControlled,
+  notControlled
 }
-export type typeCatalogType = keyof typeof TypeCatalogType
+export type typeCatalogType = keyof typeof TypeCatalogType;
 export const TYPE_CATALOG_TYPE_LIST = Object.keys(TypeCatalogType);
 
 export default interface Catalog {
@@ -34,4 +36,5 @@ export default interface Catalog {
   type?: typeCatalogType;
   createdAt?: string;
   updatedAt?: string;
+  categoryId: Category | string;
 }

@@ -18,8 +18,9 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
     placesFiltered,
     technicalsFiltered,
     coordinatorsFiltered,
-    disabledAddMaterialButton,
+    disabledAddCategoryButton,
     actions: {
+      handleCatalogSelected,
       onFinishForm,
       onSearchPlaces,
       onSearchTechnicals,
@@ -106,7 +107,10 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
         <Input.TextArea showCount maxLength={100} />
       </Form.Item>
 
-      <AddCatalogslItem disabled={disabledAddMaterialButton} />
+      <AddCatalogslItem
+        disabled={disabledAddCategoryButton}
+        handleCatalogSelected={handleCatalogSelected}
+      />
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">

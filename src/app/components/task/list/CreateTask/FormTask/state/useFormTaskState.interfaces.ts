@@ -2,13 +2,15 @@
 import { Moment } from 'moment';
 import Place from '../../../../../../../domain/models/place';
 import User from '../../../../../../../domain/models/user';
+import { CatalogItem } from '../../../../../generic/catalog/AddCatalog/AddCatalog.interfaces';
 
 export type UseFormTaskState = () => {
   placesFiltered: Place[];
   technicalsFiltered: User[];
   coordinatorsFiltered: User[];
-  disabledAddMaterialButton: boolean;
+  disabledAddCategoryButton: boolean;
   actions: {
+    handleCatalogSelected: (catalogs: CatalogItem[]) => void;
     onFinishForm: (values: any) => Promise<void>;
     onSearchPlaces: (value: string) => void;
     onSearchTechnicals: (value: string) => void;

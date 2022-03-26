@@ -1,6 +1,8 @@
+/* eslint-disable class-methods-use-this */
 import UsersRepository from '../../domain/repositories/users-repository';
 import User from '../../domain/models/user';
 import { Http } from '../../helpers/http';
+import { axiosRequest } from '../../utils/axios-util';
 
 export default class UsersRepositoryImpl implements UsersRepository {
   private host = `${
@@ -23,16 +25,12 @@ export default class UsersRepositoryImpl implements UsersRepository {
   }
 
   async getCoordinatorsAndTechnicals(): Promise<User[]> {
-    try {
-      const url = `${this.host}/coordinators-technicals`;
-      const response = await this.http.request<{ users: User[] }>(url);
-      if (response.error) {
-        throw new Error(response.error?.message ?? 'fail request');
-      }
-      return response.data?.users ?? [];
-    } catch (error) {
-      return [];
-    }
+    const axios = await axiosRequest();
+    const responseUsers = await axios.get<{ users: User[] }>(
+      'api/v1/users/coordinators-technicals'
+    );
+
+    return responseUsers.data.users;
   }
 
   async update(_id: string, data: Partial<User>): Promise<User | null> {

@@ -1,0 +1,17 @@
+.add-catalog {
+  .header-add-catalog {
+    text-align: center;
+  }
+  .body-add-catalog {
+    height: 400px;
+    overflow-y: scroll;
+    padding: 0px 10px;
+  }
+  .footer-add-catalog {
+    margin-top: 10px;
+    text-align: end;
+    button {
+      margin-left: 10px;
+    }
+  }
+}

@@ -55,6 +55,26 @@ export const getFirebaseAdminRepository = (
 });
 
 export const tasksRepository: TasksRepository = {
+  createTask: () => {
+    return Promise.resolve({
+      type: 'installation',
+      catalogToInstall: [
+        '6228bdae146556e1b2d6abe8',
+        '6228bde7146556e1b2d6abea',
+        '6228be8c146556e1b2d6abee',
+        '6228beb3146556e1b2d6abef'
+      ],
+      _id: '62310ead77e7c80d804f2081',
+      technical: '6214416bc341eaa648916b15',
+      coordinator: '621441aec341eaa648916b16',
+      place: '6214495bc341eaa648916b17',
+      scheduledDate: '2022-03-15T22:09:49.773Z',
+      description: 'Esto es una descripción',
+      createdAt: '2022-03-15T22:09:49.841Z',
+      updatedAt: '2022-03-15T22:09:49.841Z',
+      __v: 0
+    });
+  },
   getTasks: () => {
     return Promise.resolve({
       tasks: {

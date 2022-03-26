@@ -11,7 +11,19 @@ export interface TaskResponse {
   };
 }
 
+export interface PayloadCreateTask {
+  idTechnical: string;
+  idCoordinator: string;
+  idPlace: string;
+  scheduledDate: string;
+  type: string;
+  description: string;
+  catalogToInstall: string[];
+}
+
 export default interface TasksRepository {
+  createTask(payload: PayloadCreateTask): Promise<Task>;
+
   getTasks(values: {
     from: string;
     to: string;

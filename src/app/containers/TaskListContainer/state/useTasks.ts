@@ -1,16 +1,16 @@
 /* eslint-disable indent */
 import { message } from 'antd';
 import moment from 'moment';
-import { useState } from 'react';
 import { repository } from '../../../../dependecy-injection';
 import Task from '../../../../domain/models/task';
 import { LIMIT_ROWS } from '../../../../helpers/constants/columns-table-tasks';
 import { FORMAT_DATE_DAY_MONTH_YEAR_TWO } from '../../../../helpers/constants/format-date';
 import { FiltersValue } from '../../../components/generic/header-list/HeaderList.interfaces';
+import { useTaskListContext } from '../../../context/task/TaskListContext';
 import { UseTasks } from './useTasks.interface';
 
 const useTasks: UseTasks = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { tasks, setTasks } = useTaskListContext();
   const { tasksRepository } = repository;
 
   const setTaskList = (newTasks: Task[]) => {

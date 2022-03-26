@@ -7,6 +7,7 @@ import { Timeline } from 'antd';
 import moment from 'moment';
 import React, { FunctionComponent } from 'react';
 import Task, { TaskType } from '../../../../../domain/models/task';
+import { getValue } from '../../../../../utils/get-value';
 import { useTaskContext } from '../../../../context/task/TaskContext';
 import RenderItem from '../../../generic/render-item/RenderItem';
 import TimerCard from '../../../generic/timer/TimerCard';
@@ -15,7 +16,10 @@ import './card-task.scss';
 
 const formatDate = 'DD/MM/YYYY HH:mm:ss';
 
-const CardTask: FunctionComponent<{ task: Task; active: boolean }> = ({ task, active }) => {
+const CardTask: FunctionComponent<{ task: Task; active: boolean }> = ({
+  task,
+  active
+}) => {
   const { setActiveTask } = useTaskContext();
 
   const selectTask = () => {
@@ -32,15 +36,29 @@ const CardTask: FunctionComponent<{ task: Task; active: boolean }> = ({ task, ac
   return (
     <div className={`card-task${active ? ' active' : ''}`} onClick={selectTask}>
       <RenderItem label="Tarea" value={task._id} />
-      <RenderItem label="Sitio" value={task.place.addressNumber} />
-      <RenderItem label="Tipo" value={task.place.type} />
-      <RenderItem label="Sitio" value={task.place.addressNumber} />
-      <RenderItem label="Técnico" value={`${task.technical.name} ${task.technical.lastName}`} />
+      <RenderItem
+        label="Sitio"
+        value={getValue(task.place, 'addressNumber') ?? ''}
+      />
+      <RenderItem label="Tipo" value={getValue(task.place, 'type') ?? ''} />
+      <RenderItem
+        label="Sitio"
+        value={getValue(task.place, 'addressNumber') ?? ''}
+      />
+      <RenderItem
+        label="Técnico"
+        value={`${getValue(task.technical, 'name') ?? ''} ${
+          getValue(task.technical, 'lastName') ?? ''
+        }`}
+      />
       <RenderItem label="Tipo" value={TaskType[task.type] ?? task.type} />
 
       <Timeline>
         <Timeline.Item>
-          <RenderItem label="Fecha de creación" value={moment(task.createdAt).format(formatDate)} />
+          <RenderItem
+            label="Fecha de creación"
+            value={moment(task.createdAt).format(formatDate)}
+          />
         </Timeline.Item>
         <Timeline.Item>
           <RenderItem

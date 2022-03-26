@@ -3,21 +3,26 @@ import { Form, Button, Modal } from 'antd';
 import useAddCategoryItemState from './state/useAddCatalogsItemState';
 import ListCatalog from '../../../../../generic/ListCatalog/ListCatalog';
 import AddCatalog from '../../../../../generic/catalog/AddCatalog/AddCatalog';
+import { CatalogItem } from '../../../../../generic/catalog/AddCatalog/AddCatalog.interfaces';
 
-const AddCatalogslItem: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
+const AddCatalogslItem: React.FC<{
+  disabled?: boolean;
+  // eslint-disable-next-line no-unused-vars
+  handleCatalogSelected: (catalogs: CatalogItem[]) => void;
+}> = ({ disabled, handleCatalogSelected }) => {
   const {
     catalogs,
     visibleModal,
     linkedCatalogs,
     actions: { handleCancel, handleOpen, handleLinkedItemClick }
-  } = useAddCategoryItemState();
+  } = useAddCategoryItemState({ handleCatalogSelected });
 
   return (
     <>
       <Form.Item
-        name="category"
-        label="Categoría"
-        help="Primero debe seleccionar un técnico antes de asignar una categoría"
+        name="catalog"
+        label="Catálogo"
+        help="Primero debes seleccionar un técnico antes de asignar un catálogo"
         rules={[
           {
             async validator() {
@@ -25,7 +30,7 @@ const AddCatalogslItem: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
                 throw new Error();
               }
             },
-            message: 'Seleccione un material'
+            message: 'Seleccione un catálogo'
           }
         ]}
       >
@@ -53,6 +58,7 @@ const AddCatalogslItem: React.FC<{ disabled?: boolean }> = ({ disabled }) => {
           catalogs={catalogs}
           linkedCatalogs={linkedCatalogs}
           handleLinkedCatalogs={handleLinkedItemClick}
+          handleCancelModal={handleCancel}
         />
       </Modal>
     </>

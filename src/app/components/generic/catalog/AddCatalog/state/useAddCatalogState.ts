@@ -6,7 +6,8 @@ import { UseAddCatalogState } from './useAddCatalogState.interface';
 const useAddCatalogState: UseAddCatalogState = ({
   catalogs,
   linkedCatalogs,
-  handleLinkedCatalogs
+  handleLinkedCatalogs,
+  handleCancelModal
 }) => {
   const [catalogsMenu, setCatalogsMenu] = useState<CatalogItem[]>([]);
 
@@ -35,6 +36,7 @@ const useAddCatalogState: UseAddCatalogState = ({
 
   const handleSaveCatalogs = () => {
     handleLinkedCatalogs(catalogsMenu);
+    handleCancelModal();
   };
 
   return {

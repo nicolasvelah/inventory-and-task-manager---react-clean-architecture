@@ -35,7 +35,10 @@ import { CatalogItem } from '../../../../../../generic/catalog/AddCatalog/AddCat
   }
 ]; */
 
-const useAddCategoryItemState = () => {
+const useAddCategoryItemState = (values: {
+  // eslint-disable-next-line no-unused-vars
+  handleCatalogSelected: (catalogs: CatalogItem[]) => void;
+}) => {
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const [linkedCatalogs, setLinkedCatalogs] = useState<CatalogItem[]>([]);
   const [catalogs, setCatalogs] = useState<CatalogItem[]>([]);
@@ -63,6 +66,7 @@ const useAddCategoryItemState = () => {
       (catalogItem) => !!catalogItem.selected
     );
     setLinkedCatalogs(newLinkedCatalogs);
+    values.handleCatalogSelected(newLinkedCatalogs);
   };
 
   return {
