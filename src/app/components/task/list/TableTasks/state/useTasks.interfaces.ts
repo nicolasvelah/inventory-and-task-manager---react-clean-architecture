@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Task from '../../../../../../domain/models/task';
+import { FiltersTaskList } from '../../../../../context/task/TaskListContext';
 
 export interface DataTask {
   key: string;
@@ -11,6 +12,10 @@ export interface DataTask {
   closedDate: string;
 }
 
-export type UseTasksTable = (tasks: Task[]) => {
+export type UseTasksTable = () => {
   dataTable: DataTask[];
+  filters: FiltersTaskList;
+  actions: {
+    onChangePage: (page: number) => void;
+  };
 };

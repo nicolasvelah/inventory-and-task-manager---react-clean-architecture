@@ -7,7 +7,6 @@ import HeaderList from '../../components/generic/header-list/HeaderList';
 
 const TaskListContainer: React.FC = () => {
   const {
-    tasks,
     actions: { handleChangeFilters }
   } = useTasks();
 
@@ -22,7 +21,7 @@ const TaskListContainer: React.FC = () => {
           <CreateTask />
         </div>
       </div>
-      <TableTasks tasks={tasks} />
+      <TableTasks />
     </div>
   );
 };

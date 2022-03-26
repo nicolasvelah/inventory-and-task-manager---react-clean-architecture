@@ -1,13 +1,16 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
-import { Table } from 'antd';
+import { Pagination, Table } from 'antd';
 
-import Task from '../../../../../domain/models/task';
-import { COLUMNS_TABLE_TASKS, LIMIT_ROWS } from '../../../../../helpers/constants/columns-table-tasks';
+import { COLUMNS_TABLE_TASKS } from '../../../../../helpers/constants/columns-table-tasks';
 import useTasksTable from './state/useTasks';
 
-const TableTasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
-  const { dataTable } = useTasksTable(tasks);
+const TableTasks: React.FC = () => {
+  const {
+    dataTable,
+    filters,
+    actions: { onChangePage }
+  } = useTasksTable();
 
   return (
     <div>
@@ -15,7 +18,14 @@ const TableTasks: React.FC<{ tasks: Task[] }> = ({ tasks }) => {
         columns={COLUMNS_TABLE_TASKS}
         dataSource={dataTable}
         scroll={{ x: 1100 }}
-        pagination={{ pageSize: LIMIT_ROWS }}
+        pagination={false}
+      />
+      <Pagination
+        showQuickJumper
+        defaultCurrent={1}
+        current={filters.currentPage}
+        total={filters.total}
+        onChange={onChangePage}
       />
     </div>
   );

@@ -10,7 +10,8 @@ import { useTaskListContext } from '../../../context/task/TaskListContext';
 import { UseTasks } from './useTasks.interface';
 
 const useTasks: UseTasks = () => {
-  const { tasks, setTasks } = useTaskListContext();
+  // eslint-disable-next-line object-curly-newline
+  const { setTasks, setFiltersList, filters } = useTaskListContext();
   const { tasksRepository } = repository;
 
   const setTaskList = (newTasks: Task[]) => {
@@ -40,6 +41,13 @@ const useTasks: UseTasks = () => {
       })
       .then((values) => {
         setTaskList(values.tasks.task ?? []);
+        setFiltersList({
+          limit: values.tasks.itemsPerPage,
+          pages: values.tasks.pages,
+          valuesSearch: filtersValue,
+          total: values.tasks.total,
+          currentPage: filters.currentPage
+        });
       })
       .finally(() => {
         hide();
@@ -47,7 +55,6 @@ const useTasks: UseTasks = () => {
   };
 
   return {
-    tasks,
     actions: {
       handleChangeFilters
     }
