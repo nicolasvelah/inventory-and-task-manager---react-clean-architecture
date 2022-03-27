@@ -11,4 +11,5 @@ export interface HeaderListProps {
   handleChangeFilters: (filtersValue: FiltersValue) => void;
   showSearch?: boolean;
   showRangePicker?: boolean;
+  placeHolder?: string;
 }

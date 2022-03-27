@@ -1,8 +1,9 @@
+import React from 'react';
 import { ColumnsType } from 'antd/lib/table';
+import { Button, Space } from 'antd';
 
 export const LIMIT_ROWS = 10;
 
-// eslint-disable-next-line import/prefer-default-export
 export const COLUMNS_TABLE_TASKS: ColumnsType<any> = [
   {
     title: 'Id',
@@ -91,5 +92,80 @@ export const COLUMNS_TABLE_PLACES: ColumnsType<any> = [
     title: 'Fecha',
     dataIndex: 'createdAt',
     key: 'createdAt'
+  }
+];
+
+export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
+  {
+    title: 'Id',
+    dataIndex: 'key',
+    key: 'key',
+    width: 150
+  },
+  {
+    title: 'Equipo',
+    dataIndex: 'device',
+    key: 'device',
+    width: 250
+  },
+  {
+    title: 'Marca',
+    dataIndex: 'brand',
+    key: 'brand'
+  },
+  {
+    title: 'Modelo',
+    dataIndex: 'model',
+    key: 'model'
+  },
+  {
+    title: 'Interfaz',
+    dataIndex: 'interface',
+    key: 'interface'
+  },
+  {
+    title: 'Tpipo de sitio',
+    dataIndex: 'placeType',
+    key: 'placeType',
+    width: 150
+  },
+  {
+    title: 'Tipo',
+    dataIndex: 'type',
+    key: 'type',
+    width: 150
+  },
+  {
+    title: 'Unidad',
+    dataIndex: 'unity',
+    key: 'unity'
+  },
+  {
+    title: 'Creado el',
+    dataIndex: 'createdAt',
+    key: 'createdAt'
+  },
+  {
+    title: 'Actualizado el',
+    dataIndex: 'updatedAt',
+    key: 'updatedAt'
+  },
+  {
+    title: '',
+    dataIndex: 'buttons',
+    key: 'buttons',
+    width: 150,
+    render: () => {
+      return (
+        <Space>
+          <Button type="primary" size="small" onClick={() => {}}>
+            Editar
+          </Button>
+          <Button type="primary" size="small">
+            Eliminar
+          </Button>
+        </Space>
+      );
+    }
   }
 ];

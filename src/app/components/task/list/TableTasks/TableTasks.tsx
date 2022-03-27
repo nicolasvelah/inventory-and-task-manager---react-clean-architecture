@@ -17,7 +17,7 @@ const TableTasks: React.FC = () => {
       <Table
         columns={COLUMNS_TABLE_TASKS}
         dataSource={dataTable}
-        scroll={{ x: 1100 }}
+        scroll={{ x: 1100, y: 450 }}
         pagination={false}
       />
       <Pagination
@@ -26,6 +26,7 @@ const TableTasks: React.FC = () => {
         current={filters.currentPage}
         total={filters.total}
         onChange={onChangePage}
+        style={{ marginTop: 10 }}
       />
     </div>
   );

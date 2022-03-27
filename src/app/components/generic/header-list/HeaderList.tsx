@@ -10,6 +10,7 @@ const { RangePicker } = DatePicker;
 const { Search } = Input;
 
 const HeaderList: React.FC<HeaderListProps> = ({
+  placeHolder = 'Buscar',
   handleChangeFilters,
   showSearch = true,
   showRangePicker = true
@@ -35,7 +36,7 @@ const HeaderList: React.FC<HeaderListProps> = ({
       )}
       {showSearch && (
         <Search
-          placeholder="Buscar tarea"
+          placeholder={placeHolder}
           onSearch={onSearchText}
           value={searchText}
           onChange={onChangeText}

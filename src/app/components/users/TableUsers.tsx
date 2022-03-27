@@ -6,7 +6,6 @@ import User, { userRolesType } from '../../../domain/models/user';
 import FormUser from './FormUser';
 import FormUserInterface from '../../../domain/models/generic/form-user-interface';
 import { localDate } from '../../../utils/moment-utils';
-// import permissions from '../../../utils/permissions-user';
 
 interface DataUser {
   key: string;

@@ -22,6 +22,12 @@ enum TypeCatalogType {
   controlled,
   notControlled
 }
+
+export enum TypeSpanishCatalogEnum {
+  controlled = 'Controlado',
+  notControlled = 'No controlado'
+}
+
 export type typeCatalogType = keyof typeof TypeCatalogType;
 export const TYPE_CATALOG_TYPE_LIST = Object.keys(TypeCatalogType);
 

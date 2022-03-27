@@ -17,6 +17,14 @@ const menuItemsList: MenuItemsList[] = [
     icon: <SnippetsOutlined />
   },
   {
+    name: 'Materiales',
+    subItems: [
+      { name: 'Catálogo', url: '/materials/catalog' },
+      { name: 'Inventario', url: '/materials/inventory' }
+    ],
+    icon: <SnippetsOutlined />
+  },
+  {
     name: 'Usuarios',
     url: '/users',
     icon: <TeamOutlined />
