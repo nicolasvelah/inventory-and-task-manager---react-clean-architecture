@@ -48,4 +48,11 @@ export default class UsersRepositoryImpl implements UsersRepository {
       return null;
     }
   }
+
+  async create(data: Partial<User>): Promise<User> {
+    const axios = await axiosRequest();
+    const responseCreate = await axios.post<User>('/api/v1/users/create', data);
+
+    return responseCreate.data;
+  }
 }

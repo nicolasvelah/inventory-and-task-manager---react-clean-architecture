@@ -1,6 +1,8 @@
 import React from 'react';
 import { ColumnsType } from 'antd/lib/table';
 import { Button, Space } from 'antd';
+import { DataUser } from '../../app/components/users/TableUsers/state/useTableUsersState.interfaces';
+import { userRolesType, UserRoleTranslateEnum } from '../../domain/models/user';
 
 export const LIMIT_ROWS = 10;
 
@@ -165,6 +167,95 @@ export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
             Eliminar
           </Button>
         </Space>
+      );
+    }
+  }
+];
+
+export const getColumnsTableUser = (
+  // eslint-disable-next-line no-unused-vars
+  valuesToEdit: (values: DataUser) => void
+): ColumnsType<any> => [
+  {
+    title: 'Id',
+    dataIndex: 'key',
+    key: 'key'
+  },
+  {
+    title: 'Nombre',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Apellido',
+    dataIndex: 'lastName',
+    key: 'lastName'
+  },
+  {
+    title: 'Fecha de nacimiento',
+    dataIndex: 'dateOfBirth',
+    key: 'dateOfBirth'
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email'
+  },
+  {
+    title: 'Teléfono',
+    dataIndex: 'phone',
+    key: 'phone'
+  },
+  {
+    title: 'Rol',
+    dataIndex: 'role',
+    key: 'role',
+    render: (text: userRolesType) => {
+      // eslint-disable-next-line react/jsx-one-expression-per-line
+      return <b> {UserRoleTranslateEnum[text]}</b>;
+    }
+  },
+  {
+    title: 'Estado',
+    dataIndex: 'enabled',
+    key: 'enabled'
+  },
+  {
+    title: 'Fecha de creación',
+    dataIndex: 'createdAt',
+    key: 'createdAt'
+  },
+  {
+    title: '',
+    dataIndex: 'buttons',
+    key: 'buttons',
+    render: (_, row) => {
+      return (
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div
+            style={{
+              marginBottom: 5,
+              display: 'flex',
+              justifyContent: 'space-between'
+            }}
+          >
+            <Button
+              type="primary"
+              size="small"
+              onClick={() => {
+                valuesToEdit(row);
+              }}
+            >
+              Editar
+            </Button>
+            <Button type="primary" size="small">
+              Eliminar
+            </Button>
+          </div>
+          <Button type="primary" size="small">
+            Reenviar mail clave
+          </Button>
+        </div>
       );
     }
   }

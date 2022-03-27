@@ -1,43 +1,18 @@
-import React, { FunctionComponent } from 'react';
-import moment, { Moment } from 'moment';
+import React from 'react';
+import moment from 'moment';
 // eslint-disable-next-line object-curly-newline
-import { Button, Form, DatePicker, Select, Input, Radio, message } from 'antd';
-import User, { USER_ROLES_LIST } from '../../../domain/models/user';
-import FormUserInterface from '../../../domain/models/generic/form-user-interface';
-// import permissions from '../../../utils/permissions-user';
-import DependecyInjection from '../../../dependecy-injection';
+import { Button, Form, DatePicker, Select, Input, Radio } from 'antd';
+import {
+  UserRoleTranslateEnum,
+  USER_ROLES_LIST
+} from '../../../../domain/models/user';
+import { FormUserProps } from './FormUser.interfaces';
+import useFormUserState from './state/useFormUserState';
 
-const FormUser: FunctionComponent<{
-  // eslint-disable-next-line no-unused-vars
-  handleOk: (user: User) => void;
-  initValues?: FormUserInterface;
-}> = ({ handleOk, initValues }) => {
-  const { usersRepository } = DependecyInjection.getInstance();
-
-  const disabledDate = (current: Moment) => {
-    const years = moment().diff(current, 'years');
-    if (years < 18) return true;
-    return false;
-  };
-
-  const onFinish = async (values: any) => {
-    try {
-      const newUser = {
-        ...values,
-        dateOfBirth: (values.dateOfBirth as Moment).format('YYYY-MM-DD'),
-        enabled: values.enabled === 'SI'
-      };
-      if (initValues) {
-        const userUpdated = await usersRepository!.update(
-          initValues.id,
-          newUser
-        );
-        handleOk(userUpdated!);
-      }
-    } catch (error) {
-      message.error('Error al crear usuario');
-    }
-  };
+const FormUser: React.FC<FormUserProps> = ({ handleOk, initValues }) => {
+  const {
+    actions: { disabledDate, onFinish }
+  } = useFormUserState({ handleOk, initValues });
 
   let initialValues;
   if (initValues) {
@@ -100,14 +75,9 @@ const FormUser: FunctionComponent<{
       >
         <Select>
           {USER_ROLES_LIST.map((item) => (
-            <>
-              {/* <Select.Option key={item}>{permissions[item]?.translate as string}
-              </Select.Option>
-              */}
-              <Select.Option key={item} value={item}>
-                <span>Optio_TEST</span>
-              </Select.Option>
-            </>
+            <Select.Option key={item} value={item}>
+              {UserRoleTranslateEnum[item]}
+            </Select.Option>
           ))}
         </Select>
       </Form.Item>

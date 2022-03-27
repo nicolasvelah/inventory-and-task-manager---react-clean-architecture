@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, Space } from 'antd';
 import TableTasks from '../../components/task/list/TableTasks/TableTasks';
 import CreateTask from '../../components/task/list/CreateTask/CreateTask';
 import useTasks from './state/useTasks';
@@ -16,10 +16,10 @@ const TaskListContainer: React.FC = () => {
         <div className="header-first-block">
           <HeaderList handleChangeFilters={handleChangeFilters} />
         </div>
-        <div>
+        <Space>
           <Button>Excel</Button>
           <CreateTask />
-        </div>
+        </Space>
       </div>
       <TableTasks />
     </div>

@@ -92,7 +92,8 @@ export const tasksRepository: TasksRepository = {
 export const usersRepository: UsersRepository = {
   findByValue: callbackPromiseEmptyArray,
   getCoordinatorsAndTechnicals: callbackPromiseEmptyArray,
-  update: () => Promise.resolve(user)
+  update: () => Promise.resolve(user),
+  create: () => Promise.resolve(user)
 };
 
 export const mockRepositoriesMock = {

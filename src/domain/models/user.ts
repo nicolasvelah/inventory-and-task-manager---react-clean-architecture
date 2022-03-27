@@ -7,8 +7,18 @@ enum UserRoles {
   coordinator,
   technical
 }
+
+export enum UserRoleTranslateEnum {
+  administrator = 'Administrador',
+  coordinator = 'Coordinador',
+  technical = 'Técnico'
+}
+
 export type userRolesType = keyof typeof UserRoles;
-export const USER_ROLES_LIST = Object.values(UserRoles).filter((rol) => typeof rol === 'string');
+export const USER_ROLES_LIST = Object.values(UserRoles).filter(
+  (rol) => typeof rol === 'string'
+) as userRolesType[];
+
 export const defaultRole: userRolesType = 'technical';
 
 export default interface User {

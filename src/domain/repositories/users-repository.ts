@@ -7,4 +7,5 @@ export default interface UsersRepository {
   findByValue(value: string): Promise<User[]>;
   getCoordinatorsAndTechnicals(): Promise<User[]>;
   update(_id: string, data: Partial<User>): Promise<User | null>;
+  create(data: Partial<User>): Promise<User>;
 }

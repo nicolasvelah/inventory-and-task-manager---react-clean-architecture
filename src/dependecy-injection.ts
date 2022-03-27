@@ -63,8 +63,8 @@ export default class DependecyInjection {
       console.log('INIT DEPENDENCY INJECTION TEST');
 
       this.isTest = true;
-      const { values } = args;
 
+      const { values } = args;
       this.setMocksTest(values);
       return;
     }
