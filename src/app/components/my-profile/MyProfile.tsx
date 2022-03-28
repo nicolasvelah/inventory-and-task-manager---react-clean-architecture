@@ -61,7 +61,7 @@ const MyProfile: React.FC<{ user: User }> = ({ user }) => {
             {firstCharacter(user.name)}
             {firstCharacter(user.lastName)}
           </Avatar>
-          <DownOutlined style={{ fontSize: '10px', marginLeft: 5 }} />
+          <DownOutlined style={{ fontSize: '10px', marginLeft: 5, color: '#fff' }} />
         </div>
       </Popover>
     </div>
