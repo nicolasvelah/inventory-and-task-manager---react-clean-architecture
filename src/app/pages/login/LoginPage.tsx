@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from '../../components/Login/Login';
 import './login-page.scss';
-import { ReactComponent as Logo } from '../../layouts/MenuLayout/HeaderMenuLayout/images/logo.svg';
+import { ReactComponent as Logo } from './images/logoMorado.svg';
 
 // TODO: Put Logo
 const LoginPage = () => {
