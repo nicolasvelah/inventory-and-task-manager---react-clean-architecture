@@ -1,7 +1,7 @@
-import { Button } from 'antd';
 import React from 'react';
 import HeaderList from '../../components/generic/header-list/HeaderList';
 import TablePlaces from '../../components/places/TablePlaces/TablePlaces';
+import CreatePlace from '../../components/places/CreatePlace/CreatePlace';
 import usePlaces from './state/usePlaces';
 
 const PlacesContainer: React.FC = () => {
@@ -13,7 +13,7 @@ const PlacesContainer: React.FC = () => {
           <HeaderList handleChangeFilters={() => {}} showRangePicker={false} />
         </div>
         <div>
-          <Button>Crear</Button>
+          <CreatePlace />
         </div>
       </div>
       <TablePlaces places={places} />
