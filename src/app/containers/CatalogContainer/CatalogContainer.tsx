@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import HeaderList from '../../components/generic/header-list/HeaderList';
 import TableCatalog from '../../components/catalog/TableCatalog/TableCatalog';
 import useCatalog from './state/useCatalog';
+import CreateCatal from '../../components/catalog/CreateCatalog/CreateCatalog';
 
 const CatalogContainer: React.FC = () => {
   const {
@@ -21,7 +22,7 @@ const CatalogContainer: React.FC = () => {
         </div>
         <div>
           <Button>Excel</Button>
-          <Button>Crear catalogo</Button>
+          <CreateCatal />
         </div>
       </div>
       <TableCatalog />
