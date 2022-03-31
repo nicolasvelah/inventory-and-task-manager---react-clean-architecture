@@ -14,7 +14,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "typeRoots": [
+      "node_modules/@types",
+    ]
   },
   "include": ["./src/**/*.ts", "./src/**/*.test.tsx", "src/utils/menu-items-list.tsx", "src/helpers/constants/columns-table-tasks.tsx"]
 }

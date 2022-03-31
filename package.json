@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
     "@babel/preset-typescript": "^7.16.7",
+    "@googlemaps/react-wrapper": "^1.1.29",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "@testing-library/react-hooks": "^7.0.2",
@@ -56,6 +57,8 @@
     ]
   },
   "devDependencies": {
+    "@types/google.maps": "^3.48.3",
+    "@types/googlemaps": "^3.43.3",
     "@types/react-router-dom": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
