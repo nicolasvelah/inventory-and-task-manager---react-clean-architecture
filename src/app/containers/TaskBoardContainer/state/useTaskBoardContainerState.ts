@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { repository } from '../../../../dependecy-injection';
 import Task from '../../../../domain/models/task';
@@ -24,28 +25,35 @@ const useTaskBoardContainerState: UseTaskBoardContainerState = () => {
   const { tasksRepository } = repository;
 
   const getTasks = async () => {
-    const tasksResponse = await tasksRepository!.getAllByIdUser(user!._id!);
-    setTasks(tasksResponse);
+    const hide = message.loading('Obteniendo tareas ...');
+    try {
+      const tasksResponse = await tasksRepository!.getAllByIdUser(user!._id!);
+      setTasks(tasksResponse);
 
-    const arrivedTasks: Task[] = [];
-    const closedTasks: Task[] = [];
-    const toRunTasks: Task[] = [];
+      const arrivedTasks: Task[] = [];
+      const closedTasks: Task[] = [];
+      const toRunTasks: Task[] = [];
 
-    tasksResponse.forEach((taskItem) => {
-      if (taskItem.closedDate) {
-        closedTasks.push(taskItem);
-      } else if (taskItem.arrivalDate) {
-        arrivedTasks.push(taskItem);
-      } else {
-        toRunTasks.push(taskItem);
-      }
-    });
+      tasksResponse.forEach((taskItem) => {
+        if (taskItem.closedDate) {
+          closedTasks.push(taskItem);
+        } else if (taskItem.arrivalDate) {
+          arrivedTasks.push(taskItem);
+        } else {
+          toRunTasks.push(taskItem);
+        }
+      });
 
-    setGroupTasks({
-      arrived: arrivedTasks,
-      closed: closedTasks,
-      toRun: toRunTasks
-    });
+      setGroupTasks({
+        arrived: arrivedTasks,
+        closed: closedTasks,
+        toRun: toRunTasks
+      });
+    } catch (error) {
+      message.error('No se pudo obtener las tareas');
+    } finally {
+      hide();
+    }
   };
 
   useEffect(() => {

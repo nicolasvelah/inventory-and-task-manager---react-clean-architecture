@@ -1,6 +1,7 @@
 import React from 'react';
 // eslint-disable-next-line object-curly-newline
 import { Button, Form, DatePicker, Select, Input } from 'antd';
+import moment from 'moment';
 
 import { FormTaskProps } from './FormTask.interfaces';
 import useFormTaskState from './state/useFormTaskState';
@@ -96,7 +97,12 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
         name="scheduledDate"
         rules={[{ required: true, message: 'Fecha programada es requerida' }]}
       >
-        <DatePicker />
+        <DatePicker
+          disabledDate={(current) => {
+            // Can not select days before today and today
+            return current && current < moment().endOf('day');
+          }}
+        />
       </Form.Item>
 
       <Form.Item
@@ -113,7 +119,7 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
       />
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="button-submit">
           {!initValues ? 'GUARDAR' : 'Editar'}
         </Button>
       </Form.Item>

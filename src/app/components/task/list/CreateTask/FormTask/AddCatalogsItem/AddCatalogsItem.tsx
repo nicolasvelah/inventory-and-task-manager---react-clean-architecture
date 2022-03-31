@@ -22,7 +22,6 @@ const AddCatalogslItem: React.FC<{
       <Form.Item
         name="catalog"
         label="Catálogo"
-        help="Primero debes seleccionar un técnico antes de asignar un catálogo"
         rules={[
           {
             async validator() {
@@ -37,6 +36,10 @@ const AddCatalogslItem: React.FC<{
         <Button type="primary" onClick={handleOpen} disabled={disabled}>
           Agregar
         </Button>
+        <br />
+        <span>
+          Primero debes seleccionar un técnico antes de asignar un catálogo
+        </span>
       </Form.Item>
       {linkedCatalogs.length > 0 && (
         <Form.Item name="" label={<div />}>
