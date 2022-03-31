@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from '../../components/Login/Login';
 import './login-page.scss';
+import { ReactComponent as Logo } from './images/logoMorado.svg';
 
 // TODO: Put Logo
 const LoginPage = () => {
@@ -8,7 +9,7 @@ const LoginPage = () => {
     <div id="login-page">
       <div className="login-page-card">
         <div className="login-page-logo">
-          <div style={{ fontSize: 50, fontWeight: 500 }}>LOGO</div>
+          <Logo />
         </div>
         <Login />
       </div>

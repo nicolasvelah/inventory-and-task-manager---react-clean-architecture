@@ -20,19 +20,15 @@ const menuItemsList: MenuItemsList[] = [
     name: 'Materiales',
     subItems: [
       { name: 'Catálogo', url: '/materials/catalog' },
-      { name: 'Inventario', url: '/materials/inventory' }
+      { name: 'Inventario de dispositivos', url: '/materials/inventory' },
+      { name: 'Inventario de cajas', url: '/materials/inventory' }
     ],
-    icon: <SnippetsOutlined />
+    icon: <AppstoreOutlined />
   },
   {
     name: 'Usuarios',
     url: '/users',
     icon: <TeamOutlined />
-  },
-  {
-    name: 'Dispositivos',
-    url: '/devices',
-    icon: <AppstoreOutlined />
   },
   {
     name: 'Sitios',
