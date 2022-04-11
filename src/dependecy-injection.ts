@@ -19,6 +19,8 @@ import PlacesRepository from './domain/repositories/places-repository';
 import PlacesRepositoryImpl from './data/repositories/places-repository-impl';
 import CatalogRepositoryImpl from './data/repositories/catalog-repository-impl';
 import CatalogRepository from './domain/repositories/catalog-repository';
+import InventoryRepository from './domain/repositories/inventory-repository';
+import InventoryRepositoryImpl from './data/repositories/inventory-repository-impl';
 
 export default class DependecyInjection {
   apiRepository: ApiRepository | null = null;
@@ -32,6 +34,8 @@ export default class DependecyInjection {
   placesRepository: PlacesRepository | null = null;
 
   catalogRepository: CatalogRepository | null = null;
+
+  inventoryRepository: InventoryRepository | null = null;
 
   private static instance: DependecyInjection;
 
@@ -78,6 +82,7 @@ export default class DependecyInjection {
     this.usersRepository = new UsersRepositoryImpl();
     this.placesRepository = new PlacesRepositoryImpl();
     this.catalogRepository = new CatalogRepositoryImpl();
+    this.inventoryRepository = new InventoryRepositoryImpl();
 
     // Init FirebaseAdmin
     this.firebaseAdminRepository!.initializeApp();

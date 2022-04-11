@@ -31,6 +31,6 @@ export default interface Inventory {
   state: inventoryStateType | string;
   installationDate?: Date;
   spentMaterial?: number;
-  photos?: Photos;
+  photos?: string[];
   dataCollected?: [JSON];
 }
