@@ -29,8 +29,8 @@ export default interface Inventory {
   user?: User | string;
   task?: Task | string;
   state: inventoryStateType | string;
-  installationDate?: Date;
+  installationDate?: string;
   spentMaterial?: number;
-  photos?: Photos;
+  photos?: string[];
   dataCollected?: [JSON];
 }

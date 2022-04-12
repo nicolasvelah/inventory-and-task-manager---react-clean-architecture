@@ -1,0 +1,14 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
+// eslint-disable-next-line import/prefer-default-export
+export enum KeysItemsMenuEnum {
+  TASK = 'task',
+  TASK_LIST = 'task-list',
+  TASK_BOARD = 'task-board',
+  MATERIAL = 'material',
+  CATALOG = 'catalog',
+  UNCONTROLLED = 'uncontrolled',
+  CONTROLLED = 'controlled',
+  USERS = 'users',
+  PLACES = 'places'
+}

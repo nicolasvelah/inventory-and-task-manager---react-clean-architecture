@@ -1,29 +1,28 @@
 /* eslint-disable no-plusplus */
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import MenuItemsList from '../../../../domain/models/generic/menu-items-list-interface';
+import MenuItem from '../../../../domain/models/generic/menu-items-list-interface';
 import menuItemsList from '../../../../utils/menu-items-list';
 import { userGlobalContext } from '../../../context/global/UserGlobalContext';
 import Permissions from '../../../../utils/permissions-user';
 
-const useMenuLayoutState = (menuItem: string) => {
+const useMenuLayoutState = (menuItemKey: string) => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
-  const [currentItem, setCurrentItem] = useState<string[]>([]);
+  const [currentItem, setCurrentItem] = useState<MenuItem>(menuItemsList[0]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
-  const [itemsList, setItemsList] = useState<MenuItemsList[]>(
-    menuItemsList ?? []
-  );
+  const [itemsList, setItemsList] = useState<MenuItem[]>(menuItemsList ?? []);
 
   const history = useHistory();
 
   const { user } = userGlobalContext();
 
   const getOpenKeys = (currentLayoutItem: string) => {
+    console.log('currentLayoutItem -->', currentLayoutItem);
+
     const keys = menuItemsList.find((item) => {
       if (item.subItems) {
         for (let index = 0; index < item.subItems.length; index++) {
-          const subItem = `${item.name}-${item.subItems[index].name}`;
-          if (currentLayoutItem === subItem) {
+          if (currentLayoutItem === item.key) {
             return true;
           }
         }
@@ -42,6 +41,7 @@ const useMenuLayoutState = (menuItem: string) => {
       );
       return !!menu;
     });
+
     if (userItemsList) {
       return userItemsList;
     }
@@ -50,17 +50,35 @@ const useMenuLayoutState = (menuItem: string) => {
   };
 
   useEffect(() => {
-    setCurrentItem([menuItem]);
+    const currentItemFound = itemsList.find((item) => {
+      if (item.key === menuItemKey) {
+        return true;
+      }
+      if (item.subItems) {
+        return !!item.subItems.find((subItem) => subItem.key === menuItemKey);
+      }
+      return false;
+    });
 
-    const keys = getOpenKeys(menuItem);
-    setOpenKeys(keys ? [keys.name] : []);
+    if (!currentItemFound) return;
+
+    let currentSubItemFound;
+    if (currentItemFound.subItems) {
+      currentSubItemFound = currentItemFound.subItems.find(
+        (item) => item.key === menuItemKey
+      );
+    }
+
+    setCurrentItem(currentSubItemFound ?? currentItemFound!);
+
+    setOpenKeys(currentItemFound ? [currentItemFound.key] : []);
 
     const userItemsList = getPermissions();
     setItemsList(userItemsList);
   }, []);
 
   const toggle = () => {
-    const keys = getOpenKeys(menuItem);
+    const keys = getOpenKeys(menuItemKey);
     const currentOpenKeys = keys ? [keys.name] : [];
     const openKeysList = !collapsed ? [] : currentOpenKeys;
 
@@ -77,7 +95,7 @@ const useMenuLayoutState = (menuItem: string) => {
     setOpenKeys(newOpenKeys);
   };
 
-  const goTo = (url: string) => {
+  const goTo = (url: string) => () => {
     history.push(url);
   };
 

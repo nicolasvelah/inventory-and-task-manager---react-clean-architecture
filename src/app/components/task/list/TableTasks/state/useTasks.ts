@@ -20,9 +20,10 @@ const useTasksTable: UseTasksTable = () => {
   useEffect(() => {
     const newData: DataTask[] = tasks.map((task) => ({
       key: task._id,
-      coordinator: `${getValue(task.technical, 'coordinator')?.name} ${
-        getValue(task.technical, 'coordinator')?.lastName
-      }`,
+      coordinator: `${getValue(task.coordinator, 'name')} ${getValue(
+        task.coordinator,
+        'lastName'
+      )}`,
       technical: `${getValue(task.technical, 'name')} ${getValue(
         task.technical,
         'lastName'

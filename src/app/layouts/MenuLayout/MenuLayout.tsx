@@ -37,7 +37,7 @@ const MenuLayout: React.FC<{
             theme="light"
             mode="inline"
             defaultSelectedKeys={[menuItem]}
-            selectedKeys={currentItem}
+            selectedKeys={[currentItem.key]}
             openKeys={openKeys}
           >
             {itemsList.map((mainMenu) => {
@@ -46,9 +46,7 @@ const MenuLayout: React.FC<{
                   <Menu.Item
                     key={mainMenu.name}
                     icon={mainMenu.icon}
-                    onClick={() => {
-                      goTo(mainMenu.url!);
-                    }}
+                    onClick={goTo(mainMenu.url!)}
                   >
                     {mainMenu.name}
                   </Menu.Item>
@@ -57,19 +55,14 @@ const MenuLayout: React.FC<{
 
               return (
                 <SubMenu
-                  key={mainMenu.name}
+                  key={mainMenu.key}
                   icon={mainMenu.icon}
                   title={mainMenu.name}
                   onTitleClick={toggleSubMenu}
                 >
                   {mainMenu.subItems.map((subMenu) => {
                     return (
-                      <Menu.Item
-                        key={`${mainMenu.name}-${subMenu.name}`}
-                        onClick={() => {
-                          goTo(subMenu.url);
-                        }}
-                      >
+                      <Menu.Item key={subMenu.key} onClick={goTo(subMenu.url)}>
                         {subMenu.name}
                       </Menu.Item>
                     );
@@ -91,7 +84,7 @@ const MenuLayout: React.FC<{
         <div style={{ width: `calc(100% - ${collapsed ? '80' : '200'}px)` }}>
           <Content className="content">{children}</Content>
 
-          <Footer style={{ textAlign: 'center' }}>ITZAM ©2021</Footer>
+          <Footer style={{ textAlign: 'center' }}>ITZAM ©2022</Footer>
         </div>
       </div>
     </Layout>
