@@ -4,6 +4,7 @@ import MenuLayout from '../../../layouts/MenuLayout/MenuLayout';
 import TaskBoardContainer from '../../../containers/TaskBoardContainer/TaskBoardContainer';
 
 import './task-board-page.scss';
+import { KeysItemsMenuEnum } from '../../../../helpers/enums/menu-layout-enum';
 
 const TaskBoardPageMain: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ const TaskBoardPageMain: React.FC = () => {
 
 const TaskBoardPage = () => {
   return (
-    <MenuLayout menuItem="Tareas-Tablero">
+    <MenuLayout menuItem={KeysItemsMenuEnum.TASK_BOARD}>
       <TaskContextProvider>
         <TaskBoardPageMain />
       </TaskContextProvider>

@@ -172,6 +172,41 @@ export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
   }
 ];
 
+export const COLUMNS_TABLE_UNCONTROLLED: ColumnsType<any> = [
+  {
+    title: 'Id',
+    dataIndex: 'key',
+    key: 'key',
+    width: 150
+  },
+  {
+    title: 'Equipo',
+    dataIndex: 'device',
+    key: 'device',
+    width: 250
+  },
+  {
+    title: 'Lugar',
+    dataIndex: 'place',
+    key: 'place'
+  },
+  {
+    title: 'Técnico',
+    dataIndex: 'user',
+    key: 'user'
+  },
+  {
+    title: 'Estado',
+    dataIndex: 'state',
+    key: 'state'
+  },
+  {
+    title: 'Fecha de instalación',
+    dataIndex: 'installationDate',
+    key: 'installationDate'
+  }
+];
+
 export const getColumnsTableUser = (
   // eslint-disable-next-line no-unused-vars
   valuesToEdit: (values: DataUser) => void
