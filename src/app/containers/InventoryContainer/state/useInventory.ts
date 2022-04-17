@@ -1,13 +1,15 @@
 /* eslint-disable indent */
 import { message } from 'antd';
 import { repository } from '../../../../dependecy-injection';
-import Catalog from '../../../../domain/models/catalog';
 import { FiltersValue } from '../../../components/generic/header-list/HeaderList.interfaces';
-import { useInventoryUncontrolledContext } from '../../../context/inventory/InventoryUncontrolledContext/InventoryUncontrolledContext';
+import { useInventoryContext } from '../../../context/inventory/InventoryContext/InventoryContext';
 
-const useInventoryUncontrolled = () => {
+const useInventory = () => {
   // eslint-disable-next-line object-curly-newline
-  const { setInventoryUncontrolled } = useInventoryUncontrolledContext();
+  const {
+    setInventory,
+    rowSelection: { selectedRowKeys }
+  } = useInventoryContext();
   const { inventoryRepository } = repository;
 
   const handleChangeFilters = (filtersValue: FiltersValue) => {
@@ -19,13 +21,7 @@ const useInventoryUncontrolled = () => {
     inventoryRepository
       ?.getAll()
       .then((values) => {
-        const uncontrolled = values.filter((item) => {
-          if (typeof item.device === 'object') {
-            return (item.device as Catalog).type === 'notControlled';
-          }
-          return false;
-        });
-        setInventoryUncontrolled(uncontrolled);
+        setInventory(values);
       })
       .finally(() => {
         hide();
@@ -33,10 +29,11 @@ const useInventoryUncontrolled = () => {
   };
 
   return {
+    activateButton: selectedRowKeys.length > 0,
     actions: {
       handleChangeFilters
     }
   };
 };
 
-export default useInventoryUncontrolled;
+export default useInventory;

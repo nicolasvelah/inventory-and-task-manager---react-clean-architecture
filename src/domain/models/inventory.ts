@@ -10,7 +10,9 @@ import Fragment from './fragment';
 enum InventoryState {
   installed,
   free,
-  damaged
+  damaged,
+  onManteince,
+  unInstalled
 }
 export type inventoryStateType = keyof typeof InventoryState;
 export const INVENTORY_STATE_TYPE_LIST = Object.keys(InventoryState);

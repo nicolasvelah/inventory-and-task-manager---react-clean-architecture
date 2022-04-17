@@ -10,7 +10,7 @@ import TasksListPage from './pages/task-pages/task-list/TaskListPage';
 import DevicesPage from './pages/DevicesPage';
 import PlacesPage from './pages/places/PlacesPage';
 import CatalogPage from './pages/materials/catalog/CatalogPage';
-import InventoryUncontrolledPage from './pages/materials/inventory/InventoryUncontrolledPage';
+import InventoryPage from './pages/materials/inventory/InventoryPage';
 
 import 'antd/dist/antd.css';
 import { UserContextProvider } from './context/global/UserGlobalContext';
@@ -32,13 +32,13 @@ function App() {
             <Route exact path="/materials/catalog" component={CatalogPage} />
             <Route
               exact
-              path="/materials/uncontrolled-inventory"
-              component={InventoryUncontrolledPage}
+              path="/materials/inventory"
+              component={InventoryPage}
             />
             <Route
               exact
               path="/materials/controlled-inventory"
-              component={InventoryUncontrolledPage}
+              component={InventoryPage}
             />
 
             <Route exact path="/users" component={UserPage} />

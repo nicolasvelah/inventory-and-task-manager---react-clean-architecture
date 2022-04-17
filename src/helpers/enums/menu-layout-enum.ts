@@ -7,8 +7,8 @@ export enum KeysItemsMenuEnum {
   TASK_BOARD = 'task-board',
   MATERIAL = 'material',
   CATALOG = 'catalog',
-  UNCONTROLLED = 'uncontrolled',
-  CONTROLLED = 'controlled',
+  INVENTORY = 'inventory',
+  BOX = 'box',
   USERS = 'users',
   PLACES = 'places'
 }

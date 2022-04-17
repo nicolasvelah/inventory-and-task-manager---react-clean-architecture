@@ -1,8 +1,10 @@
 import React from 'react';
 import { ColumnsType } from 'antd/lib/table';
-import { Button, Space } from 'antd';
+import { Button, Space, Tag } from 'antd';
 import { DataUser } from '../../app/components/users/TableUsers/state/useTableUsersState.interfaces';
 import { userRolesType, UserRoleTranslateEnum } from '../../domain/models/user';
+import { INVENTORY_STATE_COLOR_AND_NAME } from './inventory';
+import { inventoryStateType } from '../../domain/models/inventory';
 
 export const LIMIT_ROWS = 10;
 
@@ -172,38 +174,57 @@ export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
   }
 ];
 
-export const COLUMNS_TABLE_UNCONTROLLED: ColumnsType<any> = [
+export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
   {
-    title: 'Id',
+    title: 'Id Equipo',
     dataIndex: 'key',
     key: 'key',
     width: 150
   },
   {
-    title: 'Equipo',
-    dataIndex: 'device',
-    key: 'device',
-    width: 250
-  },
-  {
-    title: 'Lugar',
-    dataIndex: 'place',
-    key: 'place'
-  },
-  {
-    title: 'Técnico',
-    dataIndex: 'user',
-    key: 'user'
+    title: 'Tipo',
+    dataIndex: 'type',
+    key: 'type'
   },
   {
     title: 'Estado',
     dataIndex: 'state',
-    key: 'state'
+    key: 'state',
+    render: (value: inventoryStateType) => (
+      <Tag color={INVENTORY_STATE_COLOR_AND_NAME[value].color}>
+        {INVENTORY_STATE_COLOR_AND_NAME[value].name}
+      </Tag>
+    )
   },
   {
-    title: 'Fecha de instalación',
-    dataIndex: 'installationDate',
-    key: 'installationDate'
+    title: 'Técnico',
+    dataIndex: 'technical',
+    key: 'technical'
+  },
+  {
+    title: 'Sitio',
+    dataIndex: 'place',
+    key: 'place'
+  },
+  {
+    title: 'Identificadores',
+    dataIndex: 'identifiers',
+    key: 'identifiers'
+  },
+  {
+    title: 'Id Tarea',
+    dataIndex: 'idTask',
+    key: 'idTask'
+  },
+  {
+    title: 'Fecha',
+    dataIndex: 'date',
+    key: 'date'
+  },
+  {
+    title: 'Foto (técnixo)',
+    dataIndex: 'photoTechnical',
+    key: 'photoTechnical'
   }
 ];
 
@@ -291,6 +312,58 @@ export const getColumnsTableUser = (
             Reenviar mail clave
           </Button>
         </div>
+      );
+    }
+  }
+];
+
+export const getColumnsTableTechnicals = (
+  // eslint-disable-next-line no-unused-vars
+  linkedInventoryTechnical: (idTechnical: string) => () => void
+): ColumnsType<any> => [
+  {
+    title: 'Id',
+    dataIndex: 'key',
+    key: 'key'
+  },
+  {
+    title: 'Nombre',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Apellido',
+    dataIndex: 'lastName',
+    key: 'lastName'
+  },
+  {
+    title: 'Fecha de nacimiento',
+    dataIndex: 'dateOfBirth',
+    key: 'dateOfBirth'
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email'
+  },
+  {
+    title: 'Teléfono',
+    dataIndex: 'phone',
+    key: 'phone'
+  },
+  {
+    title: '',
+    dataIndex: 'buttons',
+    key: 'buttons',
+    render: (_, row) => {
+      return (
+        <Button
+          type="primary"
+          size="small"
+          onClick={linkedInventoryTechnical(row.key)}
+        >
+          Vincular
+        </Button>
       );
     }
   }

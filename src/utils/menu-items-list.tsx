@@ -36,15 +36,15 @@ const menuItemsList: MenuItem[] = [
         active: false
       },
       {
-        name: 'Dispositivos no controlados',
-        url: '/materials/uncontrolled-inventory',
-        key: KeysItemsMenuEnum.UNCONTROLLED,
+        name: 'Inventario',
+        url: '/materials/inventory',
+        key: KeysItemsMenuEnum.INVENTORY,
         active: false
       },
       {
         name: 'Dispositivos controlados',
-        url: '/materials/controlled-nventory',
-        key: KeysItemsMenuEnum.CONTROLLED,
+        url: '/materials/box',
+        key: KeysItemsMenuEnum.BOX,
         active: false
       }
     ],

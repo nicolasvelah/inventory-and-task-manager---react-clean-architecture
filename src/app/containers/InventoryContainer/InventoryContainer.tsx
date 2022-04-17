@@ -1,13 +1,15 @@
 import React from 'react';
 import { Button, Space } from 'antd';
-import useIventoryUncontrolled from './state/useIventoryUncontrolled';
+import useIventory from './state/useInventory';
 import HeaderList from '../../components/generic/header-list/HeaderList';
-import TableUncontrolled from '../../components/inventory/InventoryUncontrolled/TableUncontrolled/TableUncontrolled';
+import TableInventory from '../../components/inventory/Inventory/TableInventory/TableInventory';
+import ModalLinkedInventoryTechnical from '../../components/inventory/Inventory/ModalLinkedInventoryTechnical/ModalLinkedInventoryTechnical';
 
-const InventoryUncontrolledContainer: React.FC = () => {
+const InventoryContainer: React.FC = () => {
   const {
+    activateButton,
     actions: { handleChangeFilters }
-  } = useIventoryUncontrolled();
+  } = useIventory();
 
   return (
     <div>
@@ -19,13 +21,14 @@ const InventoryUncontrolledContainer: React.FC = () => {
           />
         </div>
         <Space>
+          {activateButton && <ModalLinkedInventoryTechnical />}
           <Button>Excel</Button>
           <Button>Crear</Button>
         </Space>
       </div>
-      <TableUncontrolled />
+      <TableInventory />
     </div>
   );
 };
 
-export default InventoryUncontrolledContainer;
+export default InventoryContainer;
