@@ -20,12 +20,6 @@ const menuItemsList: MenuItem[] = [
         url: '/task/list',
         key: KeysItemsMenuEnum.TASK_LIST,
         active: false
-      },
-      {
-        name: 'Tablero',
-        url: '/task/board',
-        key: KeysItemsMenuEnum.TASK_BOARD,
-        active: false
       }
     ],
     icon: <SnippetsOutlined />

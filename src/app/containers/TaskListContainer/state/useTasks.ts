@@ -11,7 +11,15 @@ import { UseTasks } from './useTasks.interface';
 
 const useTasks: UseTasks = () => {
   // eslint-disable-next-line object-curly-newline
-  const { setTasks, setFiltersList, filters } = useTaskListContext();
+  const {
+    setTasks,
+    setFiltersList,
+    filters,
+    taskSelected,
+    visibleDrawer,
+    onCloseDrawer
+  } = useTaskListContext();
+
   const { tasksRepository } = repository;
 
   const setTaskList = (newTasks: Task[]) => {
@@ -55,8 +63,11 @@ const useTasks: UseTasks = () => {
   };
 
   return {
+    visibleDrawer,
+    taskSelected,
     actions: {
-      handleChangeFilters
+      handleChangeFilters,
+      onCloseDrawer
     }
   };
 };

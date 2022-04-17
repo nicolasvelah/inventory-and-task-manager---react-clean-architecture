@@ -7,7 +7,6 @@ import Session from './layouts/Session';
 import LoginPage from './pages/login/LoginPage';
 import PublicPage from './pages/PublicPage';
 import TasksListPage from './pages/task-pages/task-list/TaskListPage';
-import TasksBoardPage from './pages/task-pages/task-board/TaskBoardPage';
 import DevicesPage from './pages/DevicesPage';
 import PlacesPage from './pages/places/PlacesPage';
 import CatalogPage from './pages/materials/catalog/CatalogPage';
@@ -29,7 +28,6 @@ function App() {
             <Route exact path="/login" component={LoginPage} />
 
             <Route exact path="/task/list" component={TasksListPage} />
-            <Route exact path="/task/board" component={TasksBoardPage} />
 
             <Route exact path="/materials/catalog" component={CatalogPage} />
             <Route

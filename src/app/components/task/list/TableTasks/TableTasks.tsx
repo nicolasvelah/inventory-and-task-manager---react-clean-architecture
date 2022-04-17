@@ -9,7 +9,7 @@ const TableTasks: React.FC = () => {
   const {
     dataTable,
     filters,
-    actions: { onChangePage }
+    actions: { onChangePage, onClickRow }
   } = useTasksTable();
 
   return (
@@ -19,6 +19,7 @@ const TableTasks: React.FC = () => {
         dataSource={dataTable}
         scroll={{ x: 1100, y: 450 }}
         pagination={false}
+        onRow={onClickRow as any}
       />
       <Pagination
         showQuickJumper

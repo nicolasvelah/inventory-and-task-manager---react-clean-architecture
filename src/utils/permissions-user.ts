@@ -6,7 +6,7 @@ const permissions: Permissions = {
     menuItems: [
       {
         name: 'Tareas',
-        subItems: [{ name: 'Lista' }, { name: 'Tablero' }]
+        subItems: [{ name: 'Lista' }]
       },
       {
         name: 'Materiales',
@@ -28,7 +28,7 @@ const permissions: Permissions = {
     menuItems: [
       {
         name: 'Tareas',
-        subItems: [{ name: 'Lista' }, { name: 'Tablero' }]
+        subItems: [{ name: 'Lista' }]
       },
       {
         name: 'Dispositivos'

@@ -17,5 +17,8 @@ export type UseTasksTable = () => {
   filters: FiltersTaskList;
   actions: {
     onChangePage: (page: number) => void;
+    onClickRow: (record: any) => {
+      onClick: () => void;
+    };
   };
 };

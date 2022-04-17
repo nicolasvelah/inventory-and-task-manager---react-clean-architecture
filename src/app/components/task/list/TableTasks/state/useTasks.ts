@@ -14,7 +14,8 @@ const useTasksTable: UseTasksTable = () => {
   const [data, setData] = useState<DataTask[]>([]);
 
   // eslint-disable-next-line object-curly-newline
-  const { tasks, setTasks, filters, setFiltersList } = useTaskListContext();
+  const { tasks, setTasks, filters, setFiltersList, setTaskSelected } =
+    useTaskListContext();
   const { tasksRepository } = repository;
 
   useEffect(() => {
@@ -79,11 +80,21 @@ const useTasksTable: UseTasksTable = () => {
       });
   };
 
+  const onClickRow = (record: any) => {
+    return {
+      onClick: () => {
+        const activateTask = tasks.find((item) => item._id === record.key);
+        setTaskSelected(activateTask ?? null);
+      }
+    };
+  };
+
   return {
     dataTable: data,
     filters,
     actions: {
-      onChangePage
+      onChangePage,
+      onClickRow
     }
   };
 };

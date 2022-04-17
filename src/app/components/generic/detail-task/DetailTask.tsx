@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import Task from '../../../../domain/models/task';
 import BlockPopover from './block-popover/BlockPopover';
 import RenderItem from '../render-item/RenderItem';
@@ -10,7 +10,7 @@ import './detail-task.scss';
 import StateTask from './state-task/StateTask';
 import { getValue } from '../../../../utils/get-value';
 
-const DetailTask: FunctionComponent<{ task: Task | null }> = ({ task }) => {
+const DetailTask: React.FC<{ task: Task | null }> = ({ task }) => {
   if (!task) return null;
 
   const blockPlace = {
