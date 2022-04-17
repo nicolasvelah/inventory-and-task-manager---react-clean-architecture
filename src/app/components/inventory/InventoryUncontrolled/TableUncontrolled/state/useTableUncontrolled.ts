@@ -29,7 +29,7 @@ const useTableUncontrolled = () => {
           key: inventory._id,
           device: (inventory.device as Catalog).device,
           place: `${place.colony} ${place.city}`,
-          user: `${user.name} ${user.lastName}`,
+          user: user ? `${user.name} ${user.lastName}` : '',
           state: inventory.state,
           installationDate: inventory.installationDate
             ? momentFormat(inventory.installationDate)

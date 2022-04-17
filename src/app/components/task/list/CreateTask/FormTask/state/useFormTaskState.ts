@@ -92,7 +92,10 @@ const useFormTaskState: UseFormTaskState = () => {
         scheduledDate: values.scheduledDate.format(),
         type: values.type,
         description: values.description,
-        catalogToInstall: catalogSelected.map((itemCatalog) => itemCatalog._id)
+        catalogToInstall: catalogSelected.map((itemCatalog) => ({
+          id: itemCatalog._id,
+          quantity: itemCatalog.numberOfItems ?? 0
+        }))
       };
 
       console.log('payloadCreateTask -->', payloadCreateTask);

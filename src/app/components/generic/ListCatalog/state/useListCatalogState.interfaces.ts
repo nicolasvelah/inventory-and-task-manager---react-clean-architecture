@@ -9,5 +9,6 @@ export type UseListCatalogState = (catalogs: CatalogItem[]) => {
       catalog: CatalogItem,
       handleItemClick: (currentList: CatalogItem[]) => void
     ) => void;
+    handleInputNumber: (catalog: CatalogItem) => (value: number) => void;
   };
 };

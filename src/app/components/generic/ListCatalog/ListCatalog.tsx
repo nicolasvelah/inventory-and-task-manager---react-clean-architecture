@@ -1,4 +1,5 @@
-import { Button, List, Space } from 'antd';
+// eslint-disable-next-line object-curly-newline
+import { Button, InputNumber, List, Space } from 'antd';
 import React from 'react';
 import { CheckOutlined } from '@ant-design/icons';
 import { ListCatalogProps } from './ListCatalog.interfaces';
@@ -8,11 +9,12 @@ import Category from '../../../../domain/models/category';
 
 const ListCatalog: React.FC<ListCatalogProps> = ({
   catalogs,
-  handleItemClick
+  handleItemClick,
+  showNumberOfItems
 }) => {
   const {
     currentCatalogs,
-    actions: { handleCatalogClick }
+    actions: { handleCatalogClick, handleInputNumber }
   } = useListCatalogState(catalogs);
 
   const renderIconSelected = (item: CatalogItem) => {
@@ -53,7 +55,7 @@ const ListCatalog: React.FC<ListCatalogProps> = ({
         <List.Item actions={[renderButtonLink(item)]}>
           <Space>
             {renderIconSelected(item)}
-            <div>
+            <div style={{ minWidth: 175 }}>
               <h3>
                 <b>{`${item.device} | ${item.brand}`}</b>
               </h3>
@@ -61,6 +63,13 @@ const ListCatalog: React.FC<ListCatalogProps> = ({
                 <h4>{(item.categoryId as Category).description}</h4>
               )}
             </div>
+            {showNumberOfItems && (
+              <InputNumber
+                min={1}
+                defaultValue={1}
+                onChange={handleInputNumber(item)}
+              />
+            )}
           </Space>
         </List.Item>
       )}

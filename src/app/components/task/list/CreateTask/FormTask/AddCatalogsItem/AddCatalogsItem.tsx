@@ -46,6 +46,7 @@ const AddCatalogslItem: React.FC<{
           <ListCatalog
             catalogs={linkedCatalogs}
             handleItemClick={handleLinkedItemClick}
+            showNumberOfItems
           />
         </Form.Item>
       )}

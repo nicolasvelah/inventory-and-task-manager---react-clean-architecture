@@ -18,7 +18,10 @@ export interface PayloadCreateTask {
   scheduledDate: string;
   type: string;
   description: string;
-  catalogToInstall: string[];
+  catalogToInstall: {
+    id: string;
+    quantity: number;
+  }[];
 }
 
 export default interface TasksRepository {

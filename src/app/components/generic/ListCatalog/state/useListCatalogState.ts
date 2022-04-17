@@ -26,10 +26,23 @@ const useListCatalogState: UseListCatalogState = (catalogs) => {
     handleItemClick(newCatalogs);
   };
 
+  const handleInputNumber = (catalog: CatalogItem) => (value: number) => {
+    const newCatalogs = currentCatalogs.map((item) => {
+      const newItem = { ...item };
+      if (item._id === catalog._id) {
+        newItem.numberOfItems = value;
+      }
+
+      return newItem;
+    });
+    setCurrentCatalogs(newCatalogs);
+  };
+
   return {
     currentCatalogs,
     actions: {
-      handleCatalogClick
+      handleCatalogClick,
+      handleInputNumber
     }
   };
 };

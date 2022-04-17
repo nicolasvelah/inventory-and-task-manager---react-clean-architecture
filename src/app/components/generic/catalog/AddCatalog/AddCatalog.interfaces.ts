@@ -4,11 +4,12 @@ import Catalog from '../../../../../domain/models/catalog';
 
 export interface CatalogItem extends Catalog {
   selected?: boolean;
+  numberOfItems?: number;
 }
 
 export interface AddCatalogProps {
   catalogs: CatalogItem[];
-  linkedCatalogs: CatalogItem[]
+  linkedCatalogs: CatalogItem[];
   handleLinkedCatalogs: (linkedCatalogs: CatalogItem[]) => void;
-  handleCancelModal: () => void
+  handleCancelModal: () => void;
 }
