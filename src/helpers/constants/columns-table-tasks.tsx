@@ -222,9 +222,66 @@ export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
     key: 'date'
   },
   {
-    title: 'Foto (técnixo)',
+    title: 'Foto (técnico)',
     dataIndex: 'photoTechnical',
     key: 'photoTechnical'
+  }
+];
+
+export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
+  {
+    title: 'Id Equipo',
+    dataIndex: 'key',
+    key: 'key',
+    width: 150
+  },
+  {
+    title: 'Estado',
+    dataIndex: 'state',
+    key: 'state',
+    render: (value: inventoryStateType) => (
+      <Tag color={INVENTORY_STATE_COLOR_AND_NAME[value].color}>
+        {INVENTORY_STATE_COLOR_AND_NAME[value].name}
+      </Tag>
+    )
+  },
+  {
+    title: 'Identificadores',
+    dataIndex: 'identifiers',
+    key: 'identifiers'
+  },
+  {
+    title: 'Total',
+    dataIndex: 'total',
+    key: 'total'
+  },
+  {
+    title: 'Restante',
+    dataIndex: 'remaining',
+    key: 'remaining'
+  },
+  {
+    title: 'Fragmento',
+    dataIndex: 'fragment',
+    key: 'fragment'
+  },
+  {
+    title: '',
+    dataIndex: 'buttons',
+    key: 'buttons',
+    width: 150,
+    render: () => {
+      return (
+        <Space>
+          <Button type="primary" size="small" onClick={() => {}}>
+            Fragmenta
+          </Button>
+          <Button type="primary" size="small">
+            Ver
+          </Button>
+        </Space>
+      );
+    }
   }
 ];
 

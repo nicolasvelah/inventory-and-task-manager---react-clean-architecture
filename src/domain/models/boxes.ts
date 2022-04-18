@@ -5,6 +5,7 @@
 import Catalog from './catalog';
 
 export default interface Box {
+  _id: string;
   device?: Catalog | string;
   remainingMaterial?: number | null;
   totalMaterial?: number | null;

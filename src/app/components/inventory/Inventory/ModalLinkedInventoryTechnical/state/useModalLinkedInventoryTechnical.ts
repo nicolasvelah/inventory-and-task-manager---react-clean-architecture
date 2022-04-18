@@ -4,21 +4,6 @@ import { repository } from '../../../../../../dependecy-injection';
 import { momentFormat } from '../../../../../../utils/moment-utils';
 import { useInventoryContext } from '../../../../../context/inventory/InventoryContext/InventoryContext';
 
-/* type UseModalLinkedInventoryTechnical = () => {
-  dataTable: any[];
-  visibleModal: boolean;
-  searchText: string;
-  actions: {
-    handleCancel: () => void;
-    handleOpen: () => void;
-    onSearchText: (value: string) => void;
-    onChangeText: (event: any) => void;
-    linkedInventoryTechnical: (
-      inventorySelected: string[]
-    ) => (idTechnical: string) => void;
-  };
-}; */
-
 export interface DataTableTechnicals {
   key: string;
   name: string;

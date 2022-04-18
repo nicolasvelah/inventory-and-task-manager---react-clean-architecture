@@ -11,6 +11,7 @@ import DevicesPage from './pages/DevicesPage';
 import PlacesPage from './pages/places/PlacesPage';
 import CatalogPage from './pages/materials/catalog/CatalogPage';
 import InventoryPage from './pages/materials/inventory/InventoryPage';
+import BoxPage from './pages/materials/box/BoxPage';
 
 import 'antd/dist/antd.css';
 import { UserContextProvider } from './context/global/UserGlobalContext';
@@ -37,8 +38,8 @@ function App() {
             />
             <Route
               exact
-              path="/materials/controlled-inventory"
-              component={InventoryPage}
+              path="/materials/box"
+              component={BoxPage}
             />
 
             <Route exact path="/users" component={UserPage} />

@@ -42,7 +42,7 @@ const menuItemsList: MenuItem[] = [
         active: false
       },
       {
-        name: 'Dispositivos controlados',
+        name: 'Cajas',
         url: '/materials/box',
         key: KeysItemsMenuEnum.BOX,
         active: false
