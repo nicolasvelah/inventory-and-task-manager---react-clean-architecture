@@ -67,7 +67,7 @@ const ListCatalog: React.FC<ListCatalogProps> = ({
               <InputNumber
                 min={1}
                 defaultValue={1}
-                onChange={handleInputNumber(item)}
+                onChange={handleInputNumber(item, handleItemClick)}
               />
             )}
           </Space>

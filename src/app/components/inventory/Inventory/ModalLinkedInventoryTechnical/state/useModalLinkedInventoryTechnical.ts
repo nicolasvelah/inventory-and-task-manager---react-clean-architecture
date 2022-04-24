@@ -57,6 +57,7 @@ const useModalLinkedInventoryTechnical = () => {
   };
 
   const onSearchText = async (value: string) => {
+    // TODO: implemente search for text
     console.log('value -->', value);
   };
 

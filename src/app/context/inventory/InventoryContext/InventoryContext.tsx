@@ -20,7 +20,10 @@ const INIT_STORE = {
   setInventory: (newInventory: Inventory[]) => {},
   rowSelection: {
     selectedRowKeys: [] as string[],
-    onChange: (_: any, selectedRows: DataTableInventory[]) => {}
+    onChange: (_: any, selectedRows: DataTableInventory[]) => {},
+    getCheckboxProps: (record: DataTableInventory) => ({
+      disabled: false as boolean | undefined
+    })
   }
 };
 
@@ -43,9 +46,11 @@ export const InventoryContextProvider: React.FC = ({ children }) => {
         rowSelection: {
           selectedRowKeys,
           onChange: (_, selectedRows) => {
-            console.log('selectedRowKeys changed: ', selectedRows);
             setSelectedRowKeys(selectedRows.map((item) => item.key));
-          }
+          },
+          getCheckboxProps: (record: DataTableInventory) => ({
+            disabled: record.place === '' || !record.place
+          })
         }
       }}
     >

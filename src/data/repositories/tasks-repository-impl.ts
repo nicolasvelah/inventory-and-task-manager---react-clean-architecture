@@ -6,14 +6,9 @@ import TasksRepository, {
   PayloadCreateTask,
   TaskResponse
 } from '../../domain/repositories/tasks-repository';
-import { Http } from '../../helpers/http';
 import { axiosRequest } from '../../utils/axios-util';
 
 export default class TasksRepositoryImpl implements TasksRepository {
-  private host = process.env.REACT_APP_API_URL ?? 'http://localhost:5000';
-
-  private http = new Http('', false);
-
   async createTask(payload: PayloadCreateTask): Promise<Task> {
     const axios = await axiosRequest();
     const responseTasks = await axios.post<Task>(
@@ -42,6 +37,7 @@ export default class TasksRepositoryImpl implements TasksRepository {
   }
 
   async getAllByIdUser(userId: string): Promise<Task[]> {
+    // TODO: Change method
     console.log('userId -->', userId);
     const axios = await axiosRequest();
     const responseTasks = await axios.get<{ tasks: Task[] }>(
@@ -56,16 +52,11 @@ export default class TasksRepositoryImpl implements TasksRepository {
     startDate: string,
     endDate: string
   ): Promise<Task[]> {
-    try {
-      const url = `${this.host}/api/v1/tasks/user/${userId}/range/${startDate}/${endDate}`;
+    const axios = await axiosRequest();
+    const responseTasks = await axios.get<{ tasks: Task[] }>(
+      `ﬁ/api/v1/tasks/user/${userId}/range/${startDate}/${endDate}`
+    );
 
-      const response = await this.http.request<{ tasks: Task[] }>(url);
-      if (response.error) {
-        throw new Error(response.error?.message ?? 'fail request');
-      }
-      return response.data?.tasks ?? [];
-    } catch (error) {
-      return [];
-    }
+    return responseTasks.data.tasks;
   }
 }

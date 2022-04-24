@@ -1,10 +1,16 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { FunctionComponent } from 'react';
+import { Button } from 'antd';
+import React from 'react';
 import './render-item.scss';
 
-const RenderItem: FunctionComponent<{ label: string; value: string }> = ({ label, value }) => (
+const RenderItem: React.FC<{
+  label: string;
+  value: string;
+  isClickeable?: boolean;
+}> = ({ label, value, isClickeable }) => (
   <p className="render-item">
-    <b>{label}:</b> <span>{value}</span>
+    {isClickeable ? <Button type="link">{label}:</Button> : <b>{label}:</b>}{' '}
+    <span>{value}</span>
   </p>
 );
 

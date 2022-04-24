@@ -13,20 +13,36 @@ interface PropsBlockPopover {
   contentPopover: Items[];
 }
 
-const BlockPopover: FunctionComponent<{ block: PropsBlockPopover }> = ({ block }) => {
+const BlockPopover: FunctionComponent<{ block: PropsBlockPopover }> = ({
+  block
+}) => {
   const renderContentPopover = (
     <div>
       {block.contentPopover.map((item, index) => (
-        <RenderItem key={`popover_${index}`} label={item.label} value={item.value} />
+        <RenderItem
+          key={`popover_${index}`}
+          label={item.label}
+          value={item.value}
+        />
       ))}
     </div>
   );
 
   return (
-    <Popover placement="left" content={renderContentPopover} trigger="click" zIndex={1000}>
+    <Popover
+      placement="left"
+      content={renderContentPopover}
+      trigger="click"
+      zIndex={1000}
+    >
       <div style={{ margin: '10px 0px' }}>
         {block.renderItems.map((item, index) => (
-          <RenderItem key={`render_${index}`} label={item.label} value={item.value} />
+          <RenderItem
+            key={`render_${index}`}
+            label={item.label}
+            value={item.value}
+            isClickeable
+          />
         ))}
       </div>
     </Popover>

@@ -11,6 +11,7 @@ const useBoxContainer = () => {
     // TODO: Change logic
     console.log('filtersValue -->', filtersValue);
     boxRepository?.getAll().then((boxList) => {
+      // TODO: Verify boxList
       console.log('boxList -->', boxList);
       setBoxList([]);
     });

@@ -30,7 +30,6 @@ const useFormUserState: UseFormUserState = ({ handleOk, initValues }) => {
   };
 
   const createUser = (userToCreate: Partial<User>) => {
-    console.log('userToCreate -->', userToCreate);
     const hide = message.loading('Creando usuario ...');
     usersRepository
       ?.create(userToCreate)

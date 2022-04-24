@@ -2,13 +2,18 @@
 
 import { CatalogItem } from '../../catalog/AddCatalog/AddCatalog.interfaces';
 
+export type HandleItemClickType = (currentList: CatalogItem[]) => void;
+
 export type UseListCatalogState = (catalogs: CatalogItem[]) => {
   currentCatalogs: CatalogItem[];
   actions: {
     handleCatalogClick: (
       catalog: CatalogItem,
-      handleItemClick: (currentList: CatalogItem[]) => void
+      handleItemClick: HandleItemClickType
     ) => void;
-    handleInputNumber: (catalog: CatalogItem) => (value: number) => void;
+    handleInputNumber: (
+      catalog: CatalogItem,
+      handleItemClick: HandleItemClickType
+    ) => (value: number) => void;
   };
 };

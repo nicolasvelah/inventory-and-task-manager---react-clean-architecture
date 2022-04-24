@@ -44,7 +44,6 @@ const useFormTaskState: UseFormTaskState = () => {
     try {
       const technicalsAndCoordinators =
         await usersRepository?.getCoordinatorsAndTechnicals();
-      console.log('technicalsAndCoordinators -->', technicalsAndCoordinators);
 
       if (technicalsAndCoordinators) {
         const technicals = technicalsAndCoordinators.filter(
@@ -94,11 +93,11 @@ const useFormTaskState: UseFormTaskState = () => {
         description: values.description,
         catalogToInstall: catalogSelected.map((itemCatalog) => ({
           id: itemCatalog._id,
-          quantity: itemCatalog.numberOfItems ?? 0
+          quantity: itemCatalog.numberOfItems
+            ? Number(itemCatalog.numberOfItems)
+            : 0
         }))
       };
-
-      console.log('payloadCreateTask -->', payloadCreateTask);
 
       const task = await tasksRepository?.createTask(payloadCreateTask);
       if (task) {

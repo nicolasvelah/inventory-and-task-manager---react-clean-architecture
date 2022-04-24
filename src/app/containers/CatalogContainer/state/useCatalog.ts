@@ -15,9 +15,8 @@ const useCatalog: UseCatalog = () => {
   };
 
   const handleChangeFilters = (filtersValue: FiltersValue) => {
-    if (filtersValue.text) {
-      console.log(filtersValue.text);
-    }
+    // TODO: Implement search for text
+    console.log(filtersValue.text);
 
     const hide = message.loading('Obteniendo catálogos ...');
     catalogRepository
