@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line object-curly-newline
 import React, { createContext, useContext, useState } from 'react';
-import Inventory from '../../../../domain/models/inventory';
+import Inventory, {
+  DataCollectedInventory
+} from '../../../../domain/models/inventory';
 
 export interface DataTableInventory {
   key: string;
@@ -9,10 +11,9 @@ export interface DataTableInventory {
   state: string;
   technical: string;
   place: string;
-  identifiers: string;
+  identifiers: DataCollectedInventory[];
   idTask: string;
   date: string;
-  photoTechnical: string;
 }
 
 const INIT_STORE = {

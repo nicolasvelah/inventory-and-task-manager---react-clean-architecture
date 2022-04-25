@@ -24,12 +24,11 @@ const useTableInventory = () => {
         state: inventory.state,
         technical: user ? `${user.name} ${user.lastName}` : '',
         place: place?.name,
-        identifiers: '', // TODO: validate param
+        identifiers: inventory.dataCollected ?? [],
         idTask: (inventory.task as Task)?._id,
         date: inventory.installationDate
           ? momentFormat(inventory.installationDate)
-          : '',
-        photoTechnical: '' // TODO validate this param
+          : ''
       };
     });
 

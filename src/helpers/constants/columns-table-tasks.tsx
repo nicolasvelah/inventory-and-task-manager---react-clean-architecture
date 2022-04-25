@@ -1,10 +1,21 @@
+/* eslint-disable object-curly-newline */
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { ColumnsType } from 'antd/lib/table';
 import { Button, Space, Tag } from 'antd';
 import { DataUser } from '../../app/components/users/TableUsers/state/useTableUsersState.interfaces';
 import { userRolesType, UserRoleTranslateEnum } from '../../domain/models/user';
-import { INVENTORY_STATE_COLOR_AND_NAME } from './inventory';
-import { inventoryStateType } from '../../domain/models/inventory';
+import {
+  BOX_STATE_COLOR_AND_NAME,
+  INVENTORY_STATE_COLOR_AND_NAME
+} from './inventory';
+import {
+  DataCollectedInventory,
+  inventoryStateType
+} from '../../domain/models/inventory';
+import RenderItem from '../../app/components/generic/render-item/RenderItem';
+import { FragmentBoxTable } from '../../app/context/inventory/BoxContext/BoxContext';
+import { stateCatalogType } from '../../domain/models/catalog';
 
 export const LIMIT_ROWS = 10;
 
@@ -190,6 +201,7 @@ export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
     title: 'Estado',
     dataIndex: 'state',
     key: 'state',
+    width: 100,
     render: (value: inventoryStateType) => (
       <Tag color={INVENTORY_STATE_COLOR_AND_NAME[value].color}>
         {INVENTORY_STATE_COLOR_AND_NAME[value].name}
@@ -209,7 +221,14 @@ export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
   {
     title: 'Identificadores',
     dataIndex: 'identifiers',
-    key: 'identifiers'
+    key: 'identifiers',
+    render: (dataColected?: DataCollectedInventory[]) => (
+      <>
+        {dataColected?.map(({ name, value }) => (
+          <RenderItem label={name} value={value} />
+        ))}
+      </>
+    )
   },
   {
     title: 'Id Tarea',
@@ -220,11 +239,6 @@ export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
     title: 'Fecha',
     dataIndex: 'date',
     key: 'date'
-  },
-  {
-    title: 'Foto (técnico)',
-    dataIndex: 'photoTechnical',
-    key: 'photoTechnical'
   }
 ];
 
@@ -233,37 +247,63 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
     title: 'Id Equipo',
     dataIndex: 'key',
     key: 'key',
-    width: 150
+    width: 250
   },
   {
     title: 'Estado',
     dataIndex: 'state',
     key: 'state',
-    render: (value: inventoryStateType) => (
-      <Tag color={INVENTORY_STATE_COLOR_AND_NAME[value].color}>
-        {INVENTORY_STATE_COLOR_AND_NAME[value].name}
+    width: 100,
+    render: (value: stateCatalogType) => (
+      <Tag color={BOX_STATE_COLOR_AND_NAME[value].color}>
+        {BOX_STATE_COLOR_AND_NAME[value].name}
       </Tag>
     )
   },
   {
     title: 'Identificadores',
     dataIndex: 'identifiers',
-    key: 'identifiers'
+    key: 'identifiers',
+    width: 200,
+    render: (dataColected?: DataCollectedInventory[]) => (
+      <>
+        {dataColected?.map(({ name, value }) => (
+          <RenderItem label={name} value={value} />
+        ))}
+      </>
+    )
   },
   {
     title: 'Total',
     dataIndex: 'total',
-    key: 'total'
+    key: 'total',
+    width: 150
   },
   {
     title: 'Restante',
     dataIndex: 'remaining',
-    key: 'remaining'
+    key: 'remaining',
+    width: 150
   },
   {
-    title: 'Fragmento',
+    title: 'Fragmentos',
     dataIndex: 'fragment',
-    key: 'fragment'
+    key: 'fragment',
+    width: 400,
+    render: (fragments: FragmentBoxTable[]) => (
+      <>
+        {fragments?.map(
+          ({ total, remaining, technical, unitOfMeasurement }) => {
+            const technicalString = technical ? `| ${technical}` : '';
+            const unitOfMeasurementString = unitOfMeasurement ?? '';
+
+            return (
+              <div>{` ${total} ${unitOfMeasurementString} | usado ${remaining} ${unitOfMeasurementString} ${technicalString}`}</div>
+            );
+          }
+        )}
+      </>
+    )
   },
   {
     title: '',

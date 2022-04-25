@@ -2,14 +2,14 @@
 
 import Box from '../../domain/models/boxes';
 import BoxRepository, {
-  ResponseGetAllBoxes
+  ResponseBox
 } from '../../domain/repositories/box-repository';
 import { axiosRequest } from '../../utils/axios-util';
 
 export default class BoxRepositoryImpl implements BoxRepository {
-  async getAll(): Promise<ResponseGetAllBoxes[]> {
+  async getAll(): Promise<ResponseBox[]> {
     const axios = await axiosRequest();
-    const catalogs = await axios.get<{ response: ResponseGetAllBoxes[] }>(
+    const catalogs = await axios.get<{ response: ResponseBox[] }>(
       'api/v1/boxes'
     );
 

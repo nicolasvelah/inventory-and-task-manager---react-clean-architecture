@@ -23,6 +23,11 @@ export interface Photos {
   description: string;
 }
 
+export interface DataCollectedInventory {
+  name: string;
+  value: string;
+}
+
 export default interface Inventory {
   _id: string;
   device: Catalog | string;
@@ -34,5 +39,5 @@ export default interface Inventory {
   installationDate?: string;
   spentMaterial?: number;
   photos?: string[];
-  dataCollected?: [JSON];
+  dataCollected?: DataCollectedInventory[];
 }

@@ -1,13 +1,23 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable no-unused-vars */
+import { stateCatalogType } from '../../domain/models/catalog';
 import { inventoryStateType } from '../../domain/models/inventory';
 
-export const INVENTORY_STATE_COLOR_AND_NAME: {
-  [key in inventoryStateType]: {
+type InventoryColorAndName = {
+  [K in inventoryStateType]: {
     color: 'magenta' | 'red' | 'volcano' | 'orange' | 'green';
     name: string;
   };
-} = {
+};
+
+type BoxColorAndName = {
+  [K in stateCatalogType]: {
+    color: 'red' | 'green';
+    name: string;
+  };
+};
+
+export const INVENTORY_STATE_COLOR_AND_NAME: InventoryColorAndName = {
   damaged: {
     color: 'red',
     name: 'Dañado'
@@ -29,5 +39,16 @@ export const INVENTORY_STATE_COLOR_AND_NAME: {
   unInstalled: {
     color: 'red',
     name: 'Desinstalado'
+  }
+};
+
+export const BOX_STATE_COLOR_AND_NAME: BoxColorAndName = {
+  empty: {
+    color: 'red',
+    name: 'Dañado'
+  },
+  stock: {
+    color: 'green',
+    name: 'Dañado'
   }
 };

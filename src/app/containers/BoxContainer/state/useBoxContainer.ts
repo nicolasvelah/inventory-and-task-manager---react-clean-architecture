@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { repository } from '../../../../dependecy-injection';
 import { FiltersValue } from '../../../components/generic/header-list/HeaderList.interfaces';
 import { useBoxContext } from '../../../context/inventory/BoxContext/BoxContext';
@@ -10,11 +11,20 @@ const useBoxContainer = () => {
   const handleChangeFilters = (filtersValue: FiltersValue) => {
     // TODO: Change logic
     console.log('filtersValue -->', filtersValue);
-    boxRepository?.getAll().then((boxList) => {
-      // TODO: Verify boxList
-      console.log('boxList -->', boxList);
-      setBoxList([]);
-    });
+
+    const hide = message.loading('Obteniendo Cajas ...');
+
+    boxRepository
+      ?.getAll()
+      .then((boxList) => {
+        setBoxList(boxList);
+      })
+      .catch(() => {
+        message.error('No se pudo obtener las cajas.s');
+      })
+      .finally(() => {
+        hide();
+      });
   };
 
   return {
