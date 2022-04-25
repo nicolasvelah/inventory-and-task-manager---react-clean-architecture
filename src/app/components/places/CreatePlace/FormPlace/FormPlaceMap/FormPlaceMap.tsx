@@ -2,6 +2,9 @@
 /* global google */
 import React, { useEffect, useRef, ReactElement } from 'react';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
+import {
+  Input, Form
+} from 'antd';
 import Marker from './Marker';
 
 interface MapProps extends google.maps.MapOptions {
@@ -12,10 +15,10 @@ interface MapProps extends google.maps.MapOptions {
 
 const FormPlaceMap: React.FC = () => {
   const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([]);
-  const [zoom, setZoom] = React.useState(3); // initial zoom
+  const [zoom, setZoom] = React.useState(6); // initial zoom
   const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
-    lat: 0,
-    lng: 0,
+    lat: 19.432608,
+    lng: -99.133209,
   });
 
   const Map: React.FC<MapProps> = ({
@@ -31,8 +34,8 @@ const FormPlaceMap: React.FC = () => {
     useEffect(() => {
       if (ref.current && !map) {
         setMap(new window.google.maps.Map(ref.current, {
-          center: { lat: 19.432608, lng: -99.133209 },
-          zoom: 6
+          center,
+          zoom
         }));
       }
     }, [ref, map]);
@@ -53,6 +56,26 @@ const FormPlaceMap: React.FC = () => {
 
     return (
       <>
+        <Form.Item
+          name="lat"
+          rules={[{ required: true, message: 'lat es requerido' }]}
+        >
+          <Input
+            value={center.lat}
+            placeholder="Latitud"
+            onChange={(event:any) => setCenter({ ...center, lat: Number(event.target.value) })}
+          />
+        </Form.Item>
+        <Form.Item
+          name="lng"
+          rules={[{ required: true, message: 'lng es requerido' }]}
+        >
+          <Input
+            value={center.lng}
+            placeholder="Logitud"
+            onChange={(event) => setCenter({ ...center, lng: Number(event.target.value) })}
+          />
+        </Form.Item>
         <div ref={ref} style={style} />
         {React.Children.map(children, (child) => {
           if (React.isValidElement(child)) {
@@ -88,8 +111,8 @@ const FormPlaceMap: React.FC = () => {
 
   return (
     <Wrapper apiKey="AIzaSyCWbi6zMNDNlTuo-2ZE-sVsHVuN_NRa3U0" render={render}>
-      <Map style={{ width: '100%', height: '300px' }} onClick={onClick}>
-        <Marker position={{ lat: 19.432608, lng: -99.133209 }} />
+      <Map style={{ width: '100%', height: '300px' }} onClick={onClick} center={center} zoom={zoom}>
+        <Marker position={center} />
       </Map>
     </Wrapper>
   );
