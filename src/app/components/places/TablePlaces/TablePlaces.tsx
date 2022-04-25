@@ -13,6 +13,7 @@ const TablePlaces: React.FC<{ places: Place[] }> = ({ places }) => {
         dataSource={places}
         scroll={{ x: 1100 }}
         pagination={{ pageSize: 5 }}
+        rowKey="_id"
       />
     </div>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 // eslint-disable-next-line object-curly-newline
 import { Button, Form, Input, Select } from 'antd';
 import { FormPlaceProps } from './FormPlace.interfaces';
+import FormPlaceMap from './FormPlaceMap/FormPlaceMap';
 
 const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
   return (
@@ -74,7 +75,7 @@ const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
         name="coords"
         rules={[{ required: true, message: 'Ibicación es requerido' }]}
       >
-        Mapa
+        <FormPlaceMap />
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
