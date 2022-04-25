@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
@@ -14,7 +15,10 @@ import {
   inventoryStateType
 } from '../../domain/models/inventory';
 import RenderItem from '../../app/components/generic/render-item/RenderItem';
-import { FragmentBoxTable } from '../../app/context/inventory/BoxContext/BoxContext';
+import {
+  FragmentValue,
+  HandleButtons
+} from '../../app/context/inventory/BoxContext/BoxContext';
 import { stateCatalogType } from '../../domain/models/catalog';
 
 export const LIMIT_ROWS = 10;
@@ -287,36 +291,72 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
   },
   {
     title: 'Fragmentos',
-    dataIndex: 'fragment',
-    key: 'fragment',
-    width: 400,
-    render: (fragments: FragmentBoxTable[]) => (
-      <>
-        {fragments?.map(
-          ({ total, remaining, technical, unitOfMeasurement }) => {
-            const technicalString = technical ? `| ${technical}` : '';
-            const unitOfMeasurementString = unitOfMeasurement ?? '';
-
-            return (
-              <div>{` ${total} ${unitOfMeasurementString} | usado ${remaining} ${unitOfMeasurementString} ${technicalString}`}</div>
-            );
-          }
-        )}
-      </>
-    )
+    children: [
+      {
+        title: 'Total del fragmento',
+        dataIndex: 'totalFragment',
+        key: 'totalFragment',
+        width: 115,
+        className: 'fragment',
+        render: (totalFragments: FragmentValue[]) => (
+          <table>
+            <tbody>
+              {totalFragments?.map((total, index) => {
+                const value = `${total.value} ${total.unitOfMeasurement}`;
+                return <tr key={`row_total_${index}`}>{value}</tr>;
+              })}
+            </tbody>
+          </table>
+        )
+      },
+      {
+        title: 'Total usado del fragmento',
+        dataIndex: 'remainingFragment',
+        key: 'remainingFragment',
+        width: 115,
+        className: 'fragment',
+        render: (remainingFragment: FragmentValue[]) => (
+          <table>
+            <tbody>
+              {remainingFragment?.map((remaining, index) => {
+                const value = `${remaining.value} ${remaining.unitOfMeasurement}`;
+                return <tr key={`row_remaining_${index}`}>{value}</tr>;
+              })}
+            </tbody>
+          </table>
+        )
+      },
+      {
+        title: 'Técnico del fragmento',
+        dataIndex: 'technicalFragment',
+        key: 'technicalFragment',
+        width: 200,
+        className: 'fragment',
+        render: (technicalFragment: FragmentValue[]) => (
+          <table>
+            <tbody>
+              {technicalFragment?.map((technical, index) => {
+                const value = `${technical.value} ${technical.unitOfMeasurement}`;
+                return <tr key={`row_technical_${index}`}>{value}</tr>;
+              })}
+            </tbody>
+          </table>
+        )
+      }
+    ]
   },
   {
     title: '',
     dataIndex: 'buttons',
     key: 'buttons',
     width: 150,
-    render: () => {
+    render: ({ handleFragment, handleView }: HandleButtons) => {
       return (
         <Space>
-          <Button type="primary" size="small" onClick={() => {}}>
-            Fragmenta
+          <Button type="primary" size="small" onClick={handleFragment}>
+            Fragmentar
           </Button>
-          <Button type="primary" size="small">
+          <Button type="primary" size="small" onClick={handleView}>
             Ver
           </Button>
         </Space>

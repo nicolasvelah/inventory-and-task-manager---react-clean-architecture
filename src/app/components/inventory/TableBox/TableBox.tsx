@@ -13,6 +13,7 @@ const TableBox: React.FC = () => {
         columns={COLUMNS_TABLE_BOX}
         rowSelection={rowSelection}
         dataSource={dataTable}
+        bordered
         scroll={{ x: 1600, y: 450 }}
         pagination={{
           pageSize: 10

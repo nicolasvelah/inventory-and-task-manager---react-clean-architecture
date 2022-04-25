@@ -12,15 +12,25 @@ export interface FragmentBox {
   remaining: number;
   technical?: string;
 }
+export interface HandleButtons {
+  handleFragment: () => void;
+  handleView: () => void;
+}
 
-export type FragmentBoxTable = FragmentBox & { unitOfMeasurement?: string };
+export interface FragmentValue {
+  value: string;
+  unitOfMeasurement: string;
+}
 export interface DataTableBox {
   key: string;
   state: string;
   identifiers: DataCollectedBox;
   total: string;
-  fragment: FragmentBoxTable[];
+  totalFragment: FragmentValue[];
+  remainingFragment: FragmentValue[];
+  technicalFragment: FragmentValue[];
   remaining: string;
+  buttons: HandleButtons;
 }
 
 const INIT_STORE = {

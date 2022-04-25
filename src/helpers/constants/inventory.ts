@@ -12,7 +12,7 @@ type InventoryColorAndName = {
 
 type BoxColorAndName = {
   [K in stateCatalogType]: {
-    color: 'red' | 'green';
+    color: 'orange' | 'green';
     name: string;
   };
 };
@@ -44,11 +44,11 @@ export const INVENTORY_STATE_COLOR_AND_NAME: InventoryColorAndName = {
 
 export const BOX_STATE_COLOR_AND_NAME: BoxColorAndName = {
   empty: {
-    color: 'red',
-    name: 'Dañado'
+    color: 'orange',
+    name: 'Vacío'
   },
   stock: {
     color: 'green',
-    name: 'Dañado'
+    name: 'En Stock'
   }
 };
