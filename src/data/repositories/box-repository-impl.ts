@@ -1,7 +1,9 @@
 /* eslint-disable class-methods-use-this */
 
 import Box from '../../domain/models/boxes';
+import Fragments from '../../domain/models/fragment';
 import BoxRepository, {
+  RequestCreateFragment,
   ResponseBox
 } from '../../domain/repositories/box-repository';
 import { axiosRequest } from '../../utils/axios-util';
@@ -22,5 +24,15 @@ export default class BoxRepositoryImpl implements BoxRepository {
     return Promise.resolve({
       _id: '123'
     });
+  }
+
+  async createFragment(payload: RequestCreateFragment): Promise<Fragments[]> {
+    const axios = await axiosRequest();
+    const response = await axios.post<{ data: Fragments[] }>(
+      'api/v1/fragments',
+      payload
+    );
+
+    return response.data.data;
   }
 }

@@ -3,9 +3,11 @@ import { Button, Space } from 'antd';
 import HeaderList from '../../components/generic/header-list/HeaderList';
 import TableBox from '../../components/inventory/TableBox/TableBox';
 import useBoxContainer from './state/useBoxContainer';
+import FragmentBoxesModal from '../../components/box/FragmentBoxesModal/FragmentBoxesModal';
 
 const BoxContainer: React.FC = () => {
   const {
+    viewFragmentButton,
     actions: { handleChangeFilters }
   } = useBoxContainer();
 
@@ -19,6 +21,7 @@ const BoxContainer: React.FC = () => {
           />
 
           <Space>
+            {viewFragmentButton && <FragmentBoxesModal />}
             <Button>Excel</Button>
             <Button>Crear</Button>
           </Space>

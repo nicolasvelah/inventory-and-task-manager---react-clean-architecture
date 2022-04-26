@@ -12,11 +12,6 @@ export interface FragmentBox {
   remaining: number;
   technical?: string;
 }
-export interface HandleButtons {
-  handleFragment: () => void;
-  handleView: () => void;
-}
-
 export interface FragmentValue {
   value: string;
   unitOfMeasurement: string;
@@ -24,13 +19,14 @@ export interface FragmentValue {
 export interface DataTableBox {
   key: string;
   state: string;
+  name: string;
   identifiers: DataCollectedBox;
   total: string;
   totalFragment: FragmentValue[];
   remainingFragment: FragmentValue[];
   technicalFragment: FragmentValue[];
   remaining: string;
-  buttons: HandleButtons;
+  data: ResponseBox;
 }
 
 const INIT_STORE = {
@@ -38,8 +34,21 @@ const INIT_STORE = {
   setBoxList: (newBoxList: ResponseBox[]) => {},
   rowSelection: {
     selectedRowKeys: [] as string[],
-    onChange: (_: any, selectedRows: DataTableBox[]) => {}
-  }
+    onChange: (_: any, selectedRows: DataTableBox[]) => {},
+    getCheckboxProps: (record: DataTableBox) => ({
+      disabled: false as boolean | undefined
+    })
+  },
+  viewDrawer: false,
+  setViewDrawer: (view: boolean) => {},
+  itemSelected: null as DataTableBox | null,
+  setItemSelected: (item: DataTableBox | null) => {},
+  viewFragmentModal: false,
+  setViewFragmentModal: (view: boolean) => {},
+  itemsSelectedModal: [] as DataTableBox[],
+  setItemsSelectedModal: (items: DataTableBox[]) => {},
+  viewFragmentButton: false,
+  setViewFragmentButton: (view: boolean) => {}
 };
 
 type BoxStore = typeof INIT_STORE;
@@ -50,6 +59,29 @@ export const useBoxContext = () => useContext(BoxContext);
 export const BoxContextProvider: React.FC = ({ children }) => {
   const [boxList, setCurrentBoxList] = useState<ResponseBox[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
+  const [viewDrawer, setCurrentViewDrawer] = useState<boolean>(false);
+  const [itemSelected, setCurrentItemSelected] = useState<DataTableBox | null>(
+    null
+  );
+  const [viewFragmentModal, setCurrentViewFragmentModal] =
+    useState<boolean>(false);
+  const [itemsSelectedModal, setCurrentItemsSelectedModal] = useState<
+    DataTableBox[]
+  >([]);
+  const [viewFragmentButton, setCurrentViewFragmentButton] =
+    useState<boolean>(false);
+
+  const disableCheckBox = (item: DataTableBox) => {
+    const total = item.data.attributes.totalMaterial;
+
+    const remaining = item.totalFragment.reduce((accum, current) => {
+      return accum + (Number(current.value) ?? 0);
+    }, 0);
+
+    const maxToAssign = total - remaining;
+
+    return maxToAssign <= 0;
+  };
 
   return (
     <BoxContext.Provider
@@ -61,8 +93,34 @@ export const BoxContextProvider: React.FC = ({ children }) => {
         rowSelection: {
           selectedRowKeys,
           onChange: (_, selectedRows) => {
+            setCurrentViewFragmentButton(selectedRows.length > 0);
             setSelectedRowKeys(selectedRows.map((item) => item.key));
-          }
+            setCurrentItemsSelectedModal(selectedRows);
+          },
+          getCheckboxProps: (record: DataTableBox) => ({
+            disabled: disableCheckBox(record)
+          })
+        },
+        itemSelected,
+        setItemSelected: (item: DataTableBox | null) => {
+          setCurrentItemSelected(item);
+        },
+        viewDrawer,
+        setViewDrawer: (view: boolean) => {
+          setCurrentViewDrawer(view);
+        },
+
+        itemsSelectedModal,
+        setItemsSelectedModal: (items: DataTableBox[]) => {
+          setCurrentItemsSelectedModal(items);
+        },
+        viewFragmentModal,
+        setViewFragmentModal: (view: boolean) => {
+          setCurrentViewFragmentModal(view);
+        },
+        viewFragmentButton,
+        setViewFragmentButton: (view: boolean) => {
+          setCurrentViewFragmentButton(view);
         }
       }}
     >

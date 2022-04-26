@@ -51,7 +51,7 @@ const useTableBox = () => {
   };
 
   useEffect(() => {
-    const newData: DataTableBox[] = boxList.map((box, index) => {
+    const newData: DataTableBox[] = boxList.map((box) => {
       const { unitOfMeasurement } = box.attributes.device;
       const { total, remaining, technical } = getFragments(
         box.fragments,
@@ -59,8 +59,8 @@ const useTableBox = () => {
       );
 
       return {
-        // key: box.attributes.device._id,
-        key: `${index}-${box.attributes.device._id}`,
+        key: box.attributes._id,
+        name: box.attributes.device.device,
         identifiers: box.attributes.dataCollected ?? [],
         state: box.attributes.device.state ?? '',
         total: `${box.attributes?.totalMaterial ?? 0} ${
@@ -72,10 +72,7 @@ const useTableBox = () => {
         remainingFragment: remaining,
         technicalFragment: technical,
         totalFragment: total,
-        buttons: {
-          handleFragment: () => {},
-          handleView: () => {}
-        }
+        data: box
       };
     });
 
