@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, ReactElement } from 'react';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
 import {
-  Input, Form
+  InputNumber, Form, Input
 } from 'antd';
 import Marker from './Marker';
 
@@ -13,13 +13,28 @@ interface MapProps extends google.maps.MapOptions {
   onIdle?: (map: google.maps.Map) => void;
 }
 
-const FormPlaceMap: React.FC = () => {
+const FormPlaceMap: React.FC<{setLatParent: (d:any) => any, setLngParent: (d:any) => any}> =
+({ setLatParent, setLngParent }) => {
   const [clicks, setClicks] = React.useState<google.maps.LatLng[]>([]);
   const [zoom, setZoom] = React.useState(6); // initial zoom
   const [center, setCenter] = React.useState<google.maps.LatLngLiteral>({
     lat: 19.432608,
     lng: -99.133209,
   });
+  const [lat, setLat] = React.useState(19.432608);
+  const [lng, setLng] = React.useState(-99.133209);
+
+  const setDataFromInput = async (val:number, type: 'lat' | 'lng') => {
+    if (type === 'lat') {
+      await setLat(val);
+      setLatParent(val);
+      setCenter({ ...center, lat: val });
+    } else {
+      await setLng(val);
+      setLngParent(val);
+      setCenter({ ...center, lng: val });
+    }
+  };
 
   const Map: React.FC<MapProps> = ({
     onClick,
@@ -47,55 +62,63 @@ const FormPlaceMap: React.FC = () => {
         if (onClick) {
           map.addListener('click', onClick);
         }
-
-        if (onIdle) {
-          map.addListener('idle', () => onIdle(map));
-        }
       }
     }, [map, onClick, onIdle]);
 
     return (
       <>
-        <Form.Item
-          name="lat"
-          rules={[{ required: true, message: 'lat es requerido' }]}
-        >
-          <Input
-            value={center.lat}
-            placeholder="Latitud"
-            onChange={(event:any) => setCenter({ ...center, lat: Number(event.target.value) })}
-          />
-        </Form.Item>
-        <Form.Item
-          name="lng"
-          rules={[{ required: true, message: 'lng es requerido' }]}
-        >
-          <Input
-            value={center.lng}
-            placeholder="Logitud"
-            onChange={(event) => setCenter({ ...center, lng: Number(event.target.value) })}
-          />
-        </Form.Item>
-        <div ref={ref} style={style} />
-        {React.Children.map(children, (child) => {
-          if (React.isValidElement(child)) {
-            return React.cloneElement(child, { map });
-          }
-          return null;
-        })}
+        <Input.Group compact>
+          <Form.Item
+            name="lat"
+            label="Lat"
+          >
+            <InputNumber
+              size="large"
+              defaultValue={lat}
+              placeholder="Latitud"
+              style={{ width: 200 }}
+              onChange={(event:number) => setDataFromInput(
+                event, 'lat'
+              )}
+            />
+          </Form.Item>
+          <Form.Item
+            name="lng"
+            label="Lng"
+          >
+            <InputNumber
+              size="large"
+              defaultValue={lng}
+              placeholder="Logitud"
+              style={{ width: 200 }}
+              onChange={(event:number) => setDataFromInput(
+                event, 'lng'
+              )}
+            />
+          </Form.Item>
+          <div ref={ref} style={style} />
+          {React.Children.map(children, (child) => {
+            if (React.isValidElement(child)) {
+              return React.cloneElement(child, { map });
+            }
+            return null;
+          })}
+        </Input.Group>
       </>
     );
   };
 
   const onClick = (e: google.maps.MapMouseEvent) => {
-    console.log('onClick');
     setClicks([...clicks, e.latLng!]);
   };
 
-  const onIdle = (m: google.maps.Map) => {
-    console.log('onIdle');
-    setZoom(m.getZoom()!);
-    setCenter(m.getCenter()!.toJSON());
+  const setGobalPosition = async (position:any) => {
+    await setCenter(position);
+    await setZoom(14);
+    setLatParent(position.lat);
+    setLat(position.lat);
+    setLngParent(position.lat);
+    setLng(position.lng);
   };
 
   const render = (status: Status): ReactElement => {
@@ -112,7 +135,7 @@ const FormPlaceMap: React.FC = () => {
   return (
     <Wrapper apiKey="AIzaSyCWbi6zMNDNlTuo-2ZE-sVsHVuN_NRa3U0" render={render}>
       <Map style={{ width: '100%', height: '300px' }} onClick={onClick} center={center} zoom={zoom}>
-        <Marker position={center} />
+        <Marker position={center} draggable setGobalPosition={setGobalPosition} />
       </Map>
     </Wrapper>
   );

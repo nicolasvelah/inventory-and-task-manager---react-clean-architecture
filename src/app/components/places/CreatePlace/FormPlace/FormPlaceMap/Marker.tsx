@@ -1,8 +1,15 @@
 /* global google */
 import React from 'react';
 
-const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
+const Marker: React.FC<google.maps.MarkerOptions &
+// eslint-disable-next-line no-unused-vars
+{setGobalPosition: (d:any) => any}> = (options) => {
   const [marker, setMarker] = React.useState<google.maps.Marker>();
+
+  const setPosition = () => {
+    const position = marker?.getPosition();
+    options.setGobalPosition(position);
+  };
 
   React.useEffect(() => {
     if (!marker) {
@@ -20,6 +27,7 @@ const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
   React.useEffect(() => {
     if (marker) {
       marker.setOptions(options);
+      marker.addListener('dragend', setPosition);
     }
   }, [marker, options]);
 

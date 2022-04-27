@@ -3,14 +3,20 @@ import React from 'react';
 import { Button, Form, Input, Select } from 'antd';
 import { FormPlaceProps } from './FormPlace.interfaces';
 import FormPlaceMap from './FormPlaceMap/FormPlaceMap';
+import useFormPlaceState from './state/useFormPlaceState';
 
 const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
+  const { onFinishForm } = useFormPlaceState();
+
+  const [lat, setLat] = React.useState(0);
+  const [lng, setLng] = React.useState(0);
+
   return (
     <Form
       initialValues={initValues}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 14 }}
-      onFinish={() => {}}
+      onFinish={(values:any) => onFinishForm(values, lat, lng)}
       onValuesChange={() => {}}
       className="form"
     >
@@ -72,10 +78,8 @@ const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
       </Form.Item>
       <Form.Item
         label="Ubicación"
-        name="coords"
-        rules={[{ required: true, message: 'Ibicación es requerido' }]}
       >
-        <FormPlaceMap />
+        <FormPlaceMap setLatParent={setLat} setLngParent={setLng} />
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
