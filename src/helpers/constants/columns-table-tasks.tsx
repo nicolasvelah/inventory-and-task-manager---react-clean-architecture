@@ -15,10 +15,7 @@ import {
   inventoryStateType
 } from '../../domain/models/inventory';
 import RenderItem from '../../app/components/generic/render-item/RenderItem';
-import {
-  FragmentValue,
-  HandleButtons
-} from '../../app/context/inventory/BoxContext/BoxContext';
+import { FragmentValue } from '../../app/context/inventory/BoxContext/BoxContext';
 import { stateCatalogType } from '../../domain/models/catalog';
 
 export const LIMIT_ROWS = 10;
@@ -254,6 +251,11 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
     width: 250
   },
   {
+    title: 'Nombre',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
     title: 'Estado',
     dataIndex: 'state',
     key: 'state',
@@ -344,24 +346,6 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
         )
       }
     ]
-  },
-  {
-    title: '',
-    dataIndex: 'buttons',
-    key: 'buttons',
-    width: 150,
-    render: ({ handleFragment, handleView }: HandleButtons) => {
-      return (
-        <Space>
-          <Button type="primary" size="small" onClick={handleFragment}>
-            Fragmentar
-          </Button>
-          <Button type="primary" size="small" onClick={handleView}>
-            Ver
-          </Button>
-        </Space>
-      );
-    }
   }
 ];
 

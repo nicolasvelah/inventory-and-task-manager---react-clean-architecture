@@ -1,6 +1,7 @@
 /* eslint-disable semi */
 import Box from '../models/boxes';
 import Catalog from '../models/catalog';
+import Fragments from '../models/fragment';
 import Inventory from '../models/inventory';
 
 export interface DataCollectedBox {
@@ -24,12 +25,23 @@ export interface ResponseBox {
     device: Catalog;
     remainingMaterial: number;
     totalMaterial: number;
+    _id: string;
   };
   fragments: FragmentBox[];
+}
+
+export interface CreateFragment {
+  boxId: string;
+  userId: string;
+  quantity: number;
+}
+export interface RequestCreateFragment {
+  data: CreateFragment[];
 }
 
 /* eslint-disable no-unused-vars */
 export default interface BoxRepository {
   create(data: Partial<Box>): Promise<Box>;
   getAll(): Promise<ResponseBox[]>;
+  createFragment(payload: RequestCreateFragment): Promise<Fragments[]>;
 }

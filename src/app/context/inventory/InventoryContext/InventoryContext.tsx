@@ -50,7 +50,7 @@ export const InventoryContextProvider: React.FC = ({ children }) => {
             setSelectedRowKeys(selectedRows.map((item) => item.key));
           },
           getCheckboxProps: (record: DataTableInventory) => ({
-            disabled: record.place === '' || !record.place
+            disabled: record.place !== '' && !!record.place
           })
         }
       }}

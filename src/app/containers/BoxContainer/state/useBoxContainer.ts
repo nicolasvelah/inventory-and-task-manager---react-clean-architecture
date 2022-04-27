@@ -4,7 +4,7 @@ import { FiltersValue } from '../../../components/generic/header-list/HeaderList
 import { useBoxContext } from '../../../context/inventory/BoxContext/BoxContext';
 
 const useBoxContainer = () => {
-  const { setBoxList } = useBoxContext();
+  const { setBoxList, viewFragmentButton } = useBoxContext();
 
   const { boxRepository } = repository;
 
@@ -28,6 +28,7 @@ const useBoxContainer = () => {
   };
 
   return {
+    viewFragmentButton,
     actions: {
       handleChangeFilters
     }
