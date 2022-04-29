@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { message } from 'antd';
 import { repository } from '../../../../../../dependecy-injection';
+import { usePlacesContext } from '../../../../../context/place/PlacesContext';
 
 import { UseFormPlaceState, ValuesFormPlace } from './useFormPlaceState.interfaces';
 
 const useFormPlaceState: UseFormPlaceState = () => {
   const { placesRepository } = repository;
+  const { places, setPlaces } = usePlacesContext();
+
   const onFinishForm = async (values: ValuesFormPlace, lat: number, lng: number) => {
     const hide = message.loading('Creando Sitio ...');
     const {
@@ -25,9 +28,11 @@ const useFormPlaceState: UseFormPlaceState = () => {
       };
       console.log({ payloadCreatePlace });
 
-      const place = await placesRepository?.createPlace(payloadCreatePlace);
-      if (place) {
-        // llego
+      const newPlace = await placesRepository?.createPlace(payloadCreatePlace);
+      if (newPlace) {
+        console.log({ places });
+        setPlaces([newPlace, ...places]);
+        console.log({ places });
       }
 
       message.success('Sitio creada');

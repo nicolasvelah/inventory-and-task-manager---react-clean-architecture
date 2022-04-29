@@ -2,6 +2,7 @@
 /* eslint-disable semi */
 /* eslint-disable no-unused-vars */
 import Inventory from './inventory';
+import Point from './point';
 
 enum PlaceType {
   ATM,
@@ -13,7 +14,7 @@ export const PLACE_TYPE_LIST = Object.keys(PlaceType);
 export default interface Place {
   _id: string;
   name: string;
-  coords: number[];
+  coords: Point;
   mainStreet: string;
   addressNumber: string;
   colony: string;
