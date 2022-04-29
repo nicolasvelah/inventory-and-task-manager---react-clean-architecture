@@ -42,5 +42,5 @@ export default interface Catalog {
   type?: typeCatalogType;
   createdAt?: string;
   updatedAt?: string;
-  categoryId: Category | string;
+  categoryId: Category;
 }

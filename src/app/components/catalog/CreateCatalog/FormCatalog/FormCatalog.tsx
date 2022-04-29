@@ -1,10 +1,11 @@
 import React from 'react';
 // eslint-disable-next-line object-curly-newline
-import { Button, Form, Select } from 'antd';
+import { Button, Form, Select, Input } from 'antd';
 import useFormCatalogState from './state/useFormCatalogState';
 
 const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
   const {
+    categories,
     actions: { onFinishForm, onValuesChange }
   } = useFormCatalogState();
 
@@ -18,28 +19,22 @@ const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
       className="form"
     >
       <Form.Item
-        label="Estado"
-        name="state"
-        rules={[{ required: true, message: 'Estado es requerido' }]}
+        label="Nombre"
+        name="device"
+        rules={[{ required: true, message: 'Nombre es requerido' }]}
       >
-        <Select showSearch onSearch={() => {}}>
-          {([] as { _id: string }[]).map((item) => (
-            <Select.Option key={item._id} value={item._id}>
-              {item}
-            </Select.Option>
-          ))}
-        </Select>
+        <Input />
       </Form.Item>
 
       <Form.Item
-        label="Equipo"
-        name="device"
-        rules={[{ required: true, message: 'Equipo es requerido' }]}
+        label="Categoría"
+        name="categoryId"
+        rules={[{ required: true, message: 'Categoría es requerida' }]}
       >
         <Select showSearch onSearch={() => {}}>
-          {([] as { _id: string }[]).map((item) => (
+          {categories.map((item) => (
             <Select.Option key={item._id} value={item._id}>
-              {item}
+              {item.name}
             </Select.Option>
           ))}
         </Select>
@@ -50,13 +45,7 @@ const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
         name="brand"
         rules={[{ required: true, message: 'Marca es requerido' }]}
       >
-        <Select showSearch onSearch={() => {}}>
-          {([] as { _id: string }[]).map((item) => (
-            <Select.Option key={item._id} value={item._id}>
-              {item}
-            </Select.Option>
-          ))}
-        </Select>
+        <Input />
       </Form.Item>
 
       <Form.Item
@@ -64,13 +53,7 @@ const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
         name="referenceModel"
         rules={[{ required: true, message: 'Modelo es requerido' }]}
       >
-        <Select showSearch onSearch={() => {}}>
-          {([] as { _id: string }[]).map((item) => (
-            <Select.Option key={item._id} value={item._id}>
-              {item}
-            </Select.Option>
-          ))}
-        </Select>
+        <Input />
       </Form.Item>
 
       <Form.Item
@@ -79,25 +62,42 @@ const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
         rules={[{ required: true, message: 'Tipo es requerido' }]}
       >
         <Select showSearch onSearch={() => {}}>
-          {([] as { _id: string }[]).map((item) => (
-            <Select.Option key={item._id} value={item._id}>
-              {item}
-            </Select.Option>
-          ))}
+          <Select.Option value="controlled">
+            controlado
+          </Select.Option>
+          <Select.Option value="notControlled">
+            No controlado
+          </Select.Option>
         </Select>
       </Form.Item>
 
       <Form.Item
-        label="Unidad"
+        label="Unidad de medida"
         name="unitOfMeasurement"
-        rules={[{ required: true, message: 'Unidad es requerida' }]}
+        rules={[{ required: true, message: 'Unidad de medida es requerido' }]}
       >
         <Select showSearch onSearch={() => {}}>
-          {([] as { _id: string }[]).map((item) => (
-            <Select.Option key={item._id} value={item._id}>
-              {item}
-            </Select.Option>
-          ))}
+          <Select.Option value="metros">
+            metros
+          </Select.Option>
+          <Select.Option value="unidades">
+            unidades
+          </Select.Option>
+        </Select>
+      </Form.Item>
+
+      <Form.Item
+        label="Tipo de lugar"
+        name="typePlace"
+        rules={[{ required: true, message: 'Tipo de lugar es requerida' }]}
+      >
+        <Select showSearch onSearch={() => {}}>
+          <Select.Option value="ATM">
+            ATM
+          </Select.Option>
+          <Select.Option value="sucursal">
+            Sucursal
+          </Select.Option>
         </Select>
       </Form.Item>
 

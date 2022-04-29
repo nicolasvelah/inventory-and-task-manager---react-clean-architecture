@@ -6,7 +6,6 @@ import useCatalogTable from './state/useCatalogTable';
 
 const TableCatalog: React.FC = () => {
   const { dataTable } = useCatalogTable();
-
   return (
     <div>
       <Table

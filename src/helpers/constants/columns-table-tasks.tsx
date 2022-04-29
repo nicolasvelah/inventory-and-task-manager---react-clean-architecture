@@ -135,9 +135,14 @@ export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
     key: 'model'
   },
   {
-    title: 'Interfaz',
-    dataIndex: 'interface',
-    key: 'interface'
+    title: 'Categoría',
+    dataIndex: 'category',
+    key: 'category'
+  },
+  {
+    title: 'Descripción categoría',
+    dataIndex: 'categoryDescription',
+    key: 'categoryDescription'
   },
   {
     title: 'Tpipo de sitio',
