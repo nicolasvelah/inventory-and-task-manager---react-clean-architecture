@@ -250,8 +250,8 @@ export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
     key: 'identifiers',
     render: (dataColected?: DataCollectedInventory[]) => (
       <>
-        {dataColected?.map(({ name, value }) => (
-          <RenderItem label={name} value={value} />
+        {dataColected?.map(({ name, value }, index) => (
+          <RenderItem label={name} value={value} key={index} />
         ))}
       </>
     )

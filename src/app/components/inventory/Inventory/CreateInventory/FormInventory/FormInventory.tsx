@@ -1,12 +1,14 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 // eslint-disable-next-line object-curly-newline
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form, Input, Select, Space } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import useFormInventoryState from './state/useFormInventoryState';
 
 const FormPlace: React.FC<{
   initValues?: object;
 }> = ({ initValues }) => {
-  const { onFinishForm } = useFormInventoryState();
+  const { catalog, onFinishForm } = useFormInventoryState();
 
   return (
     <Form
@@ -22,7 +24,13 @@ const FormPlace: React.FC<{
         name="catalogId"
         rules={[{ required: true, message: 'catálogo es requerido' }]}
       >
-        <Input />
+        <Select showSearch onSearch={() => {}}>
+          {catalog.map((item) => (
+            <Select.Option key={item._id} value={item._id}>
+              {item.device}
+            </Select.Option>
+          ))}
+        </Select>
       </Form.Item>
       <Form.Item
         label="Estado"
@@ -44,34 +52,47 @@ const FormPlace: React.FC<{
           </Select.Option>
         </Select>
       </Form.Item>
-      <Form.Item
-        label="Técnico"
-        name="userId"
-        rules={[{ required: true, message: 'Técnico es requerido' }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Identificadores"
+      <Form.List
         name="dataCollected"
-        rules={[{ required: true, message: 'Identificadores es requerido' }]}
+        rules={[{
+          validator: async (_, names) => {
+            if (!names || names.length < 1) {
+              return Promise.reject(new Error('At least 1 identifier'));
+            }
+            return false;
+          },
+          message: 'Al menos un identifcador único es requerido'
+        }]}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Fotos"
-        name="photos"
-        rules={[{ required: true, message: 'Fotos es requerido' }]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Municipio"
-        name="municipality"
-        rules={[{ required: true, message: 'Municipio es requerido' }]}
-      >
-        <Input />
-      </Form.Item>
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => (
+              <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                <Form.Item
+                  {...restField}
+                  name={[name, 'name']}
+                  rules={[{ required: true, message: 'Nombre del identificador es requerido' }]}
+                >
+                  <Input placeholder="Nombre del identificador." />
+                </Form.Item>
+                <Form.Item
+                  {...restField}
+                  name={[name, 'value']}
+                  rules={[{ required: true, message: 'Valor del identificador es requerido' }]}
+                >
+                  <Input placeholder="Valor del identificador" />
+                </Form.Item>
+                <MinusCircleOutlined onClick={() => remove(name)} />
+              </Space>
+            ))}
+            <Form.Item>
+              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                Añadir identifcador único
+              </Button>
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
           {!initValues ? 'GUARDAR' : 'Editar'}

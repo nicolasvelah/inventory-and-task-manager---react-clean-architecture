@@ -1,12 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { message } from 'antd';
+import { useEffect, useState } from 'react';
 import { repository } from '../../../../../../../dependecy-injection';
+import Catalog from '../../../../../../../domain/models/catalog';
 import { useInventoryContext } from '../../../../../../context/inventory/InventoryContext/InventoryContext';
 
 import { UseFormInventoryState, ValuesFormInventory } from './useFormInventoryState.interface';
 
 const useFormInventoryState: UseFormInventoryState = () => {
-  const { inventoryRepository } = repository;
+  const [catalog, setCatalog] = useState<Catalog[]>([]);
+  const { inventoryRepository, catalogRepository } = repository;
   const { inventoryList, setInventory } = useInventoryContext();
 
   const onFinishForm = async (values: ValuesFormInventory) => {
@@ -26,7 +29,7 @@ const useFormInventoryState: UseFormInventoryState = () => {
       const newInventory = await inventoryRepository?.createInventory(payloadCreateInventory);
       if (newInventory) {
         console.log({ inventoryList });
-        setInventory([newInventory, ...inventoryList]);
+        setInventory([newInventory[0], ...inventoryList]);
         console.log({ inventoryList });
       }
 
@@ -38,7 +41,17 @@ const useFormInventoryState: UseFormInventoryState = () => {
     }
   };
 
+  useEffect(() => {
+    if (catalog.length === 0) {
+      catalogRepository?.getCatalogs()
+        .then((catalogData) => {
+          setCatalog(catalogData);
+        });
+    }
+  }, [catalog]);
+
   return {
+    catalog,
     onFinishForm
   };
 };

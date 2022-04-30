@@ -26,13 +26,10 @@ const useFormPlaceState: UseFormPlaceState = () => {
         state: 'active',
         type: typePlace
       };
-      console.log({ payloadCreatePlace });
 
       const newPlace = await placesRepository?.createPlace(payloadCreatePlace);
       if (newPlace) {
-        console.log({ places });
         setPlaces([newPlace, ...places]);
-        console.log({ places });
       }
 
       message.success('Sitio creada');

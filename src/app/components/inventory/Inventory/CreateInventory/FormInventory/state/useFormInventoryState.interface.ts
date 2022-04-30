@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 
+import Catalog from '../../../../../../../domain/models/catalog';
+
 export type UseFormInventoryState = () => {
+  catalog: Catalog[];
   onFinishForm: (values: ValuesFormInventory) => Promise<void>; };
 
 export interface ValuesFormInventory {

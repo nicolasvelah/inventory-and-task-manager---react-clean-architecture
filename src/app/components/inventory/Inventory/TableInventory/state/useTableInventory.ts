@@ -21,10 +21,10 @@ const useTableInventory = () => {
       const device = inventory.device as Catalog;
       return {
         key: inventory._id,
-        name: device.device,
-        brand: device.brand,
-        referenceModel: device.referenceModel,
-        category: device.categoryId.name,
+        name: device ? device.device : 'no',
+        brand: device ? device.brand : 'no',
+        referenceModel: device ? device.referenceModel : 'no',
+        category: device ? device.categoryId.name : 'no',
         type: inventory.fragment ? 'No controlado' : 'Controlado',
         state: inventory.state,
         technical: user ? `${user.name} ${user.lastName}` : '',
