@@ -298,8 +298,8 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
     width: 200,
     render: (dataColected?: DataCollectedInventory[]) => (
       <>
-        {dataColected?.map(({ name, value }) => (
-          <RenderItem label={name} value={value} />
+        {dataColected?.map(({ name, value }, index) => (
+          <RenderItem label={name} value={value} key={index} />
         ))}
       </>
     )
@@ -330,7 +330,7 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
             <tbody>
               {totalFragments?.map((total, index) => {
                 const value = `${total.value} ${total.unitOfMeasurement}`;
-                return <tr key={`row_total_${index}`}>{value}</tr>;
+                return <tr key={`row_total_${index}`}><td>{value}</td></tr>;
               })}
             </tbody>
           </table>
@@ -347,7 +347,7 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
             <tbody>
               {remainingFragment?.map((remaining, index) => {
                 const value = `${remaining.value} ${remaining.unitOfMeasurement}`;
-                return <tr key={`row_remaining_${index}`}>{value}</tr>;
+                return <tr key={`row_remaining_${index}`}><td>{value}</td></tr>;
               })}
             </tbody>
           </table>
@@ -364,7 +364,7 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
             <tbody>
               {technicalFragment?.map((technical, index) => {
                 const value = `${technical.value} ${technical.unitOfMeasurement}`;
-                return <tr key={`row_technical_${index}`}>{value}</tr>;
+                return <tr key={`row_technical_${index}`}><td>{value}</td></tr>;
               })}
             </tbody>
           </table>
