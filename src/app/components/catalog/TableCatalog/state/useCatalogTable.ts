@@ -18,7 +18,7 @@ const useCatalogTable: UseCatalogTable = () => {
       key: catalog._id,
       device: catalog.device,
       brand: catalog.brand,
-      model: '', // TODO: Verify parameter
+      model: catalog.referenceModel,
       interface: '', // TODO: Verify parameter
       placeType: '', // TODO: Verify parameter
       type:

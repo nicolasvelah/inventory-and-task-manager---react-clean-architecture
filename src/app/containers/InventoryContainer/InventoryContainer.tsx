@@ -4,6 +4,7 @@ import useIventory from './state/useInventory';
 import HeaderList from '../../components/generic/header-list/HeaderList';
 import TableInventory from '../../components/inventory/Inventory/TableInventory/TableInventory';
 import ModalLinkedInventoryTechnical from '../../components/inventory/Inventory/ModalLinkedInventoryTechnical/ModalLinkedInventoryTechnical';
+import CreateInventory from '../../components/inventory/Inventory/CreateInventory/CreateInventory';
 
 const InventoryContainer: React.FC = () => {
   const {
@@ -23,7 +24,7 @@ const InventoryContainer: React.FC = () => {
         <Space>
           {activateButton && <ModalLinkedInventoryTechnical />}
           <Button>Excel</Button>
-          <Button>Crear</Button>
+          <CreateInventory />
         </Space>
       </div>
       <TableInventory />

@@ -41,3 +41,10 @@ export default interface Inventory {
   photos?: string[];
   dataCollected?: DataCollectedInventory[];
 }
+
+export interface PayloadCreateInventory {
+    catalogId: string;
+    state: 'free' | 'damaged' | 'onManteince' | 'unInstalled';
+    userId: string;
+    dataCollected: DataCollectedInventory[]
+}

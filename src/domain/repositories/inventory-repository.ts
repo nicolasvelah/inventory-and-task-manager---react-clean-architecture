@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import Inventory from '../models/inventory';
+import Inventory, { PayloadCreateInventory } from '../models/inventory';
 
 export interface PayloadAssingUserItem {
   id: string;
@@ -8,6 +8,7 @@ export interface PayloadAssingUserItem {
 
 /* eslint-disable semi */
 export default interface InventoryRepository {
+  createInventory(payload: PayloadCreateInventory): Promise<Inventory>;
   getAll(): Promise<Inventory[]>;
   assingUser(payload: PayloadAssingUserItem[]): Promise<Inventory[]>;
 }

@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import Inventory from '../../domain/models/inventory';
+import Inventory, { PayloadCreateInventory } from '../../domain/models/inventory';
 import InventoryRepository, {
   PayloadAssingUserItem
 } from '../../domain/repositories/inventory-repository';
@@ -23,5 +23,15 @@ export default class InventoryRepositoryImpl implements InventoryRepository {
     );
 
     return response.data;
+  }
+
+  async createInventory(payload: PayloadCreateInventory): Promise<Inventory> {
+    const axios = await axiosRequest();
+    const responseTasks = await axios.post<Inventory>(
+      '/api/v1/inventories',
+      payload
+    );
+
+    return responseTasks.data;
   }
 }
