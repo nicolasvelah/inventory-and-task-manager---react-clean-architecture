@@ -43,7 +43,7 @@ const useFormInventoryState: UseFormInventoryState = () => {
 
   useEffect(() => {
     if (catalog.length === 0) {
-      catalogRepository?.getCatalogs()
+      catalogRepository?.getCatalogs('controlled')
         .then((catalogData) => {
           setCatalog(catalogData);
         });

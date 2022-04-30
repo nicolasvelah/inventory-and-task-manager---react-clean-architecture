@@ -4,6 +4,6 @@ import Catalog, { CatalogRequest } from '../models/catalog';
 
 /* eslint-disable semi */
 export default interface CatalogRepository {
-  getCatalogs(): Promise<Catalog[]>;
+  getCatalogs(type?:'notControlled' | 'controlled'): Promise<Catalog[]>;
   createCatalog(payload:CatalogRequest): Promise<Catalog>;
 }

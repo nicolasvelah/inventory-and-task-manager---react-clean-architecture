@@ -44,7 +44,7 @@ const useFormBoxState: UseFormBoxState = () => {
 
   useEffect(() => {
     if (catalog.length === 0) {
-      catalogRepository?.getCatalogs()
+      catalogRepository?.getCatalogs('notControlled')
         .then((catalogData) => {
           setCatalog(catalogData);
         });

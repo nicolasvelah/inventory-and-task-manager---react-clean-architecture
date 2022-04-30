@@ -39,7 +39,6 @@ const FormBox: React.FC<{
       >
         <InputNumber
           min={1}
-          defaultValue={1}
         />
       </Form.Item>
       <Form.List
