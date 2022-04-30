@@ -199,6 +199,26 @@ export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
     width: 150
   },
   {
+    title: 'Nombre',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Marca',
+    dataIndex: 'brand',
+    key: 'brand'
+  },
+  {
+    title: 'Modelo',
+    dataIndex: 'referenceModel',
+    key: 'referenceModel'
+  },
+  {
+    title: 'Categoria',
+    dataIndex: 'category',
+    key: 'category'
+  },
+  {
     title: 'Tipo',
     dataIndex: 'type',
     key: 'type'

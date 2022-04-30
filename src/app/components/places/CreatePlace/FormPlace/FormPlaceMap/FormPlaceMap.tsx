@@ -133,7 +133,7 @@ const FormPlaceMap: React.FC<{setLatParent: (d:any) => any, setLngParent: (d:any
   };
 
   return (
-    <Wrapper apiKey="AIzaSyCWbi6zMNDNlTuo-2ZE-sVsHVuN_NRa3U0" render={render}>
+    <Wrapper apiKey={process.env.REACT_APP_MAPS_KEY ?? ''} render={render}>
       <Map style={{ width: '100%', height: '300px' }} onClick={onClick} center={center} zoom={zoom}>
         <Marker position={center} draggable setGobalPosition={setGobalPosition} />
       </Map>

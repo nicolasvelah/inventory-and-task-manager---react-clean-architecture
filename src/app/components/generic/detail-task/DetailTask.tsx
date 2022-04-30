@@ -79,7 +79,9 @@ const DetailTask: React.FC<{ task: Task | null }> = ({ task }) => {
     <div className="detail-task">
       <BlockPopover block={blockPlace} />
 
-      <div style={{ backgroundColor: '#d2d2d2', width: '100%', height: 175 }} />
+      <div>
+        Mapa
+      </div>
 
       <BlockPopover block={blockTechnical} />
 
