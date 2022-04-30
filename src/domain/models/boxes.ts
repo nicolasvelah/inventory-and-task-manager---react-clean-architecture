@@ -13,3 +13,9 @@ export default interface Box {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface PayloadCreateBox {
+  catalogId: string;
+  totalMaterial: number;
+  dataCollected: [JSON];
+}

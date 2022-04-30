@@ -41,7 +41,7 @@ export interface RequestCreateFragment {
 
 /* eslint-disable no-unused-vars */
 export default interface BoxRepository {
-  create(data: Partial<Box>): Promise<Box>;
+  createBox(data: Partial<Box>): Promise<ResponseBox>;
   getAll(): Promise<ResponseBox[]>;
   createFragment(payload: RequestCreateFragment): Promise<Fragments[]>;
 }

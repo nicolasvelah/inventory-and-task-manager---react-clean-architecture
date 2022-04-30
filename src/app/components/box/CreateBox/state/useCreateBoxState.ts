@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { UseCreateInventoryState } from './useCreateInventoryState.interfaces';
+import { UseCreateBoxState } from './useCreateBoxState.interface';
 
-const useCreateInventoryState: UseCreateInventoryState = () => {
+const useCreateBoxState: UseCreateBoxState = () => {
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
 
   const handleCancel = () => {
@@ -20,4 +20,4 @@ const useCreateInventoryState: UseCreateInventoryState = () => {
   };
 };
 
-export default useCreateInventoryState;
+export default useCreateBoxState;
