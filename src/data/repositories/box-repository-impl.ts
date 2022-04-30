@@ -24,8 +24,9 @@ export default class BoxRepositoryImpl implements BoxRepository {
       '/api/v1/boxes',
       payload
     );
-
-    return response.data as unknown as ResponseBox;
+    console.log({ response });
+    const box = response.data as unknown as ResponseBox[];
+    return box[0] as ResponseBox;
   }
 
   async createFragment(payload: RequestCreateFragment): Promise<Fragments[]> {

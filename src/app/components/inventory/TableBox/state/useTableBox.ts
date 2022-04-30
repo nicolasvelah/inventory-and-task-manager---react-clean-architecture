@@ -57,7 +57,6 @@ const useTableBox = () => {
         box.fragments,
         unitOfMeasurement ?? ''
       );
-
       return {
         key: box.attributes._id,
         name: box.attributes.device.device,

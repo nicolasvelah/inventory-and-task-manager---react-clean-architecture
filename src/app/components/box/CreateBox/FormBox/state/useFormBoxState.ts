@@ -2,7 +2,7 @@
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { repository } from '../../../../../../dependecy-injection';
-import Box from '../../../../../../domain/models/boxes';
+import { PayloadCreateBox } from '../../../../../../domain/models/boxes';
 import Catalog from '../../../../../../domain/models/catalog';
 import { useBoxContext } from '../../../../../context/inventory/BoxContext/BoxContext';
 
@@ -19,7 +19,7 @@ const useFormBoxState: UseFormBoxState = () => {
       catalogId, totalMaterial, dataCollected
     } = values;
     try {
-      const payloadCreateBox = {
+      const payloadCreateBox: PayloadCreateBox = {
         catalogId,
         totalMaterial,
         dataCollected,
@@ -27,10 +27,10 @@ const useFormBoxState: UseFormBoxState = () => {
       };
       console.log({ payloadCreateBox });
 
-      const newBox = await boxRepository?.createBox(payloadCreateBox as unknown as Box);
+      const newBox = await boxRepository?.createBox(payloadCreateBox);
       if (newBox) {
-        console.log({ boxList });
-        setBoxList([newBox, ...boxList]);
+        console.log({ newBox });
+        await setBoxList([newBox, ...boxList]);
         console.log({ boxList });
       }
 
