@@ -27,6 +27,17 @@ export const COLUMNS_TABLE_TASKS: ColumnsType<any> = [
     key: 'key'
   },
   {
+    title: 'Estado',
+    dataIndex: 'closedDate',
+    key: 'state',
+    width: 100,
+    render: (closedDate: any) => (
+      <Tag color={closedDate ? 'red' : 'green'}>
+        {closedDate ? 'cerrada' : 'abierta'}
+      </Tag>
+    )
+  },
+  {
     title: 'Coordinador',
     dataIndex: 'coordinator',
     key: 'coordinator'

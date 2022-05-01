@@ -19,5 +19,5 @@
       "node_modules/@types",
     ]
   },
-  "include": ["./src/**/*.ts", "./src/**/*.test.tsx", "src/utils/menu-items-list.tsx", "src/helpers/constants/columns-table-tasks.tsx"]
+  "include": ["./src/**/*.ts", "./src/**/*.test.tsx", "src/utils/menu-items-list.tsx", "src/helpers/constants/columns-table-tasks.tsx", "src/app/components/task/list/ExportCsv/ExportCsv.tsx"]
 }
