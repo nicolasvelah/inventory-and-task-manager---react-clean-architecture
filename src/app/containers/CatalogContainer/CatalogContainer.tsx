@@ -1,10 +1,10 @@
 import React from 'react';
-import { Button } from 'antd';
 
 import HeaderList from '../../components/generic/header-list/HeaderList';
 import TableCatalog from '../../components/catalog/TableCatalog/TableCatalog';
 import useCatalog from './state/useCatalog';
 import CreateCatal from '../../components/catalog/CreateCatalog/CreateCatalog';
+import ExportCsv from '../../components/catalog/ExportCsv/ExportCsv';
 
 const CatalogContainer: React.FC = () => {
   const {
@@ -12,7 +12,7 @@ const CatalogContainer: React.FC = () => {
   } = useCatalog();
   return (
     <div>
-      <div className="header">
+      <div className="d-flex">
         <div className="header-first-block">
           <HeaderList
             handleChangeFilters={handleChangeFilters}
@@ -20,8 +20,8 @@ const CatalogContainer: React.FC = () => {
             placeHolder="Buscar catálogo"
           />
         </div>
-        <div>
-          <Button>Excel</Button>
+        <div className="m-l-auto">
+          <ExportCsv />
           <CreateCatal />
         </div>
       </div>

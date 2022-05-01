@@ -5,9 +5,9 @@ import Task from '../../../../../../domain/models/task';
 import { getValue } from '../../../../../../utils/get-value';
 import { momentFormat } from '../../../../../../utils/moment-utils';
 import { useTaskListContext } from '../../../../../context/task/TaskListContext';
-import { DataTaskExcel, UseExportCsv } from '../../TableTasks/state/useTasks.interfaces';
+import { DataTaskExcel, UseExportCsv } from './useExportCsv.interface';
 
-const useTasksTable: UseExportCsv = () => {
+const useExportCsv: UseExportCsv = () => {
   const [data, setData] = useState<DataTaskExcel[]>([]);
 
   // eslint-disable-next-line object-curly-newline
@@ -52,4 +52,4 @@ const useTasksTable: UseExportCsv = () => {
   };
 };
 
-export default useTasksTable;
+export default useExportCsv;

@@ -17,6 +17,7 @@ import 'antd/dist/antd.css';
 import { UserContextProvider } from './context/global/UserGlobalContext';
 import NotFound from './pages/not-found/NotFound';
 import UserPage from './pages/user/UserPage';
+import '../assets/et-styles.scss';
 
 function App() {
   return (

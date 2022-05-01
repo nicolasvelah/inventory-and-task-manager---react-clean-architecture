@@ -40,7 +40,7 @@ const ExportCsv: React.FC = () => {
 
   return (
     <>
-      <CSVLink data={csvData}>CSV</CSVLink>
+      <CSVLink filename="tareas.csv" data={csvData}>CSV</CSVLink>
     </>
   );
 };

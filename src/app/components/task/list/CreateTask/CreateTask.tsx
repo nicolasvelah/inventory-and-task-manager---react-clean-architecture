@@ -12,7 +12,7 @@ const CreateTask: React.FC = () => {
 
   return (
     <>
-      <Button type="primary" onClick={handleOpen}>
+      <Button type="primary" onClick={handleOpen} className="m-l-20">
         Crear
       </Button>
       <Modal

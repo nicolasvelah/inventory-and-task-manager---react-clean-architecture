@@ -1,10 +1,11 @@
 import React from 'react';
-import { Button, Space } from 'antd';
+import { Space } from 'antd';
 import HeaderList from '../../components/generic/header-list/HeaderList';
 import TableBox from '../../components/inventory/TableBox/TableBox';
 import useBoxContainer from './state/useBoxContainer';
 import FragmentBoxesModal from '../../components/box/FragmentBoxesModal/FragmentBoxesModal';
 import CreateBox from '../../components/box/CreateBox/CreateBox';
+import ExportCsv from '../../components/box/ExportCsv/ExportCsv';
 
 const BoxContainer: React.FC = () => {
   const {
@@ -23,7 +24,7 @@ const BoxContainer: React.FC = () => {
 
           <Space>
             {viewFragmentButton && <FragmentBoxesModal />}
-            <Button>Excel</Button>
+            <ExportCsv />
             <CreateBox />
           </Space>
         </Space>

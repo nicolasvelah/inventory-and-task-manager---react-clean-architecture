@@ -156,7 +156,7 @@ export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
     key: 'categoryDescription'
   },
   {
-    title: 'Tpipo de sitio',
+    title: 'Tipo de sitio',
     dataIndex: 'placeType',
     key: 'placeType',
     width: 150
