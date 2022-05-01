@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
+import { Popover } from 'antd';
 import Task from '../../../../domain/models/task';
 import BlockPopover from './block-popover/BlockPopover';
 import RenderItem from '../render-item/RenderItem';
@@ -9,6 +10,7 @@ import { localDate } from '../../../../utils/moment-utils';
 import './detail-task.scss';
 import StateTask from './state-task/StateTask';
 import { getValue } from '../../../../utils/get-value';
+import DetailMap from './map/detailMap';
 
 const DetailTask: React.FC<{ task: Task | null }> = ({ task }) => {
   if (!task) return null;
@@ -38,7 +40,7 @@ const DetailTask: React.FC<{ task: Task | null }> = ({ task }) => {
       {
         label: 'Estado',
         value: getValue(task.place, 'state') ?? ''
-      }
+      },
     ],
     renderItems: [
       { label: 'Tarea', value: getValue(task.place, 'name') ?? '' },
@@ -75,14 +77,20 @@ const DetailTask: React.FC<{ task: Task | null }> = ({ task }) => {
     ]
   };
 
+  const certificatePhoto = task.certificatePhoto ? (
+    <img alt="photo_" src={task.certificatePhoto} style={{ width: 300 }} />
+  ) : undefined;
+
+  const emnployeePhoto = task.emnployeePhoto ? (
+    <img alt="photo_" src={task.emnployeePhoto} style={{ width: 300 }} />
+  ) : undefined;
+
   return (
     <div className="detail-task">
       <BlockPopover block={blockPlace} />
-
       <div>
-        Mapa
+        <DetailMap coordinates={getValue(task.place, 'coords')} />
       </div>
-
       <BlockPopover block={blockTechnical} />
 
       <div>
@@ -110,6 +118,38 @@ const DetailTask: React.FC<{ task: Task | null }> = ({ task }) => {
         photo={task.closedPhoto}
         coordinates={task.closedLatLong}
       />
+      <div className="container-assets" style={{ display: 'flex' }}>
+        {certificatePhoto ? (
+          <div className="photo" style={{ marginRight: 10 }}>
+            <div>Foto de Cerficado</div>
+            <div className="photo-img">
+              <Popover
+                placement="left"
+                content={certificatePhoto}
+                trigger="click"
+                zIndex={1000}
+              >
+                <img alt="photo_" style={{ width: 150 }} src={task.certificatePhoto} />
+              </Popover>
+            </div>
+          </div>
+        ) : null }
+        { emnployeePhoto ? (
+          <div className="photo">
+            <div>Foto de Empleado</div>
+            <div className="photo-img">
+              <Popover
+                placement="left"
+                content={emnployeePhoto}
+                trigger="click"
+                zIndex={1000}
+              >
+                <img alt="photo_" style={{ width: 150 }} src={task.emnployeePhoto} />
+              </Popover>
+            </div>
+          </div>
+        ) : null }
+      </div>
     </div>
   );
 };
