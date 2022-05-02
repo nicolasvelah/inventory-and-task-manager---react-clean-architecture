@@ -16,9 +16,10 @@ export interface CategoryTable {
   description: string;
   createdAt?: Date;
   updatedAt?: Date;
+  data: Category;
 }
 
 export interface PayloadCreateCategory {
-    name: string;
-    description: string;
+  name: string;
+  description: string;
 }

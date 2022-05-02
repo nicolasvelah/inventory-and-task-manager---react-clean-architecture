@@ -1,6 +1,10 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable object-curly-newline */
 /* eslint-disable import/prefer-default-export */
+import React from 'react';
 import { ColumnsTable } from '../../../../../domain/interfaces/columns-table';
 import { implementSearchFilter } from '../../../../../helpers/implement-filter';
+import { buildColumnEditAndDelete } from '../../../../../utils/columns';
 
 export const COLUMNS_TABLE_CATEGORIES: ColumnsTable = [
   {
@@ -34,4 +38,15 @@ export const getColumnsWithFilters = () => {
   });
 
   return columnsWithFilters;
+};
+
+export const getColumnsWithButtons = (args: {
+  handleEdit: (currentData: any) => void;
+  handleDelete: (id: string) => void;
+}) => {
+  const columns = getColumnsWithFilters();
+
+  columns.push(buildColumnEditAndDelete(args));
+
+  return columns;
 };
