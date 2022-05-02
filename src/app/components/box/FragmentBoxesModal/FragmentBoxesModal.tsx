@@ -45,8 +45,6 @@ const FragmentBoxesModal: React.FC<{
 
               const maxToAssign = total - remaining;
 
-              console.log('maxToAssign -->', maxToAssign);
-
               return (
                 <Card title={`${item.name} - ${item.key}`} key={item.key}>
                   <Form

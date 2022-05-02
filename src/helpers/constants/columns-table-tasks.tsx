@@ -279,6 +279,72 @@ export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
   }
 ];
 
+export const COLUMNS_TABLE_FRAGMENTS = [
+  {
+    title: 'Total del fragmento',
+    dataIndex: 'totalFragment',
+    key: 'totalFragment',
+    width: 115,
+    className: 'fragment',
+    render: (totalFragments: FragmentValue[]) => (
+      <table>
+        <tbody>
+          {totalFragments?.map((total, index) => {
+            const value = `${total.value} ${total.unitOfMeasurement}`;
+            return (
+              <tr key={`row_total_${index}`}>
+                <td>{value}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    )
+  },
+  {
+    title: 'Total usado del fragmento',
+    dataIndex: 'remainingFragment',
+    key: 'remainingFragment',
+    width: 115,
+    className: 'fragment',
+    render: (remainingFragment: FragmentValue[]) => (
+      <table>
+        <tbody>
+          {remainingFragment?.map((remaining, index) => {
+            const value = `${remaining.value} ${remaining.unitOfMeasurement}`;
+            return (
+              <tr key={`row_remaining_${index}`}>
+                <td>{value}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    )
+  },
+  {
+    title: 'Técnico del fragmento',
+    dataIndex: 'technicalFragment',
+    key: 'technicalFragment',
+    width: 200,
+    className: 'fragment',
+    render: (technicalFragment: FragmentValue[]) => (
+      <table>
+        <tbody>
+          {technicalFragment?.map((technical, index) => {
+            const value = `${technical.value} ${technical.unitOfMeasurement}`;
+            return (
+              <tr key={`row_technical_${index}`}>
+                <td>{value}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    )
+  }
+];
+
 export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
   {
     title: 'Id Equipo',
@@ -329,59 +395,7 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
   },
   {
     title: 'Fragmentos',
-    children: [
-      {
-        title: 'Total del fragmento',
-        dataIndex: 'totalFragment',
-        key: 'totalFragment',
-        width: 115,
-        className: 'fragment',
-        render: (totalFragments: FragmentValue[]) => (
-          <table>
-            <tbody>
-              {totalFragments?.map((total, index) => {
-                const value = `${total.value} ${total.unitOfMeasurement}`;
-                return <tr key={`row_total_${index}`}><td>{value}</td></tr>;
-              })}
-            </tbody>
-          </table>
-        )
-      },
-      {
-        title: 'Total usado del fragmento',
-        dataIndex: 'remainingFragment',
-        key: 'remainingFragment',
-        width: 115,
-        className: 'fragment',
-        render: (remainingFragment: FragmentValue[]) => (
-          <table>
-            <tbody>
-              {remainingFragment?.map((remaining, index) => {
-                const value = `${remaining.value} ${remaining.unitOfMeasurement}`;
-                return <tr key={`row_remaining_${index}`}><td>{value}</td></tr>;
-              })}
-            </tbody>
-          </table>
-        )
-      },
-      {
-        title: 'Técnico del fragmento',
-        dataIndex: 'technicalFragment',
-        key: 'technicalFragment',
-        width: 200,
-        className: 'fragment',
-        render: (technicalFragment: FragmentValue[]) => (
-          <table>
-            <tbody>
-              {technicalFragment?.map((technical, index) => {
-                const value = `${technical.value} ${technical.unitOfMeasurement}`;
-                return <tr key={`row_technical_${index}`}><td>{value}</td></tr>;
-              })}
-            </tbody>
-          </table>
-        )
-      }
-    ]
+    children: COLUMNS_TABLE_FRAGMENTS
   }
 ];
 
