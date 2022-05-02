@@ -11,7 +11,6 @@ const usePlaces: UsePlaces = () => {
   const { placesRepository } = repository;
 
   const setPlacesList = (newPlace: Place[]) => {
-    console.log({ newPlace });
     setPlaces(newPlace);
   };
 

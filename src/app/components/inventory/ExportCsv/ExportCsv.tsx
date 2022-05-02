@@ -20,16 +20,14 @@ const ExportCsv: React.FC = () => {
       'Sitio',
       'Identificadores',
       'Id Tarea',
-      'Día de instalación',
+      'Día de instalación'
     ]
   ];
-  inventory.map((item) => {
-    console.log({ item });
+  inventory.forEach((item) => {
     const device = item.device as Catalog;
     const user = item.user as User;
     const place = item.place as Place;
 
-    console.log({ device, place });
     csvData.push([
       item.key ?? '',
       device.device ?? '',
@@ -40,14 +38,15 @@ const ExportCsv: React.FC = () => {
       item.state ?? '',
       user ? `${user.name} ${user.lastName}` : '',
       place ? place.name : '',
-      item.installationDate ?? '',
+      item.installationDate ?? ''
     ]);
-    return item;
   });
 
   return (
     <>
-      <CSVLink filename="Inventory.csv" data={csvData}>CSV</CSVLink>
+      <CSVLink filename="Inventory.csv" data={csvData}>
+        CSV
+      </CSVLink>
     </>
   );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-unused-vars */
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
@@ -5,7 +6,10 @@ import { repository } from '../../../../../../../dependecy-injection';
 import Catalog from '../../../../../../../domain/models/catalog';
 import { useInventoryContext } from '../../../../../../context/inventory/InventoryContext/InventoryContext';
 
-import { UseFormInventoryState, ValuesFormInventory } from './useFormInventoryState.interface';
+import {
+  UseFormInventoryState,
+  ValuesFormInventory
+} from './useFormInventoryState.interface';
 
 const useFormInventoryState: UseFormInventoryState = () => {
   const [catalog, setCatalog] = useState<Catalog[]>([]);
@@ -14,9 +18,7 @@ const useFormInventoryState: UseFormInventoryState = () => {
 
   const onFinishForm = async (values: ValuesFormInventory) => {
     const hide = message.loading('Creando Inventorio ...');
-    const {
-      catalogId, state, userId, dataCollected
-    } = values;
+    const { catalogId, state, userId, dataCollected } = values;
     try {
       const payloadCreateInventory = {
         catalogId,
@@ -24,13 +26,12 @@ const useFormInventoryState: UseFormInventoryState = () => {
         userId,
         dataCollected
       };
-      console.log({ payloadCreateInventory });
 
-      const newInventory = await inventoryRepository?.createInventory(payloadCreateInventory);
+      const newInventory = await inventoryRepository?.createInventory(
+        payloadCreateInventory
+      );
       if (newInventory) {
-        console.log({ inventoryList });
         setInventory([newInventory[0], ...inventoryList]);
-        console.log({ inventoryList });
       }
 
       message.success('Inventario creado');
@@ -43,10 +44,9 @@ const useFormInventoryState: UseFormInventoryState = () => {
 
   useEffect(() => {
     if (catalog.length === 0) {
-      catalogRepository?.getCatalogs('controlled')
-        .then((catalogData) => {
-          setCatalog(catalogData);
-        });
+      catalogRepository?.getCatalogs('controlled').then((catalogData) => {
+        setCatalog(catalogData);
+      });
     }
   }, [catalog]);
 

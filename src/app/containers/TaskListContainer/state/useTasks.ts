@@ -45,7 +45,11 @@ const useTasks: UseTasks = () => {
         from,
         to,
         limit: LIMIT_ROWS,
-        page: 1
+        page: 1,
+        taskId:
+          filtersValue.text && filtersValue.text !== ''
+            ? filtersValue.text
+            : undefined
       })
       .then((values) => {
         setTaskList(values.tasks.task ?? []);

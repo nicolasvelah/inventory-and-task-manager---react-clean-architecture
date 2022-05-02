@@ -15,23 +15,17 @@ const useFormBoxState: UseFormBoxState = () => {
 
   const onFinishForm = async (values: ValuesFormBox) => {
     const hide = message.loading('Creando una caja ...');
-    const {
-      catalogId, totalMaterial, dataCollected
-    } = values;
+    const { catalogId, totalMaterial, dataCollected } = values;
     try {
       const payloadCreateBox: PayloadCreateBox = {
         catalogId,
         totalMaterial,
-        dataCollected,
-
+        dataCollected
       };
-      console.log({ payloadCreateBox });
 
       const newBox = await boxRepository?.createBox(payloadCreateBox);
       if (newBox) {
-        console.log({ newBox });
-        await setBoxList([newBox, ...boxList]);
-        console.log({ boxList });
+        setBoxList([newBox, ...boxList]);
       }
 
       message.success('Caja creada');
@@ -44,10 +38,9 @@ const useFormBoxState: UseFormBoxState = () => {
 
   useEffect(() => {
     if (catalog.length === 0) {
-      catalogRepository?.getCatalogs('notControlled')
-        .then((catalogData) => {
-          setCatalog(catalogData);
-        });
+      catalogRepository?.getCatalogs('notControlled').then((catalogData) => {
+        setCatalog(catalogData);
+      });
     }
   }, [catalog]);
 

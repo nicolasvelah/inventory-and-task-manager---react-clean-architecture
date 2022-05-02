@@ -106,7 +106,6 @@ const useFragmentBoxesModal = ({
       .finally(() => {
         hide();
       });
-    console.log('dataFragment after -->', dataFragment);
   };
 
   return {

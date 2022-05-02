@@ -17,8 +17,6 @@ const useMenuLayoutState = (menuItemKey: string) => {
   const { user } = userGlobalContext();
 
   const getOpenKeys = (currentLayoutItem: string) => {
-    console.log('currentLayoutItem -->', currentLayoutItem);
-
     const keys = menuItemsList.find((item) => {
       if (item.subItems) {
         for (let index = 0; index < item.subItems.length; index++) {

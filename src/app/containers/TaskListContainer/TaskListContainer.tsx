@@ -18,7 +18,10 @@ const TaskListContainer: React.FC = () => {
     <div>
       <div className="header">
         <div className="header-first-block">
-          <HeaderList handleChangeFilters={handleChangeFilters} />
+          <HeaderList
+            placeHolder="Buscar por Id de tarea"
+            handleChangeFilters={handleChangeFilters}
+          />
         </div>
         <Space>
           <ExportCsv />

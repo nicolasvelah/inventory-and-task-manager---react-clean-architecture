@@ -32,6 +32,7 @@ export default interface TasksRepository {
     to: string;
     page: number;
     limit: number;
+    taskId?: string;
   }): Promise<TaskResponse>;
   getAllByIdUser(userId: string): Promise<Task[]>;
   getAllByIdUserAndRangeDates(

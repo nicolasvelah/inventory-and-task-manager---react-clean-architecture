@@ -4,7 +4,7 @@ import CatalogRepository from '../../domain/repositories/catalog-repository';
 import { axiosRequest } from '../../utils/axios-util';
 
 export default class CatalogRepositoryImpl implements CatalogRepository {
-  async getCatalogs(type?:'notControlled' | 'controlled'): Promise<Catalog[]> {
+  async getCatalogs(type?: 'notControlled' | 'controlled'): Promise<Catalog[]> {
     const axios = await axiosRequest();
     let url = 'api/v1/catalogs';
     if (type) {
@@ -15,9 +15,8 @@ export default class CatalogRepositoryImpl implements CatalogRepository {
     return catalogs.data;
   }
 
-  async createCatalog(payload:CatalogRequest): Promise<Catalog> {
+  async createCatalog(payload: CatalogRequest): Promise<Catalog> {
     const axios = await axiosRequest();
-    console.log({ payload });
     const response = await axios.post<CatalogRequest>(
       'api/v1/catalogs',
       payload

@@ -24,14 +24,19 @@ export default class TasksRepositoryImpl implements TasksRepository {
     to: string;
     page: number;
     limit: number;
+    taskId?: string;
   }): Promise<TaskResponse> {
     // eslint-disable-next-line object-curly-newline
-    const { from, to, page, limit } = values;
+    const { from, to, page, limit, taskId } = values;
 
     const axios = await axiosRequest();
-    const responseTasks = await axios.get<TaskResponse>(
-      `api/v1/tasks/?from=${from}&to=${to}&page=${page}&limit=${limit}`
-    );
+    let url = `api/v1/tasks/?from=${from}&to=${to}&page=${page}&limit=${limit}`;
+
+    if (taskId) {
+      url += `&taskId=${taskId}`;
+    }
+
+    const responseTasks = await axios.get<TaskResponse>(url);
 
     return responseTasks.data;
   }

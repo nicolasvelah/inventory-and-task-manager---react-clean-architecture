@@ -14,15 +14,18 @@ const useExportCsv: UseExportCsv = () => {
   const { tasks } = useTaskListContext();
 
   useEffect(() => {
-    const newData: DataTaskExcel[] = tasks.map((task:Task) => {
+    const newData: DataTaskExcel[] = tasks.map((task: Task) => {
       const place = task.place as Place;
-      const catalogToInstall = task.catalogToInstall as unknown as {id:string, quantity: number}[];
+      const catalogToInstall = task.catalogToInstall as unknown as {
+        id: string;
+        quantity: number;
+      }[];
       let catalogToInstallRender = '';
-      catalogToInstall.map((item) => {
-        console.log({ item });
+
+      catalogToInstall.forEach((item) => {
         catalogToInstallRender += `id: ${item.id} / quantity: ${item.quantity}, `;
-        return item;
       });
+
       return {
         key: task._id,
         coordinator: `${getValue(task.coordinator, 'name')} ${getValue(
@@ -34,11 +37,17 @@ const useExportCsv: UseExportCsv = () => {
           'lastName'
         )}`,
         place: place.name,
-        scheduledDate: task.scheduledDate ? momentFormat(task.scheduledDate) : '',
+        scheduledDate: task.scheduledDate
+          ? momentFormat(task.scheduledDate)
+          : '',
         arrivalDate: task.arrivalDate ? momentFormat(task.arrivalDate) : '',
-        arrivalLatLong: `${task.arrivalLatLong?.coordinates[0] ?? ''}, ${task.arrivalLatLong?.coordinates[1] ?? ''}`,
+        arrivalLatLong: `${task.arrivalLatLong?.coordinates[0] ?? ''}, ${
+          task.arrivalLatLong?.coordinates[1] ?? ''
+        }`,
         closedDate: task.closedDate ? momentFormat(task.closedDate) : '',
-        closedLatLong: `${task.closedLatLong?.coordinates[0] ?? ''}, ${task.closedLatLong?.coordinates[1] ?? ''}`,
+        closedLatLong: `${task.closedLatLong?.coordinates[0] ?? ''}, ${
+          task.closedLatLong?.coordinates[1] ?? ''
+        }`,
         type: task.type,
         description: task.description,
         catalogToInstall: catalogToInstallRender
@@ -48,7 +57,7 @@ const useExportCsv: UseExportCsv = () => {
   }, [tasks]);
 
   return {
-    tasks: data,
+    tasks: data
   };
 };
 
