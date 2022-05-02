@@ -10,6 +10,7 @@ import TasksListPage from './pages/task-pages/task-list/TaskListPage';
 import DevicesPage from './pages/DevicesPage';
 import PlacesPage from './pages/places/PlacesPage';
 import CatalogPage from './pages/materials/catalog/CatalogPage';
+import CategoriesPage from './pages/materials/categories/CategoriesPage';
 import InventoryPage from './pages/materials/inventory/InventoryPage';
 import BoxPage from './pages/materials/box/BoxPage';
 
@@ -30,6 +31,8 @@ function App() {
             <Route exact path="/login" component={LoginPage} />
 
             <Route exact path="/task/list" component={TasksListPage} />
+
+            <Route exact path="/materials/categories" component={CategoriesPage} />
 
             <Route exact path="/materials/catalog" component={CatalogPage} />
             <Route

@@ -122,6 +122,29 @@ export const COLUMNS_TABLE_PLACES: ColumnsType<any> = [
   }
 ];
 
+export const COLUMNS_TABLE_CATEGORIES: ColumnsType<any> = [
+  {
+    title: 'Id',
+    dataIndex: 'key',
+    key: 'key'
+  },
+  {
+    title: 'Nombre',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Descripción',
+    dataIndex: 'description',
+    key: 'description'
+  },
+  {
+    title: 'Fecha de creación',
+    dataIndex: 'createdAt',
+    key: 'createdAt'
+  }
+];
+
 export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
   {
     title: 'Id',
