@@ -27,12 +27,19 @@ export default class BoxRepositoryImpl implements BoxRepository {
   }
 
   async createFragment(payload: RequestCreateFragment): Promise<Fragments[]> {
-    const axios = await axiosRequest();
+    /* const axios = await axiosRequest();
     const response = await axios.post<{ data: Fragments[] }>(
       'api/v1/fragments',
       payload
     );
 
-    return response.data.data;
+    return response.data.data; */
+
+    return new Promise((resolve) => {
+      console.log(payload);
+      setTimeout(() => {
+        resolve([]);
+      }, 3000);
+    });
   }
 }

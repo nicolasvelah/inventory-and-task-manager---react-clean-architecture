@@ -4,7 +4,15 @@ import { FiltersValue } from '../../../components/generic/header-list/HeaderList
 import { useBoxContext } from '../../../context/inventory/BoxContext/BoxContext';
 
 const useBoxContainer = () => {
-  const { setBoxList, viewFragmentButton } = useBoxContext();
+  const {
+    setBoxList,
+    viewFragmentButton,
+    itemSelected,
+    setViewDrawer,
+    viewDrawer,
+    itemsSelectedModal,
+    rowSelection
+  } = useBoxContext();
 
   const { boxRepository } = repository;
 
@@ -20,17 +28,31 @@ const useBoxContainer = () => {
         setBoxList(boxList);
       })
       .catch(() => {
-        message.error('No se pudo obtener las cajas.s');
+        message.error('No se pudo obtener las cajas.');
       })
       .finally(() => {
         hide();
       });
   };
 
+  const onCloseDrawer = () => {
+    setViewDrawer(false);
+  };
+
+  const onSubmitFragment = () => {
+    rowSelection.onChange({}, []);
+    handleChangeFilters({});
+  };
+
   return {
+    itemsSelectedModal,
     viewFragmentButton,
+    itemSelected,
+    viewDrawer,
     actions: {
-      handleChangeFilters
+      handleChangeFilters,
+      onCloseDrawer,
+      onSubmitFragment
     }
   };
 };

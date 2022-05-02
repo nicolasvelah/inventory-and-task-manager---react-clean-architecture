@@ -5,7 +5,11 @@ import { COLUMNS_TABLE_BOX } from '../../../../helpers/constants/columns-table-t
 import useTableBox from './state/useTableBox';
 
 const TableBox: React.FC = () => {
-  const { dataTable, rowSelection } = useTableBox();
+  const {
+    dataTable,
+    rowSelection,
+    actions: { onClickRow }
+  } = useTableBox();
 
   return (
     <div>
@@ -18,6 +22,7 @@ const TableBox: React.FC = () => {
         pagination={{
           pageSize: 10
         }}
+        onRow={onClickRow as any}
       />
     </div>
   );

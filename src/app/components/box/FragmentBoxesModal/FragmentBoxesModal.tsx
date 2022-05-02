@@ -4,14 +4,17 @@ import React from 'react';
 import { Button, Card, Form, InputNumber, Modal, Select } from 'antd';
 
 import useFragmentBoxesModal from './state/useFragmentBoxesModal';
+import { DataTableBox } from '../../../context/inventory/BoxContext/BoxContext';
 
-const FragmentBoxesModal: React.FC = () => {
+const FragmentBoxesModal: React.FC<{
+  itemsToFragment: DataTableBox[];
+  onSubmitFragment?: () => void;
+}> = ({ itemsToFragment, onSubmitFragment }) => {
   const {
-    itemsSelectedModal,
     visibleModal,
     technicals,
     actions: { handleOpen, handleCancel, handleFragment, onChangeBox }
-  } = useFragmentBoxesModal();
+  } = useFragmentBoxesModal({ itemsToFragment, onSubmitFragment });
 
   return (
     <>
@@ -33,7 +36,7 @@ const FragmentBoxesModal: React.FC = () => {
         <div>
           <h2>Fragmentar</h2>
           <div>
-            {itemsSelectedModal.map((item) => {
+            {itemsToFragment.map((item) => {
               const total = item.data.attributes.totalMaterial;
 
               const remaining = item.totalFragment.reduce((accum, current) => {
@@ -41,6 +44,8 @@ const FragmentBoxesModal: React.FC = () => {
               }, 0);
 
               const maxToAssign = total - remaining;
+
+              console.log('maxToAssign -->', maxToAssign);
 
               return (
                 <Card title={`${item.name} - ${item.key}`} key={item.key}>

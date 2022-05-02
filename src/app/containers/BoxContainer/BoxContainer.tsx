@@ -4,11 +4,15 @@ import HeaderList from '../../components/generic/header-list/HeaderList';
 import TableBox from '../../components/inventory/TableBox/TableBox';
 import useBoxContainer from './state/useBoxContainer';
 import FragmentBoxesModal from '../../components/box/FragmentBoxesModal/FragmentBoxesModal';
+import DrawerDetailBox from '../../components/generic/drawer-detail-box/DrawerDetailBox';
 
 const BoxContainer: React.FC = () => {
   const {
+    itemsSelectedModal,
     viewFragmentButton,
-    actions: { handleChangeFilters }
+    itemSelected,
+    viewDrawer,
+    actions: { handleChangeFilters, onCloseDrawer, onSubmitFragment }
   } = useBoxContainer();
 
   return (
@@ -21,13 +25,23 @@ const BoxContainer: React.FC = () => {
           />
 
           <Space>
-            {viewFragmentButton && <FragmentBoxesModal />}
+            {viewFragmentButton && (
+              <FragmentBoxesModal
+                itemsToFragment={itemsSelectedModal}
+                onSubmitFragment={onSubmitFragment}
+              />
+            )}
             <Button>Excel</Button>
             <Button>Crear</Button>
           </Space>
         </Space>
       </div>
       <TableBox />
+      <DrawerDetailBox
+        activeBox={itemSelected}
+        onCloseDrawer={onCloseDrawer}
+        visibleDrawer={viewDrawer}
+      />
     </div>
   );
 };
