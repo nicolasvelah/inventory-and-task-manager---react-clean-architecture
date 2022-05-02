@@ -20,10 +20,7 @@ export default class BoxRepositoryImpl implements BoxRepository {
 
   async createBox(payload: PayloadCreateBox): Promise<ResponseBox> {
     const axios = await axiosRequest();
-    const response = await axios.post<Box>(
-      '/api/v1/boxes',
-      payload
-    );
+    const response = await axios.post<Box>('/api/v1/boxes', payload);
     console.log({ response });
     const box = response.data as unknown as ResponseBox[];
     return box[0] as ResponseBox;

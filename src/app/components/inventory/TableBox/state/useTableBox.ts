@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import { useEffect, useState } from 'react';
 import { FragmentBox } from '../../../../../domain/repositories/box-repository';
 import {
@@ -9,7 +10,8 @@ import {
 const useTableBox = () => {
   const [dataTable, setDataTable] = useState<DataTableBox[]>([]);
 
-  const { rowSelection, boxList } = useBoxContext();
+  const { rowSelection, boxList, setItemSelected, setViewDrawer } =
+    useBoxContext();
 
   const getFragments = (fragment: FragmentBox[], unitOfMeasurement: string) => {
     const total: FragmentValue[] = [];
@@ -78,9 +80,21 @@ const useTableBox = () => {
     setDataTable(newData);
   }, [boxList]);
 
+  const onClickRow = (record: DataTableBox) => {
+    return {
+      onClick: () => {
+        setItemSelected(record);
+        setViewDrawer(true);
+      }
+    };
+  };
+
   return {
     dataTable,
-    rowSelection
+    rowSelection,
+    actions: {
+      onClickRow
+    }
   };
 };
 

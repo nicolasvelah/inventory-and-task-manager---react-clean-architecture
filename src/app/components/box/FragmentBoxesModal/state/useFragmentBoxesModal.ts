@@ -3,24 +3,22 @@ import { useEffect, useState } from 'react';
 import { repository } from '../../../../../dependecy-injection';
 import User from '../../../../../domain/models/user';
 import { CreateFragment } from '../../../../../domain/repositories/box-repository';
-import { useBoxContext } from '../../../../context/inventory/BoxContext/BoxContext';
+import { DataTableBox } from '../../../../context/inventory/BoxContext/BoxContext';
 
-const useFragmentBoxesModal = () => {
+const useFragmentBoxesModal = ({
+  itemsToFragment,
+  onSubmitFragment
+}: {
+  itemsToFragment: DataTableBox[];
+  onSubmitFragment?: () => void;
+}) => {
   const [dataFragment, setDataFragment] = useState<CreateFragment[]>([]);
   const [technicals, setTechnicals] = useState<User[]>([]);
-
-  const {
-    itemsSelectedModal,
-    setItemsSelectedModal,
-    setViewFragmentModal,
-    viewFragmentModal,
-    setBoxList,
-    rowSelection
-  } = useBoxContext();
+  const [visibleModal, setVisibleModal] = useState<boolean>(false);
 
   const { usersRepository, boxRepository } = repository;
 
-  const getTechnocalsAndCoordinators = async () => {
+  const getTechnicalsAndCoordinators = async () => {
     const hide = message.loading('Obteniendo técnicos');
 
     usersRepository
@@ -40,20 +38,19 @@ const useFragmentBoxesModal = () => {
   };
 
   useEffect(() => {
-    getTechnocalsAndCoordinators();
+    getTechnicalsAndCoordinators();
   }, []);
 
   useEffect(() => {
     setDataFragment([]);
-  }, [itemsSelectedModal]);
+  }, [itemsToFragment]);
 
   const handleCancel = () => {
-    setViewFragmentModal(false);
-    setItemsSelectedModal([]);
+    setVisibleModal(false);
   };
 
   const handleOpen = () => {
-    setViewFragmentModal(true);
+    setVisibleModal(true);
   };
 
   const onChangeBox =
@@ -81,14 +78,7 @@ const useFragmentBoxesModal = () => {
       setDataFragment(newDataFragment);
     };
 
-  const getBoxes = () => {
-    boxRepository?.getAll().then((response) => {
-      setBoxList(response);
-    });
-  };
-
   const handleFragment = () => {
-    console.log('dataFragment -->', dataFragment);
     const wrongElement = dataFragment.find((item: any) => {
       return !!Object.keys(item).find((key) => item[key] === undefined);
     });
@@ -103,8 +93,10 @@ const useFragmentBoxesModal = () => {
     boxRepository
       ?.createFragment({ data: dataFragment })
       .then(() => {
-        rowSelection.onChange({}, []);
-        getBoxes();
+        if (onSubmitFragment) {
+          onSubmitFragment();
+        }
+
         message.success('Cajas fragmetadas');
         handleCancel();
       })
@@ -118,8 +110,7 @@ const useFragmentBoxesModal = () => {
   };
 
   return {
-    visibleModal: viewFragmentModal,
-    itemsSelectedModal,
+    visibleModal,
     technicals,
     actions: {
       handleCancel,

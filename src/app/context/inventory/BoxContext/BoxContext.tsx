@@ -48,7 +48,8 @@ const INIT_STORE = {
   itemsSelectedModal: [] as DataTableBox[],
   setItemsSelectedModal: (items: DataTableBox[]) => {},
   viewFragmentButton: false,
-  setViewFragmentButton: (view: boolean) => {}
+  setViewFragmentButton: (view: boolean) => {},
+  canItBeFragmented: (item: DataTableBox) => false
 };
 
 type BoxStore = typeof INIT_STORE;
@@ -71,7 +72,7 @@ export const BoxContextProvider: React.FC = ({ children }) => {
   const [viewFragmentButton, setCurrentViewFragmentButton] =
     useState<boolean>(false);
 
-  const disableCheckBox = (item: DataTableBox) => {
+  const canItBeFragmented = (item: DataTableBox) => {
     const total = item.data.attributes.totalMaterial;
 
     const remaining = item.totalFragment.reduce((accum, current) => {
@@ -98,7 +99,7 @@ export const BoxContextProvider: React.FC = ({ children }) => {
             setCurrentItemsSelectedModal(selectedRows);
           },
           getCheckboxProps: (record: DataTableBox) => ({
-            disabled: disableCheckBox(record)
+            disabled: canItBeFragmented(record)
           })
         },
         itemSelected,
@@ -121,7 +122,8 @@ export const BoxContextProvider: React.FC = ({ children }) => {
         viewFragmentButton,
         setViewFragmentButton: (view: boolean) => {
           setCurrentViewFragmentButton(view);
-        }
+        },
+        canItBeFragmented
       }}
     >
       {children}
