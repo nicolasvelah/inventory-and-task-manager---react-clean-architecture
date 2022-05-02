@@ -3,7 +3,7 @@ import React from 'react';
 import { Modal, Table } from 'antd';
 import { getColumnsWithButtons } from './columns/columns-categories';
 import useCategoriesTable from './state/useCategoriesTable';
-import FormCatalog from '../CreateCategories/FormCategories/FormCategories';
+import FormCategory from '../CreateCategories/FormCategories/FormCategories';
 
 const TableCatalog: React.FC = () => {
   const {
@@ -33,7 +33,7 @@ const TableCatalog: React.FC = () => {
         width={800}
         destroyOnClose
       >
-        {valueToEdit && <FormCatalog initValues={valueToEdit} />}
+        {valueToEdit && <FormCategory initValues={valueToEdit} />}
       </Modal>
     </div>
   );

@@ -13,9 +13,15 @@ export default class CategoriesRepositoryImpl implements CategoriesRepository {
 
   async create(payload: PayloadCreateCategory): Promise<Category> {
     const axios = await axiosRequest();
-    const response = await axios.post<Category>(
-      '/api/v1/categories',
-      payload
+    const response = await axios.post<Category>('/api/v1/categories', payload);
+    return response.data as Category;
+  }
+
+  async update(id: string, data: Partial<Category>): Promise<Category> {
+    const axios = await axiosRequest();
+    const response = await axios.put<Category>(
+      `/api/v1/categories/${id}`,
+      data
     );
     return response.data as Category;
   }

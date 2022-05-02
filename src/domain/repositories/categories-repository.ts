@@ -5,4 +5,5 @@ import Category, { PayloadCreateCategory } from '../models/category';
 export default interface CategoriesRepository {
   getCategories(): Promise<Category[]>;
   create(payload: PayloadCreateCategory): Promise<Category>;
+  update(id: string, data: Partial<Category>): Promise<Category>;
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 // eslint-disable-next-line object-curly-newline
 import { Button, Form, Input } from 'antd';
-import useFormCatalogState from './state/useFormCategoriesState';
+import useFormCategories from './state/useFormCategoriesState';
 
-const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
+const FormCategory: React.FC<{ initValues?: any }> = ({ initValues }) => {
   const {
     actions: { onFinishForm, onValuesChange }
-  } = useFormCatalogState();
+  } = useFormCategories(initValues);
 
   return (
     <Form
@@ -42,4 +42,4 @@ const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
   );
 };
 
-export default FormCatalog;
+export default FormCategory;
