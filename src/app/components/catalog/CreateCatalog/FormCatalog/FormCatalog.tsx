@@ -1,17 +1,21 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 // eslint-disable-next-line object-curly-newline
-import { Button, Form, Select, Input } from 'antd';
+import { Form, Select, Input, Button } from 'antd';
 import useFormCatalogState from './state/useFormCatalogState';
+import Catalog from '../../../../../domain/models/catalog';
 
-const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
+const FormCatalog: React.FC<{ initValues?: Catalog }> = ({ initValues }) => {
   const {
+    form,
     categories,
     actions: { onFinishForm, onValuesChange }
-  } = useFormCatalogState();
+  } = useFormCatalogState(initValues);
 
   return (
     <Form
-      initialValues={initValues}
+      initialValues={{ ...initValues, categoryId: initValues?.categoryId._id }}
+      form={form}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 14 }}
       onFinish={onFinishForm}
@@ -31,7 +35,7 @@ const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
         name="categoryId"
         rules={[{ required: true, message: 'Categoría es requerida' }]}
       >
-        <Select showSearch onSearch={() => {}}>
+        <Select showSearch>
           {categories.map((item) => (
             <Select.Option key={item._id} value={item._id}>
               {item.name}
@@ -62,12 +66,8 @@ const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
         rules={[{ required: true, message: 'Tipo es requerido' }]}
       >
         <Select showSearch onSearch={() => {}}>
-          <Select.Option value="controlled">
-            controlado
-          </Select.Option>
-          <Select.Option value="notControlled">
-            No controlado
-          </Select.Option>
+          <Select.Option value="controlled">controlado</Select.Option>
+          <Select.Option value="notControlled">No controlado</Select.Option>
         </Select>
       </Form.Item>
 
@@ -76,13 +76,9 @@ const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
         name="unitOfMeasurement"
         rules={[{ required: true, message: 'Unidad de medida es requerido' }]}
       >
-        <Select showSearch onSearch={() => {}}>
-          <Select.Option value="metros">
-            metros
-          </Select.Option>
-          <Select.Option value="unidades">
-            unidades
-          </Select.Option>
+        <Select showSearch>
+          <Select.Option value="metros">metros</Select.Option>
+          <Select.Option value="unidades">unidades</Select.Option>
         </Select>
       </Form.Item>
 
@@ -91,13 +87,9 @@ const FormCatalog: React.FC<{ initValues?: any }> = ({ initValues }) => {
         name="typePlace"
         rules={[{ required: true, message: 'Tipo de lugar es requerida' }]}
       >
-        <Select showSearch onSearch={() => {}}>
-          <Select.Option value="ATM">
-            ATM
-          </Select.Option>
-          <Select.Option value="sucursal">
-            Sucursal
-          </Select.Option>
+        <Select showSearch>
+          <Select.Option value="ATM">ATM</Select.Option>
+          <Select.Option value="sucursal">Sucursal</Select.Option>
         </Select>
       </Form.Item>
 

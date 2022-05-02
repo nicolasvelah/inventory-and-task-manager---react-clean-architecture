@@ -8,4 +8,4 @@ interface ReturnUseCatalog {
   };
 }
 
-export type UseCatalog = () => ReturnUseCatalog;
+export type UseCatalog = () => void;

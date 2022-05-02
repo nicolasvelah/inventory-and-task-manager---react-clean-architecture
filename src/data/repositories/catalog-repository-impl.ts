@@ -24,4 +24,18 @@ export default class CatalogRepositoryImpl implements CatalogRepository {
 
     return response.data as Catalog;
   }
+
+  async delete(id: string): Promise<boolean> {
+    const axios = await axiosRequest();
+    const response = await axios.delete<boolean>(`api/v1/catalogs/${id}`);
+
+    return response.data;
+  }
+
+  async update(id: string, data: Partial<Catalog>): Promise<Catalog> {
+    const axios = await axiosRequest();
+    const response = await axios.put<Catalog>(`api/v1/catalogs/${id}`, data);
+
+    return response.data;
+  }
 }
