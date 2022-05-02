@@ -9,6 +9,8 @@ export interface DataCatalogTable {
   placeType: string;
   type: string;
   unity: string;
+  category: string;
+  categoryDescription: string;
   createdAt: string;
   updatedAt: string;
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Catalog from '../../../../../../domain/models/catalog';
 import Place from '../../../../../../domain/models/place';
 import Task from '../../../../../../domain/models/task';
 import User from '../../../../../../domain/models/user';
@@ -17,9 +18,13 @@ const useTableInventory = () => {
     const newData: DataTableInventory[] = inventoryList.map((inventory) => {
       const place = inventory.place as Place;
       const user = inventory.user as User;
-
+      const device = inventory.device as Catalog;
       return {
         key: inventory._id,
+        name: device ? device.device : 'no',
+        brand: device ? device.brand : 'no',
+        referenceModel: device ? device.referenceModel : 'no',
+        category: device ? device.categoryId.name : 'no',
         type: inventory.fragment ? 'No controlado' : 'Controlado',
         state: inventory.state,
         technical: user ? `${user.name} ${user.lastName}` : '',

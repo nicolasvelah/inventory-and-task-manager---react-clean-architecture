@@ -27,6 +27,17 @@ export const COLUMNS_TABLE_TASKS: ColumnsType<any> = [
     key: 'key'
   },
   {
+    title: 'Estado',
+    dataIndex: 'closedDate',
+    key: 'state',
+    width: 100,
+    render: (closedDate: any) => (
+      <Tag color={closedDate ? 'red' : 'green'}>
+        {closedDate ? 'cerrada' : 'abierta'}
+      </Tag>
+    )
+  },
+  {
     title: 'Coordinador',
     dataIndex: 'coordinator',
     key: 'coordinator'
@@ -135,12 +146,17 @@ export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
     key: 'model'
   },
   {
-    title: 'Interfaz',
-    dataIndex: 'interface',
-    key: 'interface'
+    title: 'Categoría',
+    dataIndex: 'category',
+    key: 'category'
   },
   {
-    title: 'Tpipo de sitio',
+    title: 'Descripción categoría',
+    dataIndex: 'categoryDescription',
+    key: 'categoryDescription'
+  },
+  {
+    title: 'Tipo de sitio',
     dataIndex: 'placeType',
     key: 'placeType',
     width: 150
@@ -194,6 +210,26 @@ export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
     width: 150
   },
   {
+    title: 'Nombre',
+    dataIndex: 'name',
+    key: 'name'
+  },
+  {
+    title: 'Marca',
+    dataIndex: 'brand',
+    key: 'brand'
+  },
+  {
+    title: 'Modelo',
+    dataIndex: 'referenceModel',
+    key: 'referenceModel'
+  },
+  {
+    title: 'Categoria',
+    dataIndex: 'category',
+    key: 'category'
+  },
+  {
     title: 'Tipo',
     dataIndex: 'type',
     key: 'type'
@@ -225,8 +261,8 @@ export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
     key: 'identifiers',
     render: (dataColected?: DataCollectedInventory[]) => (
       <>
-        {dataColected?.map(({ name, value }) => (
-          <RenderItem label={name} value={value} />
+        {dataColected?.map(({ name, value }, index) => (
+          <RenderItem label={name} value={value} key={index} />
         ))}
       </>
     )
@@ -273,8 +309,8 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
     width: 200,
     render: (dataColected?: DataCollectedInventory[]) => (
       <>
-        {dataColected?.map(({ name, value }) => (
-          <RenderItem label={name} value={value} />
+        {dataColected?.map(({ name, value }, index) => (
+          <RenderItem label={name} value={value} key={index} />
         ))}
       </>
     )
@@ -305,7 +341,7 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
             <tbody>
               {totalFragments?.map((total, index) => {
                 const value = `${total.value} ${total.unitOfMeasurement}`;
-                return <tr key={`row_total_${index}`}>{value}</tr>;
+                return <tr key={`row_total_${index}`}><td>{value}</td></tr>;
               })}
             </tbody>
           </table>
@@ -322,7 +358,7 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
             <tbody>
               {remainingFragment?.map((remaining, index) => {
                 const value = `${remaining.value} ${remaining.unitOfMeasurement}`;
-                return <tr key={`row_remaining_${index}`}>{value}</tr>;
+                return <tr key={`row_remaining_${index}`}><td>{value}</td></tr>;
               })}
             </tbody>
           </table>
@@ -339,7 +375,7 @@ export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
             <tbody>
               {technicalFragment?.map((technical, index) => {
                 const value = `${technical.value} ${technical.unitOfMeasurement}`;
-                return <tr key={`row_technical_${index}`}>{value}</tr>;
+                return <tr key={`row_technical_${index}`}><td>{value}</td></tr>;
               })}
             </tbody>
           </table>

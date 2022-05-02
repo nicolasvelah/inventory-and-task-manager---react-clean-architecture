@@ -7,6 +7,7 @@ import React from 'react';
 import Point from '../../../../../domain/models/point';
 import { localDate } from '../../../../../utils/moment-utils';
 import RenderItem from '../../render-item/RenderItem';
+import DetailMap from '../map/detailMap';
 
 import './state-task.scss';
 
@@ -47,7 +48,11 @@ const StateTask: React.FC<{
         </div>
         <div className="point">
           <div>{`Punto de ${state}`}</div>
-          <div className="point-map">{coordinates?.type}</div>
+          <div>
+            {coordinates ?
+              <DetailMap coordinates={coordinates} />
+              : null}
+          </div>
         </div>
       </div>
     </div>

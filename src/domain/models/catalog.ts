@@ -33,7 +33,7 @@ export const TYPE_CATALOG_TYPE_LIST = Object.keys(TypeCatalogType);
 
 export default interface Catalog {
   _id: string;
-  device: string; // equipo
+  device: string; // nombe
   brand: string;
   referenceModel: string;
   typePlace: placeCatalogType;
@@ -42,5 +42,15 @@ export default interface Catalog {
   type?: typeCatalogType;
   createdAt?: string;
   updatedAt?: string;
-  categoryId: Category | string;
+  categoryId: Category;
+}
+
+export interface CatalogRequest {
+  brand: string;
+  device: string; // nombre
+  referenceModel: string;
+  typePlace: placeCatalogType;
+  unitOfMeasurement?: string;
+  type: typeCatalogType;
+  categoryId: Category;
 }

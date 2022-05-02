@@ -26,3 +26,16 @@ export default interface Place {
   createdAt?: string;
   updatedAt?: string;
 }
+
+export interface PayloadCreatePlace {
+  name: string;
+  coords: number[];
+  mainStreet: string;
+  addressNumber: string;
+  colony: string;
+  municipality: string;
+  city: string;
+  state: string;
+  type: placeType;
+  IntalledMaterial?: Inventory[] | string[] | null;
+}

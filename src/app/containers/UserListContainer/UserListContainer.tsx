@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd';
+import { Space } from 'antd';
 import React from 'react';
 import HeaderList from '../../components/generic/header-list/HeaderList';
 import CreateUser from '../../components/users/CreateUser/CreateUser';
@@ -22,7 +22,6 @@ const UserListContainer: React.FC = () => {
           />
         </div>
         <Space>
-          <Button>Excel</Button>
           <CreateUser />
         </Space>
       </div>

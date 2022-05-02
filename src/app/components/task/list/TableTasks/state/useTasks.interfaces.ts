@@ -1,4 +1,6 @@
 /* eslint-disable no-unused-vars */
+import Inventory from '../../../../../../domain/models/inventory';
+import Place from '../../../../../../domain/models/place';
 import Task from '../../../../../../domain/models/task';
 import { FiltersTaskList } from '../../../../../context/task/TaskListContext';
 

@@ -18,7 +18,7 @@ const useCatalogTable: UseCatalogTable = () => {
       key: catalog._id,
       device: catalog.device,
       brand: catalog.brand,
-      model: '', // TODO: Verify parameter
+      model: catalog.referenceModel,
       interface: '', // TODO: Verify parameter
       placeType: '', // TODO: Verify parameter
       type:
@@ -26,6 +26,8 @@ const useCatalogTable: UseCatalogTable = () => {
           catalog.type as 'controlled' | 'notControlled'
         ] ?? '',
       unity: catalog.unitOfMeasurement ?? '',
+      category: catalog.categoryId.name,
+      categoryDescription: catalog.categoryId.description,
       createdAt: catalog.createdAt ? momentFormat(catalog.createdAt) : '',
       updatedAt: catalog.updatedAt ? momentFormat(catalog.updatedAt) : ''
     }));
