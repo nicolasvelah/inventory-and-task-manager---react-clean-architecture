@@ -30,6 +30,12 @@ const menuItemsList: MenuItem[] = [
     active: false,
     subItems: [
       {
+        name: 'Categorias',
+        url: '/materials/categories',
+        key: KeysItemsMenuEnum.CATEGORIES,
+        active: false
+      },
+      {
         name: 'Catálogo',
         url: '/materials/catalog',
         key: KeysItemsMenuEnum.CATALOG,

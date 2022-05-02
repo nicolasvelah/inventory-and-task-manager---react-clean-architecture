@@ -9,3 +9,16 @@ export default interface Category {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface CategoryTable {
+  key: string;
+  name: string;
+  description: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export interface PayloadCreateCategory {
+    name: string;
+    description: string;
+}
