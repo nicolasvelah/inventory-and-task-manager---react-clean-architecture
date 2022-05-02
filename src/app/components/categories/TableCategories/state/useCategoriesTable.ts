@@ -1,5 +1,7 @@
 /* eslint-disable indent */
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
+import { repository } from '../../../../../dependecy-injection';
 import Category, { CategoryTable } from '../../../../../domain/models/category';
 import { useCategoryContext } from '../../../../context/materials/CategoriesContext';
 import { UseCategoriesTable } from './useCategoriesTable.interfaces';
@@ -9,7 +11,9 @@ const useCategoriesTable: UseCategoriesTable = () => {
   const [viewModal, setViewModal] = useState<boolean>(false);
   const [valueToEdit, setValueToEdit] = useState<Category | null>(null);
 
-  const { categories } = useCategoryContext();
+  const { categories, setCategory } = useCategoryContext();
+
+  const { categoriesRepository } = repository;
 
   useEffect(() => {
     const newData: CategoryTable[] = categories.map((category) => ({
@@ -23,9 +27,23 @@ const useCategoriesTable: UseCategoriesTable = () => {
   }, [categories]);
 
   const handleEdit = (categoryToEdit: Category) => {
-    console.log('categoryToEdit -->', categoryToEdit);
     setValueToEdit(categoryToEdit);
     setViewModal(true);
+  };
+
+  const handleDelete = (id: string) => {
+    const hide = message.loading('Eliminando categoría');
+    categoriesRepository
+      ?.delete(id)
+      .then((deleted) => {
+        if (deleted) {
+          const newCategories = categories.filter((item) => item._id !== id);
+          setCategory(newCategories);
+        }
+      })
+      .finally(() => {
+        hide();
+      });
   };
 
   const openModal = () => setViewModal(true);
@@ -34,6 +52,7 @@ const useCategoriesTable: UseCategoriesTable = () => {
   return {
     actions: {
       handleEdit,
+      handleDelete,
       openModal,
       closeModal
     },

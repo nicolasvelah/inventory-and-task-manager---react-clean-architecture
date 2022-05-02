@@ -25,4 +25,10 @@ export default class CategoriesRepositoryImpl implements CategoriesRepository {
     );
     return response.data as Category;
   }
+
+  async delete(id: string): Promise<boolean> {
+    const axios = await axiosRequest();
+    await axios.delete<Category>(`/api/v1/categories/${id}`);
+    return true;
+  }
 }

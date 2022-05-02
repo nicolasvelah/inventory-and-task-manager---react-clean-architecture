@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { Modal, Table } from 'antd';
@@ -7,7 +8,7 @@ import FormCategory from '../CreateCategories/FormCategories/FormCategories';
 
 const TableCatalog: React.FC = () => {
   const {
-    actions: { handleEdit, openModal, closeModal },
+    actions: { handleEdit, handleDelete, openModal, closeModal },
     viewModal,
     valueToEdit,
     dataTable
@@ -16,7 +17,7 @@ const TableCatalog: React.FC = () => {
     <div>
       <Table
         columns={getColumnsWithButtons({
-          handleDelete: (i) => console.log(i),
+          handleDelete,
           handleEdit
         })}
         dataSource={dataTable}
