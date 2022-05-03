@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { Moment } from 'moment';
 import Place from '../../../../../../../domain/models/place';
+import Task from '../../../../../../../domain/models/task';
 import User from '../../../../../../../domain/models/user';
 import { CatalogItem } from '../../../../../generic/catalog/AddCatalog/AddCatalog.interfaces';
 
-export type UseFormTaskState = () => {
+export type UseFormTaskState = (initValues?: Task) => {
   placesFiltered: Place[];
   technicalsFiltered: User[];
   coordinatorsFiltered: User[];

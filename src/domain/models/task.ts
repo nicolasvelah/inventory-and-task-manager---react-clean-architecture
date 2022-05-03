@@ -16,6 +16,11 @@ export const TASK_TYPE_LIST_VALUES = Object.keys(TaskType).map(
   (item) => TaskType[item as taskType]
 );
 
+export interface CatalogToInstall {
+  id: string;
+  quantity: number;
+}
+
 export default interface Task {
   _id: string;
   technical: User | string;
@@ -32,7 +37,7 @@ export default interface Task {
   emnployeePhoto?: string;
   type: taskType;
   description: string;
-  catalogToInstall: string[];
+  catalogToInstall: CatalogToInstall[];
   createdAt?: string;
   updatedAt?: string;
 }

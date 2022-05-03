@@ -1,21 +1,34 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
-import { Pagination, Table } from 'antd';
+import { Modal, Pagination, Table } from 'antd';
 
-import { COLUMNS_TABLE_TASKS } from '../../../../../helpers/constants/columns-table-tasks';
+import { getColumnsWithButtons } from './columns/columns-task';
 import useTasksTable from './state/useTasks';
+import FormTask from '../CreateTask/FormTask/FormTask';
 
 const TableTasks: React.FC = () => {
   const {
+    viewModal,
+    valueToEdit,
     dataTable,
     filters,
-    actions: { onChangePage, onClickRow }
+    actions: {
+      onChangePage,
+      onClickRow,
+      handleEdit,
+      handleDelete,
+      openModal,
+      closeModal
+    }
   } = useTasksTable();
 
   return (
     <div>
       <Table
-        columns={COLUMNS_TABLE_TASKS}
+        columns={getColumnsWithButtons({
+          handleDelete,
+          handleEdit
+        })}
         dataSource={dataTable}
         scroll={{ x: 1100, y: 450 }}
         pagination={false}
@@ -29,6 +42,17 @@ const TableTasks: React.FC = () => {
         onChange={onChangePage}
         style={{ marginTop: 10 }}
       />
+
+      <Modal
+        visible={viewModal}
+        onOk={openModal}
+        onCancel={closeModal}
+        footer={null}
+        width={800}
+        destroyOnClose
+      >
+        {valueToEdit && <FormTask initValues={valueToEdit} />}
+      </Modal>
     </div>
   );
 };

@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable object-curly-newline */
 /* eslint-disable import/prefer-default-export */
-import { Tag } from 'antd';
 import React from 'react';
+import { Tag } from 'antd';
 import { ColumnsTable } from '../../../../../../domain/interfaces/columns-table';
 import RenderItem from '../../../../generic/render-item/RenderItem';
 import { INVENTORY_STATE_COLOR_AND_NAME } from '../../../../../../helpers/constants/inventory';

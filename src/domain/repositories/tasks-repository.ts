@@ -40,4 +40,6 @@ export default interface TasksRepository {
     startDate: string,
     endDate: string
   ): Promise<Task[]>;
+  delete(id: string): Promise<boolean>;
+  update(id: string, data: Partial<Task>): Promise<Task>;
 }

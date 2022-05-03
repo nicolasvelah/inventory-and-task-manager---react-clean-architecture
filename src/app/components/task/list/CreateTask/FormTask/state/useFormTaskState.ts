@@ -3,6 +3,7 @@ import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { repository } from '../../../../../../../dependecy-injection';
 import Place from '../../../../../../../domain/models/place';
+import { taskType } from '../../../../../../../domain/models/task';
 import User from '../../../../../../../domain/models/user';
 import { userGlobalContext } from '../../../../../../context/global/UserGlobalContext';
 import { useTaskListContext } from '../../../../../../context/task/TaskListContext';
@@ -12,7 +13,7 @@ import {
   ValuesFormTask
 } from './useFormTaskState.interfaces';
 
-const useFormTaskState: UseFormTaskState = () => {
+const useFormTaskState: UseFormTaskState = (initValues) => {
   const [basePlaces, setBasePlaces] = useState<Place[]>([]);
   const [placesFiltered, setPlacesFiltered] = useState<Place[]>([]);
   const [baseTechnicals, setBaseTechnicals] = useState<User[]>([]);
@@ -82,34 +83,59 @@ const useFormTaskState: UseFormTaskState = () => {
   }, []);
 
   const onFinishForm = async (values: ValuesFormTask) => {
-    const hide = message.loading('Creando tarea ...');
-    try {
-      const payloadCreateTask = {
-        idTechnical: values.idTechnical,
-        idCoordinator: values.idCoordinator,
-        idPlace: values.idPlace,
-        scheduledDate: values.scheduledDate.format(),
-        type: values.type,
-        description: values.description,
-        catalogToInstall: catalogSelected.map((itemCatalog) => ({
-          id: itemCatalog._id,
-          quantity: itemCatalog.numberOfItems
-            ? Number(itemCatalog.numberOfItems)
-            : 0
-        }))
-      };
+    const payloadCreateTask = {
+      idTechnical: values.idTechnical,
+      idCoordinator: values.idCoordinator,
+      idPlace: values.idPlace,
+      scheduledDate: values.scheduledDate.format(),
+      type: values.type as taskType,
+      description: values.description,
+      catalogToInstall: catalogSelected.map((itemCatalog) => ({
+        id: itemCatalog._id,
+        quantity: itemCatalog.numberOfItems
+          ? Number(itemCatalog.numberOfItems)
+          : 0
+      }))
+    };
 
-      const task = await tasksRepository?.createTask(payloadCreateTask);
-      if (task) {
-        setTasks([task, ...tasks]);
-      }
+    if (initValues) {
+      const hideUpdated = message.loading('Actualizando la tarea ...');
 
-      message.success('Tarea creada');
-    } catch (error) {
-      message.error('Error al crear la tarea');
-    } finally {
-      hide();
+      tasksRepository
+        ?.update(initValues._id, payloadCreateTask)
+        .then((taskUpdated) => {
+          const newTasks = tasks.map((item) => {
+            if (item._id === taskUpdated._id) {
+              return taskUpdated;
+            }
+            return item;
+          });
+          setTasks(newTasks);
+          message.success('Tarea actualizado.');
+        })
+        .finally(() => {
+          hideUpdated();
+        })
+        .catch(() => {
+          message.error('No se pudo actualizar la tarea.');
+        });
+
+      return;
     }
+
+    const hide = message.loading('Creando tarea ...');
+    await tasksRepository
+      ?.createTask(payloadCreateTask)
+      .then((newTask) => {
+        setTasks([newTask, ...tasks]);
+        message.success('Tarea creada');
+      })
+      .finally(() => {
+        hide();
+      })
+      .catch(() => {
+        message.error('Error al crear la tarea');
+      });
   };
 
   const onSearchPlaces = (value: string) => {

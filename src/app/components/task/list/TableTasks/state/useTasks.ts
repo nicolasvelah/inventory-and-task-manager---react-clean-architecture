@@ -3,6 +3,7 @@ import { message } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { repository } from '../../../../../../dependecy-injection';
+import Task from '../../../../../../domain/models/task';
 import { LIMIT_ROWS } from '../../../../../../helpers/constants/columns-table-tasks';
 import { FORMAT_DATE_DAY_MONTH_YEAR_TWO } from '../../../../../../helpers/constants/format-date';
 import { getValue } from '../../../../../../utils/get-value';
@@ -12,6 +13,8 @@ import { DataTask, UseTasksTable } from './useTasks.interfaces';
 
 const useTasksTable: UseTasksTable = () => {
   const [data, setData] = useState<DataTask[]>([]);
+  const [viewModal, setViewModal] = useState<boolean>(false);
+  const [valueToEdit, setValueToEdit] = useState<Task | null>(null);
 
   // eslint-disable-next-line object-curly-newline
   const { tasks, setTasks, filters, setFiltersList, setTaskSelected } =
@@ -35,7 +38,8 @@ const useTasksTable: UseTasksTable = () => {
       )}`,
       scheduledDate: task.scheduledDate ? momentFormat(task.scheduledDate) : '',
       arrivalDate: task.arrivalDate ? momentFormat(task.arrivalDate) : '',
-      closedDate: task.closedDate ? momentFormat(task.closedDate) : ''
+      closedDate: task.closedDate ? momentFormat(task.closedDate) : '',
+      data: task
     }));
     setData(newData);
   }, [tasks]);
@@ -89,12 +93,41 @@ const useTasksTable: UseTasksTable = () => {
     };
   };
 
+  const handleEdit = (taskToEdit: Task) => {
+    setValueToEdit(taskToEdit);
+    setViewModal(true);
+  };
+
+  const handleDelete = (id: string) => {
+    const hide = message.loading('Eliminando categoría');
+    tasksRepository
+      ?.delete(id)
+      .then((deleted) => {
+        if (deleted) {
+          const newTasks = tasks.filter((item) => item._id !== id);
+          setTasks(newTasks);
+        }
+      })
+      .finally(() => {
+        hide();
+      });
+  };
+
+  const openModal = () => setViewModal(true);
+  const closeModal = () => setViewModal(false);
+
   return {
+    viewModal,
+    valueToEdit,
     dataTable: data,
     filters,
     actions: {
       onChangePage,
-      onClickRow
+      onClickRow,
+      handleEdit,
+      handleDelete,
+      openModal,
+      closeModal
     }
   };
 };

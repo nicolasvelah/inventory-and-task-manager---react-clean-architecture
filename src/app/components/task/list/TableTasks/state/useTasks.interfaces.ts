@@ -12,9 +12,12 @@ export interface DataTask {
   scheduledDate: string;
   arrivalDate: string;
   closedDate: string;
+  data: Task;
 }
 
 export type UseTasksTable = () => {
+  viewModal: boolean;
+  valueToEdit: Task | null;
   dataTable: DataTask[];
   filters: FiltersTaskList;
   actions: {
@@ -22,5 +25,9 @@ export type UseTasksTable = () => {
     onClickRow: (record: any) => {
       onClick: () => void;
     };
+    handleEdit: (categoryToEdit: Task) => void;
+    handleDelete: (id: string) => void;
+    openModal: () => void;
+    closeModal: () => void;
   };
 };

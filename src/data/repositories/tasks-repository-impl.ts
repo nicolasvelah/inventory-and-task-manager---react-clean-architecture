@@ -59,9 +59,26 @@ export default class TasksRepositoryImpl implements TasksRepository {
   ): Promise<Task[]> {
     const axios = await axiosRequest();
     const responseTasks = await axios.get<{ tasks: Task[] }>(
-      `ﬁ/api/v1/tasks/user/${userId}/range/${startDate}/${endDate}`
+      `/api/v1/tasks/user/${userId}/range/${startDate}/${endDate}`
     );
 
     return responseTasks.data.tasks;
+  }
+
+  async delete(id: string): Promise<boolean> {
+    const axios = await axiosRequest();
+    const responseTasks = await axios.delete<boolean>(`/api/v1/tasks/${id}`);
+
+    return responseTasks.data;
+  }
+
+  async update(id: string, data: Partial<Task>): Promise<Task> {
+    const axios = await axiosRequest();
+    const responseTasks = await axios.put<Task>(
+      `/api/v1/tasks/create/${id}`,
+      data
+    );
+
+    return responseTasks.data;
   }
 }

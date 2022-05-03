@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable object-curly-newline */
@@ -21,6 +22,12 @@ export const buildColumnEditAndDelete = (args: {
       disableDeleteButton = args.disableDeleteButton(record);
     }
 
+    const styleDeleteButton = disableDeleteButton
+      ? {
+          color: '#969faf'
+        }
+      : undefined;
+
     return (
       <Space>
         <Tooltip title="Editar">
@@ -37,7 +44,12 @@ export const buildColumnEditAndDelete = (args: {
           onConfirm={() => args.handleDelete(record.key)}
           disabled={disableDeleteButton}
         >
-          <Button type="link" color="red" icon={<DeleteOutlined />} danger />
+          <Button
+            type="link"
+            color="red"
+            icon={<DeleteOutlined style={styleDeleteButton} />}
+            danger
+          />
         </Popconfirm>
       </Space>
     );

@@ -14,55 +14,6 @@ import { stateCatalogType } from '../../domain/models/catalog';
 
 export const LIMIT_ROWS = 10;
 
-export const COLUMNS_TABLE_TASKS: ColumnsType<any> = [
-  {
-    title: 'Id',
-    dataIndex: 'key',
-    key: 'key'
-  },
-  {
-    title: 'Estado',
-    dataIndex: 'closedDate',
-    key: 'state',
-    width: 100,
-    render: (closedDate: any) => (
-      <Tag color={closedDate ? 'red' : 'green'}>
-        {closedDate ? 'cerrada' : 'abierta'}
-      </Tag>
-    )
-  },
-  {
-    title: 'Coordinador',
-    dataIndex: 'coordinator',
-    key: 'coordinator'
-  },
-  {
-    title: 'Técnico',
-    dataIndex: 'technical',
-    key: 'technical'
-  },
-  {
-    title: 'Sitio',
-    dataIndex: 'address',
-    key: 'address'
-  },
-  {
-    title: 'Fecha programada',
-    dataIndex: 'scheduledDate',
-    key: 'scheduledDate'
-  },
-  {
-    title: 'Fecha de arribo',
-    dataIndex: 'arrivalDate',
-    key: 'arrivalDate'
-  },
-  {
-    title: 'Fecha de cierre',
-    dataIndex: 'closedDate',
-    key: 'closedDate'
-  }
-];
-
 export const COLUMNS_TABLE_PLACES: ColumnsType<any> = [
   {
     title: 'Id',

@@ -28,7 +28,7 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
       onSearchCoordinators,
       onValuesChange
     }
-  } = useFormTaskState();
+  } = useFormTaskState(initValues);
 
   return (
     <Form
