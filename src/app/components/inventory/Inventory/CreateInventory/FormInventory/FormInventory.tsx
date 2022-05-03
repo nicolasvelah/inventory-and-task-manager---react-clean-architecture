@@ -4,27 +4,32 @@ import React from 'react';
 import { Button, Form, Input, Select, Space } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import useFormInventoryState from './state/useFormInventoryState';
+import Inventory from '../../../../../../domain/models/inventory';
 
-const FormPlace: React.FC<{
-  initValues?: object;
+const FormInventory: React.FC<{
+  initValues?: Inventory;
 }> = ({ initValues }) => {
-  const { catalog, onFinishForm } = useFormInventoryState();
+  const { catalog, onFinishForm } = useFormInventoryState(initValues);
 
+  const device =
+    typeof initValues?.device === 'string'
+      ? initValues.device
+      : initValues?.device._id;
   return (
     <Form
-      initialValues={initValues}
+      initialValues={{ ...initValues, device }}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 14 }}
-      onFinish={(values:any) => onFinishForm(values)}
+      onFinish={(values: any) => onFinishForm(values)}
       onValuesChange={() => {}}
       className="form"
     >
       <Form.Item
         label="Catálogo"
-        name="catalogId"
+        name="device"
         rules={[{ required: true, message: 'catálogo es requerido' }]}
       >
-        <Select showSearch onSearch={() => {}}>
+        <Select showSearch>
           {catalog.map((item) => (
             <Select.Option key={item._id} value={item._id}>
               {item.device}
@@ -54,31 +59,51 @@ const FormPlace: React.FC<{
       </Form.Item>
       <Form.List
         name="dataCollected"
-        rules={[{
-          validator: async (_, names) => {
-            if (!names || names.length < 1) {
-              return Promise.reject(new Error('At least 1 identifier'));
-            }
-            return false;
-          },
-          message: 'Al menos un identifcador único es requerido'
-        }]}
+        rules={[
+          {
+            validator: async (_, names) => {
+              if (!names || names.length < 1) {
+                return Promise.reject(new Error('At least 1 identifier'));
+              }
+              return false;
+            },
+            message: 'Al menos un identifcador único es requerido'
+          }
+        ]}
       >
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
-              <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+              <Space
+                key={key}
+                style={{
+                  display: 'flex',
+                  marginBottom: 8,
+                  justifyContent: 'center'
+                }}
+                align="baseline"
+              >
                 <Form.Item
                   {...restField}
                   name={[name, 'name']}
-                  rules={[{ required: true, message: 'Nombre del identificador es requerido' }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Nombre del identificador es requerido'
+                    }
+                  ]}
                 >
                   <Input placeholder="Nombre del identificador." />
                 </Form.Item>
                 <Form.Item
                   {...restField}
                   name={[name, 'value']}
-                  rules={[{ required: true, message: 'Valor del identificador es requerido' }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Valor del identificador es requerido'
+                    }
+                  ]}
                 >
                   <Input placeholder="Valor del identificador" />
                 </Form.Item>
@@ -86,7 +111,12 @@ const FormPlace: React.FC<{
               </Space>
             ))}
             <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+              <Button
+                type="dashed"
+                onClick={() => add()}
+                block
+                icon={<PlusOutlined />}
+              >
                 Añadir identifcador único
               </Button>
             </Form.Item>
@@ -102,4 +132,4 @@ const FormPlace: React.FC<{
   );
 };
 
-export default FormPlace;
+export default FormInventory;

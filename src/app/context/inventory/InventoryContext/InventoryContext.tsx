@@ -14,6 +14,7 @@ export interface DataTableInventory {
   identifiers: DataCollectedInventory[];
   idTask: string;
   date: string;
+  data: Inventory;
 }
 
 const INIT_STORE = {

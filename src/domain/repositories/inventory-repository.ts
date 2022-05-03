@@ -9,6 +9,8 @@ export interface PayloadAssingUserItem {
 /* eslint-disable semi */
 export default interface InventoryRepository {
   createInventory(payload: PayloadCreateInventory): Promise<Inventory[]>;
-  getAll(): Promise<Inventory[]>;
+  getAll(inventoryId?: string): Promise<Inventory[]>;
   assingUser(payload: PayloadAssingUserItem[]): Promise<Inventory[]>;
+  update(id: string, data: Partial<Inventory>): Promise<Inventory>;
+  delete(id: string): Promise<boolean>;
 }

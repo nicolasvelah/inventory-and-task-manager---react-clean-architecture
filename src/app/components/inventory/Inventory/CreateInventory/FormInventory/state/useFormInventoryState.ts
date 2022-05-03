@@ -11,17 +11,36 @@ import {
   ValuesFormInventory
 } from './useFormInventoryState.interface';
 
-const useFormInventoryState: UseFormInventoryState = () => {
+const useFormInventoryState: UseFormInventoryState = (initValues) => {
   const [catalog, setCatalog] = useState<Catalog[]>([]);
   const { inventoryRepository, catalogRepository } = repository;
   const { inventoryList, setInventory } = useInventoryContext();
 
   const onFinishForm = async (values: ValuesFormInventory) => {
-    const hide = message.loading('Creando Inventorio ...');
-    const { catalogId, state, userId, dataCollected } = values;
+    if (initValues) {
+      const hideUpdate = message.loading('Actualizando Inventario ...');
+      inventoryRepository
+        ?.update(initValues._id, values)
+        .then((updated) => {
+          const newInventory = inventoryList.map((item) => {
+            if (item._id === updated._id) {
+              return { ...item, ...updated };
+            }
+            return item;
+          });
+
+          setInventory(newInventory);
+        })
+        .finally(() => {
+          hideUpdate();
+        });
+      return;
+    }
+    const hide = message.loading('Creando Inventario ...');
+    const { device, state, userId, dataCollected } = values;
     try {
       const payloadCreateInventory = {
-        catalogId,
+        catalogId: device,
         state,
         userId,
         dataCollected

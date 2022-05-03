@@ -13,13 +13,14 @@ const useInventory = () => {
   const { inventoryRepository } = repository;
 
   const handleChangeFilters = (filtersValue: FiltersValue) => {
-    console.log('filtersValue -->', filtersValue);
-    // TODO: put filters
-    // const { from, to } = rangeDatesToString(filtersValue.rangeDates);
+    const filterText =
+      !filtersValue.text || filtersValue.text === ''
+        ? undefined
+        : filtersValue.text;
 
     const hide = message.loading('Obteniendo inventario ...');
     inventoryRepository
-      ?.getAll()
+      ?.getAll(filterText)
       .then((values) => {
         setInventory(values);
       })

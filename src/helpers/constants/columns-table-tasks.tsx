@@ -6,14 +6,8 @@ import { ColumnsType } from 'antd/lib/table';
 import { Button, Space, Tag } from 'antd';
 import { DataUser } from '../../app/components/users/TableUsers/state/useTableUsersState.interfaces';
 import { userRolesType, UserRoleTranslateEnum } from '../../domain/models/user';
-import {
-  BOX_STATE_COLOR_AND_NAME,
-  INVENTORY_STATE_COLOR_AND_NAME
-} from './inventory';
-import {
-  DataCollectedInventory,
-  inventoryStateType
-} from '../../domain/models/inventory';
+import { BOX_STATE_COLOR_AND_NAME } from './inventory';
+import { DataCollectedInventory } from '../../domain/models/inventory';
 import RenderItem from '../../app/components/generic/render-item/RenderItem';
 import { FragmentValue } from '../../app/context/inventory/BoxContext/BoxContext';
 import { stateCatalogType } from '../../domain/models/catalog';
@@ -199,83 +193,6 @@ export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
         </Space>
       );
     }
-  }
-];
-
-export const COLUMNS_TABLE_INVENTORY: ColumnsType<any> = [
-  {
-    title: 'Id Equipo',
-    dataIndex: 'key',
-    key: 'key',
-    width: 150
-  },
-  {
-    title: 'Nombre',
-    dataIndex: 'name',
-    key: 'name'
-  },
-  {
-    title: 'Marca',
-    dataIndex: 'brand',
-    key: 'brand'
-  },
-  {
-    title: 'Modelo',
-    dataIndex: 'referenceModel',
-    key: 'referenceModel'
-  },
-  {
-    title: 'Categoria',
-    dataIndex: 'category',
-    key: 'category'
-  },
-  {
-    title: 'Tipo',
-    dataIndex: 'type',
-    key: 'type'
-  },
-  {
-    title: 'Estado',
-    dataIndex: 'state',
-    key: 'state',
-    width: 100,
-    render: (value: inventoryStateType) => (
-      <Tag color={INVENTORY_STATE_COLOR_AND_NAME[value].color}>
-        {INVENTORY_STATE_COLOR_AND_NAME[value].name}
-      </Tag>
-    )
-  },
-  {
-    title: 'Técnico',
-    dataIndex: 'technical',
-    key: 'technical'
-  },
-  {
-    title: 'Sitio',
-    dataIndex: 'place',
-    key: 'place'
-  },
-  {
-    title: 'Identificadores',
-    dataIndex: 'identifiers',
-    key: 'identifiers',
-    render: (dataColected?: DataCollectedInventory[]) => (
-      <>
-        {dataColected?.map(({ name, value }, index) => (
-          <RenderItem label={name} value={value} key={index} />
-        ))}
-      </>
-    )
-  },
-  {
-    title: 'Id Tarea',
-    dataIndex: 'idTask',
-    key: 'idTask'
-  },
-  {
-    title: 'Fecha',
-    dataIndex: 'date',
-    key: 'date'
   }
 ];
 

@@ -13,7 +13,7 @@ const FilterSearch: React.FC<{
     prefixCls: 'ant-dropdown-custom';
     selectedKeys: any[];
     setSelectedKeys: (selectedKeys: any[]) => void;
-    visible: false;
+    visible: boolean;
   };
 }> = ({ props: { confirm, selectedKeys, setSelectedKeys, clearFilters } }) => (
   <div style={{ padding: 8 }}>
@@ -30,10 +30,10 @@ const FilterSearch: React.FC<{
         size="small"
         style={{ width: 90 }}
       >
-        Search
+        Buscar
       </Button>
       <Button onClick={() => clearFilters()} size="small" style={{ width: 90 }}>
-        Reset
+        Resetear
       </Button>
     </Space>
   </div>
@@ -51,7 +51,7 @@ export const implementSearchFilter = (column: any): ColumnTable => {
         return <FilterSearch props={value} />;
       },
       onFilter: (value: string, record: any) => {
-        return record[column.key]
+        return (record[column.key] ?? '')
           .toString()
           .toLowerCase()
           .includes(value.toLowerCase());

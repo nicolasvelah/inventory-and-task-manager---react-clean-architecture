@@ -9,12 +9,18 @@ import { ColumnTable } from '../domain/interfaces/columns-table';
 export const buildColumnEditAndDelete = (args: {
   handleEdit: (currentData: any) => void;
   handleDelete: (id: string) => void;
+  disableDeleteButton?: (record: any) => boolean;
 }): ColumnTable => ({
   title: '',
   dataIndex: 'buttons',
   key: 'buttons',
   width: 120,
   render: (value: any, record: any, index: number) => {
+    let disableDeleteButton = false;
+    if (args.disableDeleteButton) {
+      disableDeleteButton = args.disableDeleteButton(record);
+    }
+
     return (
       <Space>
         <Tooltip title="Editar">
@@ -29,6 +35,7 @@ export const buildColumnEditAndDelete = (args: {
           okText="Si"
           cancelText="No"
           onConfirm={() => args.handleDelete(record.key)}
+          disabled={disableDeleteButton}
         >
           <Button type="link" color="red" icon={<DeleteOutlined />} danger />
         </Popconfirm>
