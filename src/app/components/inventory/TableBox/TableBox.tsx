@@ -1,20 +1,38 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
-import { Table } from 'antd';
-import { COLUMNS_TABLE_BOX } from '../../../../helpers/constants/columns-table-tasks';
+import { Modal, Table } from 'antd';
+import { getColumnsWithButtons } from './columns/columns-box';
 import useTableBox from './state/useTableBox';
+import FormBox from '../../box/CreateBox/FormBox/FormBox';
 
 const TableBox: React.FC = () => {
   const {
     dataTable,
     rowSelection,
-    actions: { onClickRow }
+    viewModal,
+    valueToEdit,
+
+    actions: {
+      // onClickRow,
+      handleEdit,
+      handleDelete,
+      openModal,
+      closeModal,
+      disableDeleteButton,
+      onClickCell
+    }
   } = useTableBox();
 
   return (
     <div>
       <Table
-        columns={COLUMNS_TABLE_BOX}
+        columns={getColumnsWithButtons({
+          handleDelete,
+          handleEdit,
+          disableDeleteButton,
+          onClickCell
+        })}
         rowSelection={rowSelection}
         dataSource={dataTable}
         bordered
@@ -22,8 +40,18 @@ const TableBox: React.FC = () => {
         pagination={{
           pageSize: 10
         }}
-        onRow={onClickRow as any}
+        // onRow={onClickRow as any}
       />
+      <Modal
+        visible={viewModal}
+        onOk={openModal}
+        onCancel={closeModal}
+        footer={null}
+        width={800}
+        destroyOnClose
+      >
+        {valueToEdit && <FormBox initValues={valueToEdit} />}
+      </Modal>
     </div>
   );
 };

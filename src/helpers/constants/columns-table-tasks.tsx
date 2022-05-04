@@ -3,14 +3,9 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { ColumnsType } from 'antd/lib/table';
-import { Button, Space, Tag } from 'antd';
+import { Button, Space } from 'antd';
 import { DataUser } from '../../app/components/users/TableUsers/state/useTableUsersState.interfaces';
 import { userRolesType, UserRoleTranslateEnum } from '../../domain/models/user';
-import { BOX_STATE_COLOR_AND_NAME } from './inventory';
-import { DataCollectedInventory } from '../../domain/models/inventory';
-import RenderItem from '../../app/components/generic/render-item/RenderItem';
-import { FragmentValue } from '../../app/context/inventory/BoxContext/BoxContext';
-import { stateCatalogType } from '../../domain/models/catalog';
 
 export const LIMIT_ROWS = 10;
 
@@ -144,126 +139,6 @@ export const COLUMNS_TABLE_CATALOG: ColumnsType<any> = [
         </Space>
       );
     }
-  }
-];
-
-export const COLUMNS_TABLE_FRAGMENTS = [
-  {
-    title: 'Total del fragmento',
-    dataIndex: 'totalFragment',
-    key: 'totalFragment',
-    width: 115,
-    className: 'fragment',
-    render: (totalFragments: FragmentValue[]) => (
-      <table>
-        <tbody>
-          {totalFragments?.map((total, index) => {
-            const value = `${total.value} ${total.unitOfMeasurement}`;
-            return (
-              <tr key={`row_total_${index}`}>
-                <td>{value}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    )
-  },
-  {
-    title: 'Total usado del fragmento',
-    dataIndex: 'remainingFragment',
-    key: 'remainingFragment',
-    width: 115,
-    className: 'fragment',
-    render: (remainingFragment: FragmentValue[]) => (
-      <table>
-        <tbody>
-          {remainingFragment?.map((remaining, index) => {
-            const value = `${remaining.value} ${remaining.unitOfMeasurement}`;
-            return (
-              <tr key={`row_remaining_${index}`}>
-                <td>{value}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    )
-  },
-  {
-    title: 'Técnico del fragmento',
-    dataIndex: 'technicalFragment',
-    key: 'technicalFragment',
-    width: 200,
-    className: 'fragment',
-    render: (technicalFragment: FragmentValue[]) => (
-      <table>
-        <tbody>
-          {technicalFragment?.map((technical, index) => {
-            const value = `${technical.value} ${technical.unitOfMeasurement}`;
-            return (
-              <tr key={`row_technical_${index}`}>
-                <td>{value}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    )
-  }
-];
-
-export const COLUMNS_TABLE_BOX: ColumnsType<any> = [
-  {
-    title: 'Id Equipo',
-    dataIndex: 'key',
-    key: 'key',
-    width: 250
-  },
-  {
-    title: 'Nombre',
-    dataIndex: 'name',
-    key: 'name'
-  },
-  {
-    title: 'Estado',
-    dataIndex: 'state',
-    key: 'state',
-    width: 100,
-    render: (value: stateCatalogType) => (
-      <Tag color={BOX_STATE_COLOR_AND_NAME[value].color}>
-        {BOX_STATE_COLOR_AND_NAME[value].name}
-      </Tag>
-    )
-  },
-  {
-    title: 'Identificadores',
-    dataIndex: 'identifiers',
-    key: 'identifiers',
-    width: 200,
-    render: (dataColected?: DataCollectedInventory[]) => (
-      <>
-        {dataColected?.map(({ name, value }, index) => (
-          <RenderItem label={name} value={value} key={index} />
-        ))}
-      </>
-    )
-  },
-  {
-    title: 'Total',
-    dataIndex: 'total',
-    key: 'total',
-    width: 150
-  },
-  {
-    title: 'Restante',
-    dataIndex: 'remaining',
-    key: 'remaining',
-    width: 150
-  },
-  {
-    title: 'Fragmentos',
-    children: COLUMNS_TABLE_FRAGMENTS
   }
 ];
 

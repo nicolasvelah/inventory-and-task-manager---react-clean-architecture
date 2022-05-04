@@ -35,4 +35,11 @@ export default class BoxRepositoryImpl implements BoxRepository {
 
     return response.data.data;
   }
+
+  async delete(id: string): Promise<boolean> {
+    const axios = await axiosRequest();
+    const response = await axios.delete<boolean>(`/api/v1/boxes/${id}`);
+
+    return response.data;
+  }
 }

@@ -44,4 +44,5 @@ export default interface BoxRepository {
   createBox(payload: PayloadCreateBox): Promise<ResponseBox>;
   getAll(): Promise<ResponseBox[]>;
   createFragment(payload: RequestCreateFragment): Promise<Fragments[]>;
+  delete(id: string): Promise<boolean>;
 }

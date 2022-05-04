@@ -6,7 +6,7 @@ import { DetailTaskBox } from './DrawerDetailBox.interfaces';
 import useDrawerDetailBox from './useDrawerDetailBox/useDrawerDetailBox';
 import FragmentBoxesModal from '../../box/FragmentBoxesModal/FragmentBoxesModal';
 import './drawer-detail-box.scss';
-import { COLUMNS_TABLE_FRAGMENTS } from '../../../../helpers/constants/columns-table-tasks';
+import { COLUMNS_TABLE_FRAGMENTS } from '../../inventory/TableBox/columns/columns-box';
 
 const DrawerDetailBox: React.FC<DetailTaskBox> = ({
   activeBox,

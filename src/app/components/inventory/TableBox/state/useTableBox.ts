@@ -1,6 +1,12 @@
 /* eslint-disable object-curly-newline */
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
-import { FragmentBox } from '../../../../../domain/repositories/box-repository';
+import { repository } from '../../../../../dependecy-injection';
+import {
+  FragmentBox,
+  ResponseBox
+} from '../../../../../domain/repositories/box-repository';
+import { OnClickCell } from '../../../../../utils/columns';
 import {
   DataTableBox,
   FragmentValue,
@@ -10,8 +16,17 @@ import {
 const useTableBox = () => {
   const [dataTable, setDataTable] = useState<DataTableBox[]>([]);
 
-  const { rowSelection, boxList, setItemSelected, setViewDrawer } =
-    useBoxContext();
+  const [viewModal, setViewModal] = useState<boolean>(false);
+  const [valueToEdit, setValueToEdit] = useState<ResponseBox | null>(null);
+
+  const {
+    rowSelection,
+    boxList,
+    setItemSelected,
+    setViewDrawer,
+    setBoxList,
+    canItBeFragmented
+  } = useBoxContext();
 
   const getFragments = (fragment: FragmentBox[], unitOfMeasurement: string) => {
     const total: FragmentValue[] = [];
@@ -52,6 +67,8 @@ const useTableBox = () => {
     };
   };
 
+  const { boxRepository } = repository;
+
   useEffect(() => {
     const newData: DataTableBox[] = boxList.map((box) => {
       const { unitOfMeasurement } = box.attributes.device;
@@ -89,11 +106,55 @@ const useTableBox = () => {
     };
   };
 
+  const onClickCell: OnClickCell =
+    (nonClickableColumn?: boolean) => (record: DataTableBox) => {
+      if (nonClickableColumn) return undefined;
+      return {
+        onClick: () => {
+          setItemSelected(record);
+          setViewDrawer(true);
+        }
+      };
+    };
+
+  const handleEdit = (boxToEdit: ResponseBox) => {
+    setValueToEdit(boxToEdit);
+    setViewModal(true);
+  };
+
+  const handleDelete = (id: string) => {
+    const hide = message.loading('Eliminando caja');
+    boxRepository
+      ?.delete(id)
+      .then((deleted) => {
+        if (deleted) {
+          const newBoxList = boxList.filter(
+            (item) => item.attributes._id !== id
+          );
+          setBoxList(newBoxList);
+        }
+      })
+      .finally(() => {
+        hide();
+      });
+  };
+
+  const openModal = () => setViewModal(true);
+  const closeModal = () => setViewModal(false);
+
   return {
     dataTable,
     rowSelection,
+    viewModal,
+    valueToEdit,
     actions: {
-      onClickRow
+      onClickRow,
+      handleEdit,
+      handleDelete,
+      openModal,
+      closeModal,
+      disableDeleteButton: canItBeFragmented,
+      onClickCell
     }
   };
 };

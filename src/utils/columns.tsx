@@ -5,7 +5,13 @@
 import React from 'react';
 import { Button, Popconfirm, Space, Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { ColumnTable } from '../domain/interfaces/columns-table';
+import { ColumnsTable, ColumnTable } from '../domain/interfaces/columns-table';
+
+export type OnClickCell = (nonClickableColumn?: boolean) => (record: any) =>
+  | {
+      onClick: () => void;
+    }
+  | undefined;
 
 export const buildColumnEditAndDelete = (args: {
   handleEdit: (currentData: any) => void;
@@ -55,3 +61,25 @@ export const buildColumnEditAndDelete = (args: {
     );
   }
 });
+
+export const getColumnsWithOnCellClick = (
+  columns: ColumnsTable,
+  onClickCell?: OnClickCell
+) => {
+  const columnsWithFilters = columns.map((column) => {
+    const children = column.children?.map((columChild) => {
+      return {
+        ...columChild,
+        onCell: onClickCell ? onClickCell() : undefined
+      };
+    });
+
+    return {
+      ...column,
+      children,
+      onCell: onClickCell ? onClickCell() : undefined
+    };
+  });
+
+  return columnsWithFilters;
+};

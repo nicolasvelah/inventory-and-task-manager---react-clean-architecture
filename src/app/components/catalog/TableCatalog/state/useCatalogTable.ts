@@ -43,9 +43,6 @@ const useCatalogTable: UseCatalogTable = () => {
   }, [catalogs]);
 
   const handleEdit = (categoryToEdit: Catalog) => {
-    console.log('handleEdit -->', categoryToEdit);
-    // if ({}) return;
-
     setValueToEdit(categoryToEdit);
     setViewModal(true);
   };
