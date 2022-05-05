@@ -21,7 +21,7 @@ export interface FragmentBox {
 }
 export interface ResponseBox {
   attributes: {
-    dataCollected: DataCollectedBox;
+    dataCollected: DataCollectedBox[];
     device: Catalog;
     remainingMaterial: number;
     totalMaterial: number;
@@ -45,4 +45,5 @@ export default interface BoxRepository {
   getAll(): Promise<ResponseBox[]>;
   createFragment(payload: RequestCreateFragment): Promise<Fragments[]>;
   delete(id: string): Promise<boolean>;
+  update(id: string, data: Partial<PayloadCreateBox>): Promise<ResponseBox>;
 }

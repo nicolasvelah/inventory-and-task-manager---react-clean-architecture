@@ -118,6 +118,7 @@ const useTableBox = () => {
     };
 
   const handleEdit = (boxToEdit: ResponseBox) => {
+    console.log('boxToEdit -->', boxToEdit);
     setValueToEdit(boxToEdit);
     setViewModal(true);
   };

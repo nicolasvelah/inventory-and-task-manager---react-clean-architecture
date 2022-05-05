@@ -4,19 +4,30 @@ import React from 'react';
 import { Button, Form, Input, Select, Space, InputNumber } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import useFormBoxState from './state/useFormBoxState';
+import { ResponseBox } from '../../../../../domain/repositories/box-repository';
+import { ValuesFormBox } from './state/useFormBoxState.interface';
 
 const FormBox: React.FC<{
-  initValues?: object;
+  initValues?: ResponseBox;
 }> = ({ initValues }) => {
-  const { catalog, onFinishForm } = useFormBoxState();
+  const { catalog, onFinishForm } = useFormBoxState(initValues);
+
+  let initValuesTransformed: ValuesFormBox | undefined;
+
+  if (initValues) {
+    initValuesTransformed = {
+      catalogId: initValues.attributes.device._id,
+      dataCollected: initValues.attributes.dataCollected,
+      totalMaterial: initValues.attributes.totalMaterial
+    };
+  }
 
   return (
     <Form
-      initialValues={initValues}
+      initialValues={initValuesTransformed}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 14 }}
-      onFinish={(values:any) => onFinishForm(values)}
-      onValuesChange={() => {}}
+      onFinish={onFinishForm}
       className="form"
     >
       <Form.Item
@@ -37,37 +48,51 @@ const FormBox: React.FC<{
         name="totalMaterial"
         rules={[{ required: true, message: 'Total de material es requerido' }]}
       >
-        <InputNumber
-          min={1}
-        />
+        <InputNumber min={1} />
       </Form.Item>
       <Form.List
         name="dataCollected"
-        rules={[{
-          validator: async (_, names) => {
-            if (!names || names.length < 1) {
-              return Promise.reject(new Error('At least 1 identifier'));
-            }
-            return false;
-          },
-          message: 'Al menos un identifcador único es requerido'
-        }]}
+        rules={[
+          {
+            validator: async (_, names) => {
+              if (!names || names.length < 1) {
+                return Promise.reject(new Error('At least 1 identifier'));
+              }
+              return false;
+            },
+            message: 'Al menos un identifcador único es requerido'
+          }
+        ]}
       >
         {(fields, { add, remove }) => (
           <>
             {fields.map(({ key, name, ...restField }) => (
-              <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+              <Space
+                key={key}
+                style={{ display: 'flex', marginBottom: 8 }}
+                align="baseline"
+              >
                 <Form.Item
                   {...restField}
                   name={[name, 'name']}
-                  rules={[{ required: true, message: 'Nombre del identificador es requerido' }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Nombre del identificador es requerido'
+                    }
+                  ]}
                 >
                   <Input placeholder="Nombre del identificador." />
                 </Form.Item>
                 <Form.Item
                   {...restField}
                   name={[name, 'value']}
-                  rules={[{ required: true, message: 'Valor del identificador es requerido' }]}
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Valor del identificador es requerido'
+                    }
+                  ]}
                 >
                   <Input placeholder="Valor del identificador" />
                 </Form.Item>
@@ -75,7 +100,12 @@ const FormBox: React.FC<{
               </Space>
             ))}
             <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+              <Button
+                type="dashed"
+                onClick={() => add()}
+                block
+                icon={<PlusOutlined />}
+              >
                 Añadir identifcador único
               </Button>
             </Form.Item>

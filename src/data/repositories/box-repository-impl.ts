@@ -21,7 +21,6 @@ export default class BoxRepositoryImpl implements BoxRepository {
   async createBox(payload: PayloadCreateBox): Promise<ResponseBox> {
     const axios = await axiosRequest();
     const response = await axios.post<Box>('/api/v1/boxes', payload);
-    console.log({ response });
     const box = response.data as unknown as ResponseBox[];
     return box[0] as ResponseBox;
   }
@@ -39,6 +38,16 @@ export default class BoxRepositoryImpl implements BoxRepository {
   async delete(id: string): Promise<boolean> {
     const axios = await axiosRequest();
     const response = await axios.delete<boolean>(`/api/v1/boxes/${id}`);
+
+    return response.data;
+  }
+
+  async update(
+    id: string,
+    data: Partial<PayloadCreateBox>
+  ): Promise<ResponseBox> {
+    const axios = await axiosRequest();
+    const response = await axios.put<ResponseBox>(`/api/v1/boxes/${id}`, data);
 
     return response.data;
   }

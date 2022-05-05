@@ -91,7 +91,8 @@ export const COLUMNS_TABLE_BOX: ColumnsTable = [
   {
     title: 'Nombre',
     dataIndex: 'name',
-    key: 'name'
+    key: 'name',
+    isFilterableBySearch: true
   },
   {
     title: 'Estado',
@@ -121,13 +122,15 @@ export const COLUMNS_TABLE_BOX: ColumnsTable = [
     title: 'Total',
     dataIndex: 'total',
     key: 'total',
-    width: 150
+    width: 150,
+    isFilterableBySearch: true
   },
   {
     title: 'Restante',
     dataIndex: 'remaining',
     key: 'remaining',
-    width: 150
+    width: 150,
+    isFilterableBySearch: true
   },
   {
     title: 'Fragmentos',

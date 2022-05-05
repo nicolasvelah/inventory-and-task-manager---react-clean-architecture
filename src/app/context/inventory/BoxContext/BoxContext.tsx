@@ -20,7 +20,7 @@ export interface DataTableBox {
   key: string;
   state: string;
   name: string;
-  identifiers: DataCollectedBox;
+  identifiers: DataCollectedBox[];
   total: string;
   totalFragment: FragmentValue[];
   remainingFragment: FragmentValue[];

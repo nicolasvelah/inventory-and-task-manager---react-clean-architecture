@@ -12,9 +12,7 @@ const TableBox: React.FC = () => {
     rowSelection,
     viewModal,
     valueToEdit,
-
     actions: {
-      // onClickRow,
       handleEdit,
       handleDelete,
       openModal,
@@ -40,7 +38,6 @@ const TableBox: React.FC = () => {
         pagination={{
           pageSize: 10
         }}
-        // onRow={onClickRow as any}
       />
       <Modal
         visible={viewModal}

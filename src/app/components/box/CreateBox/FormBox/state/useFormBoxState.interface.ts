@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 
 import Catalog from '../../../../../../domain/models/catalog';
+import { ResponseBox } from '../../../../../../domain/repositories/box-repository';
 
-export type UseFormBoxState = () => {
+export type UseFormBoxState = (initValues?: ResponseBox) => {
   catalog: Catalog[];
   onFinishForm: (values: ValuesFormBox) => Promise<void>;
 };
