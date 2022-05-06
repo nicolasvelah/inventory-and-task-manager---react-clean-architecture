@@ -63,6 +63,10 @@ const useFormTaskState: UseFormTaskState = (initValues) => {
 
         setBaseCoordinators(coordinators);
         setCoordinatorsFiltered(coordinators);
+
+        if (initValues?.technical) {
+          setDisabledAddCategoryButton(false);
+        }
       }
     } catch (error) {
       message.error('No se pudo obtener los técnicos y coordinadores');

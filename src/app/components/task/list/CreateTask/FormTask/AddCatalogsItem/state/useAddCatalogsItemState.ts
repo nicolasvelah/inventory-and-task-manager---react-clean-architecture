@@ -1,43 +1,12 @@
 import { useEffect, useState } from 'react';
 import { repository } from '../../../../../../../../dependecy-injection';
+import Task from '../../../../../../../../domain/models/task';
 import { CatalogItem } from '../../../../../../generic/catalog/AddCatalog/AddCatalog.interfaces';
-
-/* const FAKE_DATA: Catalog[] = [
-  {
-    _id: '123',
-    device: 'device',
-    brand: 'brand',
-    referenceModel: 'referenceModel',
-    typePlace: 'ATM',
-    unitOfMeasurement: 'unitOfMeasurement',
-    state: 'stock',
-    type: 'controlled'
-  },
-  {
-    _id: '1234',
-    device: 'device',
-    brand: 'brand',
-    referenceModel: 'referenceModel',
-    typePlace: 'ATM',
-    unitOfMeasurement: 'unitOfMeasurement',
-    state: 'stock',
-    type: 'controlled'
-  },
-  {
-    _id: '12345',
-    device: 'device',
-    brand: 'brand',
-    referenceModel: 'referenceModel',
-    typePlace: 'ATM',
-    unitOfMeasurement: 'unitOfMeasurement',
-    state: 'stock',
-    type: 'controlled'
-  }
-]; */
 
 const useAddCategoryItemState = (values: {
   // eslint-disable-next-line no-unused-vars
   handleCatalogSelected: (catalogs: CatalogItem[]) => void;
+  initValues?: Task;
 }) => {
   const [visibleModal, setVisibleModal] = useState<boolean>(false);
   const [linkedCatalogs, setLinkedCatalogs] = useState<CatalogItem[]>([]);
@@ -47,9 +16,30 @@ const useAddCategoryItemState = (values: {
 
   useEffect(() => {
     catalogRepository?.getCatalogs().then((catalogsRepository) => {
-      setCatalogs(
-        catalogsRepository.map((item) => ({ ...item, selected: false }))
-      );
+      let catalogSelectedMap = catalogsRepository.map((item) => ({
+        ...item,
+        selected: false
+      }));
+      setCatalogs(catalogSelectedMap);
+
+      if (values.initValues) {
+        catalogSelectedMap = catalogSelectedMap.map((itemSelected) => ({
+          ...itemSelected,
+          selected: !!values.initValues!.catalogToInstall.find(
+            (element) => itemSelected._id === element.id
+          )
+        }));
+        setCatalogs(catalogSelectedMap);
+
+        const newLinkedCatalogs = catalogSelectedMap.filter((catalogItem) => {
+          return values.initValues!.catalogToInstall.find(
+            (element) => catalogItem._id === element.id
+          );
+        });
+
+        setLinkedCatalogs(newLinkedCatalogs);
+        values.handleCatalogSelected(newLinkedCatalogs);
+      }
     });
   }, []);
 

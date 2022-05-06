@@ -23,7 +23,6 @@ const useAddCatalogState: UseAddCatalogState = ({
     });
 
     setCatalogsMenu(syncCatalogs);
-    console.groupEnd();
   }, [linkedCatalogs]);
 
   useEffect(() => {

@@ -13,6 +13,8 @@ import {
 import AddCatalogslItem from './AddCatalogsItem/AddCatalogsItem';
 
 import './form-task.scss';
+import User from '../../../../../../domain/models/user';
+import Place from '../../../../../../domain/models/place';
 
 const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
   const {
@@ -30,9 +32,21 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
     }
   } = useFormTaskState(initValues);
 
+  let initValuesConverted;
+
+  if (initValues) {
+    initValuesConverted = {
+      ...initValues,
+      idTechnical: (initValues.technical as User)._id,
+      idCoordinator: (initValues.coordinator as User)._id,
+      idPlace: (initValues.place as Place)._id,
+      scheduledDate: moment(initValues.scheduledDate)
+    };
+  }
+
   return (
     <Form
-      initialValues={initValues}
+      initialValues={initValuesConverted}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 14 }}
       onFinish={onFinishForm}
@@ -116,6 +130,7 @@ const FormTask: React.FC<FormTaskProps> = ({ initValues }) => {
       <AddCatalogslItem
         disabled={disabledAddCategoryButton}
         handleCatalogSelected={handleCatalogSelected}
+        initValues={initValues}
       />
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

@@ -4,18 +4,20 @@ import useAddCategoryItemState from './state/useAddCatalogsItemState';
 import ListCatalog from '../../../../../generic/ListCatalog/ListCatalog';
 import AddCatalog from '../../../../../generic/catalog/AddCatalog/AddCatalog';
 import { CatalogItem } from '../../../../../generic/catalog/AddCatalog/AddCatalog.interfaces';
+import Task from '../../../../../../../domain/models/task';
 
 const AddCatalogslItem: React.FC<{
   disabled?: boolean;
   // eslint-disable-next-line no-unused-vars
   handleCatalogSelected: (catalogs: CatalogItem[]) => void;
-}> = ({ disabled, handleCatalogSelected }) => {
+  initValues?: Task;
+}> = ({ disabled, handleCatalogSelected, initValues }) => {
   const {
     catalogs,
     visibleModal,
     linkedCatalogs,
     actions: { handleCancel, handleOpen, handleLinkedItemClick }
-  } = useAddCategoryItemState({ handleCatalogSelected });
+  } = useAddCategoryItemState({ handleCatalogSelected, initValues });
 
   return (
     <>
