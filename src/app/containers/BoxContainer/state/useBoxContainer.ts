@@ -17,13 +17,10 @@ const useBoxContainer = () => {
   const { boxRepository } = repository;
 
   const handleChangeFilters = (filtersValue: FiltersValue) => {
-    // TODO: Change logic
-    console.log('filtersValue -->', filtersValue);
-
     const hide = message.loading('Obteniendo Cajas ...');
 
     boxRepository
-      ?.getAll()
+      ?.getAll(filtersValue.text)
       .then((boxList) => {
         setBoxList(boxList);
       })

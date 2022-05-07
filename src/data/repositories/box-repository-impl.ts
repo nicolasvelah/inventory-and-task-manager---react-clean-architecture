@@ -9,11 +9,14 @@ import BoxRepository, {
 import { axiosRequest } from '../../utils/axios-util';
 
 export default class BoxRepositoryImpl implements BoxRepository {
-  async getAll(): Promise<ResponseBox[]> {
+  async getAll(boxId?: string): Promise<ResponseBox[]> {
+    let url = 'api/v1/boxes';
+    if (boxId) {
+      url += `?id=${boxId}`;
+    }
+
     const axios = await axiosRequest();
-    const response = await axios.get<{ response: ResponseBox[] }>(
-      'api/v1/boxes'
-    );
+    const response = await axios.get<{ response: ResponseBox[] }>(url);
 
     return response.data.response;
   }
