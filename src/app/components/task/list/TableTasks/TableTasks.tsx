@@ -14,11 +14,11 @@ const TableTasks: React.FC = () => {
     filters,
     actions: {
       onChangePage,
-      onClickRow,
       handleEdit,
       handleDelete,
       openModal,
-      closeModal
+      closeModal,
+      onClickCell
     }
   } = useTasksTable();
 
@@ -27,12 +27,12 @@ const TableTasks: React.FC = () => {
       <Table
         columns={getColumnsWithButtons({
           handleDelete,
-          handleEdit
+          handleEdit,
+          onClickCell
         })}
         dataSource={dataTable}
         scroll={{ x: 1100, y: 450 }}
         pagination={false}
-        onRow={onClickRow as any}
       />
       <Pagination
         showQuickJumper

@@ -66,7 +66,7 @@ const ListCatalog: React.FC<ListCatalogProps> = ({
             {showNumberOfItems && (
               <InputNumber
                 min={1}
-                defaultValue={1}
+                defaultValue={item.numberOfItems ?? 1}
                 onChange={handleInputNumber(item, handleItemClick)}
               />
             )}

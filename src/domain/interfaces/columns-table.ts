@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { ColumnType } from 'antd/lib/table';
 
 export type ColumnTable = ColumnType<any> & {
@@ -6,3 +7,15 @@ export type ColumnTable = ColumnType<any> & {
 };
 
 export type ColumnsTable = ColumnTable[];
+
+export type OnClickCell = (nonClickableColumn?: boolean) => (record: any) =>
+  | {
+      onClick: () => void;
+    }
+  | undefined;
+export interface ArgsBuildColumnEditAndDelete {
+  handleEdit: (currentData: any) => void;
+  handleDelete: (id: string) => void;
+  disableDeleteButton?: (record: any) => boolean;
+  onClickCell?: OnClickCell;
+}

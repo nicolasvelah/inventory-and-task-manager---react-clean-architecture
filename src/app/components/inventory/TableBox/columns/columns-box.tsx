@@ -3,7 +3,11 @@
 import React from 'react';
 import { Tag } from 'antd';
 import { FragmentValue } from '../../../../context/inventory/BoxContext/BoxContext';
-import { ColumnsTable } from '../../../../../domain/interfaces/columns-table';
+import {
+  ArgsBuildColumnEditAndDelete,
+  ColumnsTable,
+  OnClickCell
+} from '../../../../../domain/interfaces/columns-table';
 import { BOX_STATE_COLOR_AND_NAME } from '../../../../../helpers/constants/inventory';
 import { stateCatalogType } from '../../../../../domain/models/catalog';
 import { DataCollectedInventory } from '../../../../../domain/models/inventory';
@@ -11,8 +15,7 @@ import RenderItem from '../../../generic/render-item/RenderItem';
 import { implementSearchFilter } from '../../../../../helpers/implement-filter';
 import {
   buildColumnEditAndDelete,
-  getColumnsWithOnCellClick,
-  OnClickCell
+  getColumnsWithOnCellClick
 } from '../../../../../utils/columns';
 
 export const COLUMNS_TABLE_FRAGMENTS: ColumnsTable = [
@@ -151,12 +154,7 @@ const getColumnsWithFilters = (onClickCell?: OnClickCell) => {
   return columnsWithFilters;
 };
 
-export const getColumnsWithButtons = (args: {
-  handleEdit: (currentData: any) => void;
-  handleDelete: (id: string) => void;
-  disableDeleteButton?: (record: any) => boolean;
-  onClickCell?: OnClickCell;
-}) => {
+export const getColumnsWithButtons = (args: ArgsBuildColumnEditAndDelete) => {
   const columns = getColumnsWithFilters(args.onClickCell);
 
   columns.push(buildColumnEditAndDelete(args));

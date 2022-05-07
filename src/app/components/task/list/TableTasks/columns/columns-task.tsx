@@ -1,9 +1,16 @@
 /* eslint-disable no-unused-vars */
 import { Tag } from 'antd';
 import React from 'react';
-import { ColumnsTable } from '../../../../../../domain/interfaces/columns-table';
+import {
+  ArgsBuildColumnEditAndDelete,
+  ColumnsTable,
+  OnClickCell
+} from '../../../../../../domain/interfaces/columns-table';
 import { implementSearchFilter } from '../../../../../../helpers/implement-filter';
-import { buildColumnEditAndDelete } from '../../../../../../utils/columns';
+import {
+  buildColumnEditAndDelete,
+  getColumnsWithOnCellClick
+} from '../../../../../../utils/columns';
 
 export const COLUMNS_TABLE_TASKS: ColumnsTable = [
   {
@@ -25,17 +32,20 @@ export const COLUMNS_TABLE_TASKS: ColumnsTable = [
   {
     title: 'Coordinador',
     dataIndex: 'coordinator',
-    key: 'coordinator'
+    key: 'coordinator',
+    isFilterableBySearch: true
   },
   {
     title: 'Técnico',
     dataIndex: 'technical',
-    key: 'technical'
+    key: 'technical',
+    isFilterableBySearch: true
   },
   {
     title: 'Sitio',
     dataIndex: 'address',
-    key: 'address'
+    key: 'address',
+    isFilterableBySearch: true
   },
   {
     title: 'Fecha programada',
@@ -54,21 +64,23 @@ export const COLUMNS_TABLE_TASKS: ColumnsTable = [
   }
 ];
 
-export const getColumnsWithFilters = () => {
-  const columnsWithFilters = COLUMNS_TABLE_TASKS.map((column) => {
+export const getColumnsWithFilters = (onClickCell?: OnClickCell) => {
+  const columnsWithFilters = getColumnsWithOnCellClick(
+    COLUMNS_TABLE_TASKS,
+    onClickCell
+  ).map((column) => {
     if (!column.isFilterableBySearch) return column;
+
     return implementSearchFilter(column);
   });
 
   return columnsWithFilters;
 };
 
-export const getColumnsWithButtons = (args: {
-  handleEdit: (currentData: any) => void;
-  handleDelete: (id: string) => void;
-  disableDeleteButton?: (record: any) => boolean;
-}) => {
-  const columns = getColumnsWithFilters();
+export const getColumnsWithButtons = (
+  args: ArgsBuildColumnEditAndDelete
+): ColumnsTable => {
+  const columns = getColumnsWithFilters(args.onClickCell);
 
   columns.push(buildColumnEditAndDelete(args));
 

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { OnClickCell } from '../../../../../../domain/interfaces/columns-table';
 import Inventory from '../../../../../../domain/models/inventory';
 import Place from '../../../../../../domain/models/place';
 import Task from '../../../../../../domain/models/task';
@@ -29,5 +30,6 @@ export type UseTasksTable = () => {
     handleDelete: (id: string) => void;
     openModal: () => void;
     closeModal: () => void;
+    onClickCell: OnClickCell;
   };
 };

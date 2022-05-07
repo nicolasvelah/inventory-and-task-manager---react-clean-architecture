@@ -23,12 +23,16 @@ const useAddCategoryItemState = (values: {
       setCatalogs(catalogSelectedMap);
 
       if (values.initValues) {
-        catalogSelectedMap = catalogSelectedMap.map((itemSelected) => ({
-          ...itemSelected,
-          selected: !!values.initValues!.catalogToInstall.find(
+        catalogSelectedMap = catalogSelectedMap.map((itemSelected) => {
+          const itemFound = values.initValues!.catalogToInstall.find(
             (element) => itemSelected._id === element.id
-          )
-        }));
+          );
+          return {
+            ...itemSelected,
+            selected: !!itemFound,
+            numberOfItems: itemFound?.quantity ?? 1
+          };
+        });
         setCatalogs(catalogSelectedMap);
 
         const newLinkedCatalogs = catalogSelectedMap.filter((catalogItem) => {

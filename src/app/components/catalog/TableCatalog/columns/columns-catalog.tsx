@@ -2,7 +2,10 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
-import { ColumnsTable } from '../../../../../domain/interfaces/columns-table';
+import {
+  ArgsBuildColumnEditAndDelete,
+  ColumnsTable
+} from '../../../../../domain/interfaces/columns-table';
 import { implementSearchFilter } from '../../../../../helpers/implement-filter';
 import { buildColumnEditAndDelete } from '../../../../../utils/columns';
 
@@ -82,10 +85,7 @@ export const getColumnsWithFilters = () => {
   return columnsWithFilters;
 };
 
-export const getColumnsWithButtons = (args: {
-  handleEdit: (currentData: any) => void;
-  handleDelete: (id: string) => void;
-}) => {
+export const getColumnsWithButtons = (args: ArgsBuildColumnEditAndDelete) => {
   const columns = getColumnsWithFilters();
 
   columns.push(buildColumnEditAndDelete(args));

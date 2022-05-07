@@ -5,19 +5,16 @@
 import React from 'react';
 import { Button, Popconfirm, Space, Tooltip } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { ColumnsTable, ColumnTable } from '../domain/interfaces/columns-table';
+import {
+  ArgsBuildColumnEditAndDelete,
+  ColumnsTable,
+  ColumnTable,
+  OnClickCell
+} from '../domain/interfaces/columns-table';
 
-export type OnClickCell = (nonClickableColumn?: boolean) => (record: any) =>
-  | {
-      onClick: () => void;
-    }
-  | undefined;
-
-export const buildColumnEditAndDelete = (args: {
-  handleEdit: (currentData: any) => void;
-  handleDelete: (id: string) => void;
-  disableDeleteButton?: (record: any) => boolean;
-}): ColumnTable => ({
+export const buildColumnEditAndDelete = (
+  args: ArgsBuildColumnEditAndDelete
+): ColumnTable => ({
   title: '',
   dataIndex: 'buttons',
   key: 'buttons',
@@ -65,19 +62,19 @@ export const buildColumnEditAndDelete = (args: {
 export const getColumnsWithOnCellClick = (
   columns: ColumnsTable,
   onClickCell?: OnClickCell
-) => {
+): ColumnsTable => {
   const columnsWithFilters = columns.map((column) => {
     const children = column.children?.map((columChild) => {
       return {
         ...columChild,
-        onCell: onClickCell ? onClickCell() : undefined
+        onCell: onClickCell ? (onClickCell() as any) : undefined
       };
     });
 
     return {
       ...column,
       children,
-      onCell: onClickCell ? onClickCell() : undefined
+      onCell: onClickCell ? (onClickCell() as any) : undefined
     };
   });
 

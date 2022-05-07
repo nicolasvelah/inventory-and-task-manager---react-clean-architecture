@@ -4,7 +4,10 @@
 /* eslint-disable import/prefer-default-export */
 import React from 'react';
 import { Tag } from 'antd';
-import { ColumnsTable } from '../../../../../../domain/interfaces/columns-table';
+import {
+  ArgsBuildColumnEditAndDelete,
+  ColumnsTable
+} from '../../../../../../domain/interfaces/columns-table';
 import RenderItem from '../../../../generic/render-item/RenderItem';
 import { INVENTORY_STATE_COLOR_AND_NAME } from '../../../../../../helpers/constants/inventory';
 import {
@@ -108,11 +111,7 @@ export const getColumnsWithFilters = () => {
   return columnsWithFilters;
 };
 
-export const getColumnsWithButtons = (args: {
-  handleEdit: (currentData: any) => void;
-  handleDelete: (id: string) => void;
-  disableDeleteButton?: (record: any) => boolean;
-}) => {
+export const getColumnsWithButtons = (args: ArgsBuildColumnEditAndDelete) => {
   const columns = getColumnsWithFilters();
 
   columns.push(buildColumnEditAndDelete(args));

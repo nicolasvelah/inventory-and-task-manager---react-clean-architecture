@@ -75,7 +75,7 @@ export default class TasksRepositoryImpl implements TasksRepository {
   async update(id: string, data: Partial<Task>): Promise<Task> {
     const axios = await axiosRequest();
     const responseTasks = await axios.put<Task>(
-      `/api/v1/tasks/create/${id}`,
+      `/api/v1/tasks/${id}`,
       data
     );
 

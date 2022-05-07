@@ -2,11 +2,11 @@
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { repository } from '../../../../../dependecy-injection';
+import { OnClickCell } from '../../../../../domain/interfaces/columns-table';
 import {
   FragmentBox,
   ResponseBox
 } from '../../../../../domain/repositories/box-repository';
-import { OnClickCell } from '../../../../../utils/columns';
 import {
   DataTableBox,
   FragmentValue,
@@ -118,7 +118,6 @@ const useTableBox = () => {
     };
 
   const handleEdit = (boxToEdit: ResponseBox) => {
-    console.log('boxToEdit -->', boxToEdit);
     setValueToEdit(boxToEdit);
     setViewModal(true);
   };

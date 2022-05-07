@@ -3,6 +3,7 @@ import { message } from 'antd';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { repository } from '../../../../../../dependecy-injection';
+import { OnClickCell } from '../../../../../../domain/interfaces/columns-table';
 import Task from '../../../../../../domain/models/task';
 import { LIMIT_ROWS } from '../../../../../../helpers/constants/columns-table-tasks';
 import { FORMAT_DATE_DAY_MONTH_YEAR_TWO } from '../../../../../../helpers/constants/format-date';
@@ -116,6 +117,16 @@ const useTasksTable: UseTasksTable = () => {
   const openModal = () => setViewModal(true);
   const closeModal = () => setViewModal(false);
 
+  const onClickCell: OnClickCell =
+    (nonClickableColumn?: boolean) => (record: DataTask) => {
+      if (nonClickableColumn) return undefined;
+      return {
+        onClick: () => {
+          setTaskSelected(record?.data ?? null);
+        }
+      };
+    };
+
   return {
     viewModal,
     valueToEdit,
@@ -127,7 +138,8 @@ const useTasksTable: UseTasksTable = () => {
       handleEdit,
       handleDelete,
       openModal,
-      closeModal
+      closeModal,
+      onClickCell
     }
   };
 };
