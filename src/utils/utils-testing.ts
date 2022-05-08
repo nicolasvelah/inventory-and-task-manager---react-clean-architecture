@@ -97,7 +97,8 @@ export const usersRepository: UsersRepository = {
   findByValue: callbackPromiseEmptyArray,
   getCoordinatorsAndTechnicals: callbackPromiseEmptyArray,
   update: () => Promise.resolve(user),
-  create: () => Promise.resolve(user)
+  create: () => Promise.resolve(user),
+  delete: () => Promise.resolve(true)
 };
 
 export const mockRepositoriesMock = {

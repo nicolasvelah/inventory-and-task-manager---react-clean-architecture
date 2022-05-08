@@ -7,7 +7,7 @@ import useCreateUserState from './state/useCreateUserState';
 const CreateUser: React.FC = () => {
   const {
     visible,
-    actions: { handleCancel, handleOk, handleAddNewUser }
+    actions: { handleCancel, handleOk }
   } = useCreateUserState();
 
   return (
@@ -22,7 +22,7 @@ const CreateUser: React.FC = () => {
         onCancel={handleCancel}
         footer={null}
       >
-        <FormUser handleOk={handleAddNewUser} />
+        <FormUser />
       </Modal>
     </>
   );

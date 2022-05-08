@@ -1,41 +1,41 @@
+/* eslint-disable object-curly-newline */
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import { Table, Modal } from 'antd';
 import FormUser from '../FormUser/FormUser';
 import useTableUsersState from './state/useTableUsersState';
-import { getColumnsTableUser } from '../../../../helpers/constants/columns-table-tasks';
+import { getColumnsWithButtons } from './columns/columns-users';
 
 const TableUsers: React.FC = () => {
   const {
     dataTable,
-    visibleModalEdit,
-    valuesEdit,
-    actions: {
-      valuesToEdit,
-      handleCancelModalEdit,
-      handleOk,
-      handleOkModalEdit
-    }
+    viewModal,
+    valueToEdit,
+    actions: { handleEdit, handleDelete, openModal, closeModal }
   } = useTableUsersState();
 
   return (
     <div>
       <Table
-        columns={getColumnsTableUser(valuesToEdit)}
+        columns={getColumnsWithButtons({
+          handleDelete,
+          handleEdit,
+          propsDataSendEmail: {
+            handleEditEmail: () => console.log('Email sent')
+          }
+        })}
         dataSource={dataTable}
         scroll={{ x: 1100 }}
       />
       <Modal
         title="Editar usuario"
-        visible={visibleModalEdit}
-        onOk={handleOkModalEdit}
-        onCancel={handleCancelModalEdit}
+        visible={viewModal}
+        onOk={openModal}
+        onCancel={closeModal}
         destroyOnClose
         footer={null}
       >
-        {valuesEdit && (
-          <FormUser initValues={valuesEdit ?? undefined} handleOk={handleOk} />
-        )}
+        {valueToEdit && <FormUser initValues={valueToEdit ?? undefined} />}
       </Modal>
     </div>
   );

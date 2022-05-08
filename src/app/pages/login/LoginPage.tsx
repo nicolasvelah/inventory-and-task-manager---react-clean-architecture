@@ -3,7 +3,6 @@ import Login from '../../components/Login/Login';
 import './login-page.scss';
 import { ReactComponent as Logo } from './images/logoMorado.svg';
 
-// TODO: Put Logo
 const LoginPage = () => {
   return (
     <div id="login-page">

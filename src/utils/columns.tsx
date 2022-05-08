@@ -4,7 +4,7 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
 import { Button, Popconfirm, Space, Tooltip } from 'antd';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, MailOutlined } from '@ant-design/icons';
 import {
   ArgsBuildColumnEditAndDelete,
   ColumnsTable,
@@ -40,6 +40,16 @@ export const buildColumnEditAndDelete = (
             onClick={() => args.handleEdit(record.data)}
           />
         </Tooltip>
+        {args.propsDataSendEmail && (
+          <Popconfirm
+            title="Deseas enviar el mail clave？"
+            okText="Si"
+            cancelText="No"
+            onConfirm={() => args.propsDataSendEmail?.handleEditEmail()}
+          >
+            <Button type="link" icon={<MailOutlined />} />
+          </Popconfirm>
+        )}
         <Popconfirm
           title="Deseas eliminar este item？"
           okText="Si"

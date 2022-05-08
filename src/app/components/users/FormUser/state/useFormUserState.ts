@@ -2,10 +2,13 @@ import { message } from 'antd';
 import moment, { Moment } from 'moment';
 import { repository } from '../../../../../dependecy-injection';
 import User from '../../../../../domain/models/user';
+import { useUserListContext } from '../../../../context/user/UserListContext';
 import { UseFormUserState } from './useFormUserState.interfaces';
 
-const useFormUserState: UseFormUserState = ({ handleOk, initValues }) => {
+const useFormUserState: UseFormUserState = ({ initValues }) => {
   const { usersRepository } = repository;
+
+  const { users, setUsers } = useUserListContext();
 
   const disabledDate = (current: Moment) => {
     const years = moment().diff(current, 'years');
@@ -19,7 +22,14 @@ const useFormUserState: UseFormUserState = ({ handleOk, initValues }) => {
       ?.update(id, userToUpdate)
       .then((userUpdated) => {
         message.success('Usuario actualizado');
-        handleOk(userUpdated!);
+        const newUsers = users.map((item) => {
+          if (item._id === userUpdated._id) {
+            return userUpdated;
+          }
+
+          return item;
+        });
+        setUsers(newUsers);
       })
       .catch(() => {
         message.error('No se pudo actualizar el usuario');
@@ -33,9 +43,9 @@ const useFormUserState: UseFormUserState = ({ handleOk, initValues }) => {
     const hide = message.loading('Creando usuario ...');
     usersRepository
       ?.create(userToCreate)
-      .then((userUpdated) => {
+      .then((userCreated) => {
         message.success('Usuario creado');
-        handleOk(userUpdated!);
+        setUsers([userCreated, ...users]);
       })
       .catch(() => {
         message.error('No se pudo crear el usuario');
@@ -53,7 +63,7 @@ const useFormUserState: UseFormUserState = ({ handleOk, initValues }) => {
     };
 
     if (initValues) {
-      updateUser(initValues.id, payloadUser);
+      updateUser(initValues._id, payloadUser);
 
       return;
     }

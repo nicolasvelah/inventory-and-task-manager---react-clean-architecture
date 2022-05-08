@@ -1,16 +1,19 @@
+import { message } from 'antd';
 import { useEffect, useState } from 'react';
-import User, { userRolesType } from '../../../../../domain/models/user';
+import { repository } from '../../../../../dependecy-injection';
+import User, { UserRoleTranslateEnum } from '../../../../../domain/models/user';
 import { localDate } from '../../../../../utils/moment-utils';
 import { useUserListContext } from '../../../../context/user/UserListContext';
-import { DataUser, FormUserInterface } from './useTableUsersState.interfaces';
+import { DataUser } from './useTableUsersState.interfaces';
 
 const useTableUsersState = () => {
   const [data, setData] = useState<DataUser[]>([]);
 
-  const [visibleModalEdit, setVisibleModalEdit] = useState<boolean>(false);
-  const [valuesEdit, setValuesEdit] = useState<FormUserInterface | null>(null);
+  const [viewModal, setViewModal] = useState<boolean>(false);
+  const [valueToEdit, setValueToEdit] = useState<User | null>(null);
 
-  const { users } = useUserListContext();
+  const { users, setUsers } = useUserListContext();
+  const { usersRepository } = repository;
 
   useEffect(() => {
     const newData: DataUser[] = users.map((user) => ({
@@ -20,71 +23,46 @@ const useTableUsersState = () => {
       dateOfBirth: localDate(user.dateOfBirth),
       email: user.email,
       phone: user.phone,
-      role: user.role,
+      role: UserRoleTranslateEnum[user.role],
       enabled: user.enabled ? 'Disponible' : 'No disponible',
-      createdAt: user.createdAt ? localDate(user.createdAt) : ''
+      createdAt: user.createdAt ? localDate(user.createdAt) : '',
+      data: user
     }));
     setData(newData);
   }, [users]);
 
-  const handleOkModalEdit = () => {
-    setVisibleModalEdit(true);
+  const handleEdit = (userToEdit: User) => {
+    setValueToEdit(userToEdit);
+    setViewModal(true);
   };
 
-  const handleCancelModalEdit = () => {
-    setVisibleModalEdit(false);
-    setValuesEdit(null);
-  };
-
-  const valuesToEdit = (values: DataUser) => {
-    const valuesUser: FormUserInterface = {
-      id: values.key,
-      name: values.name,
-      lastName: values.lastName,
-      email: values.email,
-      phone: values.phone,
-      dateOfBirth: values.dateOfBirth,
-      enabled: values.enabled === 'Disponible',
-      role: values.role as userRolesType
-    };
-    setValuesEdit(valuesUser);
-    handleOkModalEdit();
-  };
-
-  const handleOk = (user: User | null) => {
-    if (user) {
-      setData((prevState) => {
-        const copy = prevState.map((item) => {
-          let itemUser = { ...item };
-          if (item.key === user._id) {
-            itemUser = {
-              key: user._id,
-              name: user.name,
-              lastName: user.lastName,
-              dateOfBirth: localDate(user.dateOfBirth),
-              email: user.email,
-              phone: user.phone,
-              role: user.role,
-              enabled: user.enabled ? 'Disponible' : 'No disponible',
-              createdAt: user.createdAt ? localDate(user.createdAt) : ''
-            };
-          }
-          return itemUser;
-        });
-        return copy;
+  const handleDelete = (id: string) => {
+    const hide = message.loading('Eliminando usuario');
+    usersRepository
+      ?.delete(id)
+      .then((deleted) => {
+        if (deleted) {
+          const newUsers = users.filter((item) => item._id !== id);
+          setUsers(newUsers);
+        }
+      })
+      .finally(() => {
+        hide();
       });
-    }
   };
+
+  const openModal = () => setViewModal(true);
+  const closeModal = () => setViewModal(false);
 
   return {
     dataTable: data,
-    visibleModalEdit,
-    valuesEdit,
+    viewModal,
+    valueToEdit,
     actions: {
-      handleCancelModalEdit,
-      handleOkModalEdit,
-      handleOk,
-      valuesToEdit
+      handleEdit,
+      handleDelete,
+      openModal,
+      closeModal
     }
   };
 };

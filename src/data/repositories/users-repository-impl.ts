@@ -7,7 +7,7 @@ export default class UsersRepositoryImpl implements UsersRepository {
   async findByValue(value: string): Promise<User[]> {
     const axios = await axiosRequest();
     const responseUsers = await axios.get<{ users: User[] }>(
-      `ﬁapi/v1/users/search?value=${value}`
+      `api/v1/users/search?value=${value}`
     );
 
     return responseUsers.data.users;
@@ -22,14 +22,11 @@ export default class UsersRepositoryImpl implements UsersRepository {
     return responseUsers.data.users;
   }
 
-  async update(_id: string, data: Partial<User>): Promise<User | null> {
+  async update(_id: string, data: Partial<User>): Promise<User> {
     const axios = await axiosRequest();
-    const responseUsers = await axios.get<{ user: User }>(
+    const responseUsers = await axios.put<{ user: User }>(
       `api/v1/users/${_id}`,
-      {
-        method: 'PUT',
-        data
-      }
+      data
     );
 
     return responseUsers.data.user;
@@ -38,6 +35,13 @@ export default class UsersRepositoryImpl implements UsersRepository {
   async create(data: Partial<User>): Promise<User> {
     const axios = await axiosRequest();
     const responseCreate = await axios.post<User>('/api/v1/users/create', data);
+
+    return responseCreate.data;
+  }
+
+  async delete(_id: string): Promise<boolean> {
+    const axios = await axiosRequest();
+    const responseCreate = await axios.delete<boolean>(`api/v1/users/${_id}`);
 
     return responseCreate.data;
   }

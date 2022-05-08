@@ -1,4 +1,4 @@
-import { userRolesType } from '../../../../../domain/models/user';
+import User, { userRolesType } from '../../../../../domain/models/user';
 
 export interface DataUser {
   key: string;
@@ -7,9 +7,10 @@ export interface DataUser {
   dateOfBirth: string;
   email: string;
   phone: string;
-  role: userRolesType;
+  role: string;
   enabled: string;
   createdAt: string;
+  data: User;
 }
 
 export interface FormUserInterface {

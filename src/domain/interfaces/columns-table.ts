@@ -13,9 +13,14 @@ export type OnClickCell = (nonClickableColumn?: boolean) => (record: any) =>
       onClick: () => void;
     }
   | undefined;
+
+export interface PropsDataSendEmail {
+  handleEditEmail: () => void;
+}
 export interface ArgsBuildColumnEditAndDelete {
   handleEdit: (currentData: any) => void;
   handleDelete: (id: string) => void;
   disableDeleteButton?: (record: any) => boolean;
   onClickCell?: OnClickCell;
+  propsDataSendEmail?: PropsDataSendEmail;
 }

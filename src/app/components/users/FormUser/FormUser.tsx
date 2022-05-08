@@ -9,10 +9,10 @@ import {
 import { FormUserProps } from './FormUser.interfaces';
 import useFormUserState from './state/useFormUserState';
 
-const FormUser: React.FC<FormUserProps> = ({ handleOk, initValues }) => {
+const FormUser: React.FC<FormUserProps> = ({ initValues }) => {
   const {
     actions: { disabledDate, onFinish }
-  } = useFormUserState({ handleOk, initValues });
+  } = useFormUserState({ initValues });
 
   let initialValues;
   if (initValues) {
