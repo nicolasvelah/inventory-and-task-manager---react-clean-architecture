@@ -28,6 +28,8 @@ const useTableBox = () => {
     canItBeFragmented
   } = useBoxContext();
 
+  const { boxRepository } = repository;
+
   const getFragments = (fragment: FragmentBox[], unitOfMeasurement: string) => {
     const total: FragmentValue[] = [];
     const remaining: FragmentValue[] = [];
@@ -66,8 +68,6 @@ const useTableBox = () => {
       technical
     };
   };
-
-  const { boxRepository } = repository;
 
   useEffect(() => {
     const newData: DataTableBox[] = boxList.map((box) => {

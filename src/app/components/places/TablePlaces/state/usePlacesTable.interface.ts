@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import Inventory from '../../../../../domain/models/inventory';
-import { placeType } from '../../../../../domain/models/place';
+import Place, { placeType } from '../../../../../domain/models/place';
 import Point from '../../../../../domain/models/point';
 
 export interface DataPlacesTable {
@@ -17,7 +17,8 @@ export interface DataPlacesTable {
   IntalledMaterial?: Inventory[] | string[] | null;
   createdAt?: string;
   updatedAt?: string;
-// eslint-disable-next-line semi
+  data: Place;
+  // eslint-disable-next-line semi
 }
 
 export type UsePlacesTable = () => {

@@ -20,4 +20,18 @@ export default class PlacesRepositoryImpl implements PlacesRepository {
 
     return places.data;
   }
+
+  async delete(id: string): Promise<boolean> {
+    const axios = await axiosRequest();
+    const places = await axios.delete<boolean>(`api/v1/places/${id}`);
+
+    return places.data;
+  }
+
+  async update(id: string, data: Partial<Place>): Promise<Place> {
+    const axios = await axiosRequest();
+    const places = await axios.put<Place>(`api/v1/places/${id}`, data);
+
+    return places.data;
+  }
 }

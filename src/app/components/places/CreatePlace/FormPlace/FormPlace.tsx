@@ -6,17 +6,38 @@ import FormPlaceMap from './FormPlaceMap/FormPlaceMap';
 import useFormPlaceState from './state/useFormPlaceState';
 
 const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
-  const { onFinishForm } = useFormPlaceState();
+  const {
+    lat,
+    lng,
+    actions: { setLatitude, setLongitude, onFinishForm }
+  } = useFormPlaceState(initValues);
 
-  const [lat, setLat] = React.useState(0);
-  const [lng, setLng] = React.useState(0);
+  let initValuesConverted;
+  let defaultPoint;
+
+  if (initValues) {
+    const latitude = initValues.coords.coordinates[0];
+    const longitude = initValues.coords.coordinates[1];
+
+    initValuesConverted = {
+      ...initValues,
+      typePlace: initValues.type,
+      lat: latitude,
+      lng: longitude
+    };
+
+    defaultPoint = {
+      lat: latitude,
+      lng: longitude
+    };
+  }
 
   return (
     <Form
-      initialValues={initValues}
+      initialValues={initValuesConverted}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 14 }}
-      onFinish={(values:any) => onFinishForm(values, lat, lng)}
+      onFinish={(values: any) => onFinishForm(values, lat, lng)}
       onValuesChange={() => {}}
       className="form"
     >
@@ -37,7 +58,9 @@ const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
       <Form.Item
         label="Número de la dirección"
         name="addressNumber"
-        rules={[{ required: true, message: 'Número de la dirección es requerido' }]}
+        rules={[
+          { required: true, message: 'Número de la dirección es requerido' }
+        ]}
       >
         <Input />
       </Form.Item>
@@ -67,7 +90,7 @@ const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
         name="typePlace"
         rules={[{ required: true, message: 'Tipo de lugar es requerido' }]}
       >
-        <Select showSearch onSearch={() => {}}>
+        <Select showSearch>
           <Select.Option key="ATM" value="ATM">
             ATM
           </Select.Option>
@@ -76,10 +99,12 @@ const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
           </Select.Option>
         </Select>
       </Form.Item>
-      <Form.Item
-        label="Ubicación"
-      >
-        <FormPlaceMap setLatParent={setLat} setLngParent={setLng} />
+      <Form.Item label="Ubicación">
+        <FormPlaceMap
+          setLatParent={setLatitude}
+          setLngParent={setLongitude}
+          defaultPoint={defaultPoint}
+        />
       </Form.Item>
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit">
