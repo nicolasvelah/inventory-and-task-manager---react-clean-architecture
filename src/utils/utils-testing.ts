@@ -98,7 +98,8 @@ export const usersRepository: UsersRepository = {
   getCoordinatorsAndTechnicals: callbackPromiseEmptyArray,
   update: () => Promise.resolve(user),
   create: () => Promise.resolve(user),
-  delete: () => Promise.resolve(true)
+  delete: () => Promise.resolve(true),
+  updatePass: () => Promise.resolve(true)
 };
 
 export const mockRepositoriesMock = {

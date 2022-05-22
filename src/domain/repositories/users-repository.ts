@@ -9,4 +9,10 @@ export default interface UsersRepository {
   update(_id: string, data: Partial<User>): Promise<User>;
   create(data: Partial<User>): Promise<User>;
   delete(_id: string): Promise<boolean>;
+  updatePass(args: {
+    password: string;
+    confirmPassword: string;
+    email: string;
+    token: string;
+  }): Promise<boolean>;
 }

@@ -13,6 +13,7 @@ import CatalogPage from './pages/materials/catalog/CatalogPage';
 import CategoriesPage from './pages/materials/categories/CategoriesPage';
 import InventoryPage from './pages/materials/inventory/InventoryPage';
 import BoxPage from './pages/materials/box/BoxPage';
+import ResetPassPage from './pages/reset-pass/ResetPassPage';
 
 import 'antd/dist/antd.css';
 import { UserContextProvider } from './context/global/UserGlobalContext';
@@ -22,17 +23,21 @@ import '../assets/et-styles.scss';
 
 function App() {
   return (
-    <UserContextProvider>
-      <BrowserRouter>
-        <Session>
-          <Switch>
-            <Route exact path="/public-page" component={PublicPage} />
-
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/public-page" component={PublicPage} />
+        <Route exact path="/reset/:token/:email" component={ResetPassPage} />
+        <UserContextProvider>
+          <Session>
             <Route exact path="/login" component={LoginPage} />
 
             <Route exact path="/task/list" component={TasksListPage} />
 
-            <Route exact path="/materials/categories" component={CategoriesPage} />
+            <Route
+              exact
+              path="/materials/categories"
+              component={CategoriesPage}
+            />
 
             <Route exact path="/materials/catalog" component={CatalogPage} />
             <Route
@@ -40,23 +45,18 @@ function App() {
               path="/materials/inventory"
               component={InventoryPage}
             />
-            <Route
-              exact
-              path="/materials/box"
-              component={BoxPage}
-            />
+            <Route exact path="/materials/box" component={BoxPage} />
 
             <Route exact path="/users" component={UserPage} />
 
             <Route exact path="/devices" component={DevicesPage} />
 
             <Route exact path="/places" component={PlacesPage} />
-
-            <Route exact path="*" component={NotFound} />
-          </Switch>
-        </Session>
-      </BrowserRouter>
-    </UserContextProvider>
+          </Session>
+        </UserContextProvider>
+        <Route exact path="*" component={NotFound} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

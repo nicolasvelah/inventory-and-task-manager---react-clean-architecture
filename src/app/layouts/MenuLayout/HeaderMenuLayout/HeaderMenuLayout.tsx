@@ -3,7 +3,7 @@ import { Layout } from 'antd';
 
 import MyProfile from '../../../components/my-profile/MyProfile';
 import User from '../../../../domain/models/user';
-import { ReactComponent as Logo } from './images/logo.svg';
+import { ReactComponent as Logo } from '../../../../assets/svg/logo.svg';
 
 const { Header } = Layout;
 

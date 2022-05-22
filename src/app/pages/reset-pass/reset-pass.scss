@@ -1,0 +1,20 @@
+.container-reset {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .reset-card {
+    width: 550px;
+    margin: 0px 25px;
+  }
+}
+
+@media (min-width: 600px) {
+  .container-reset {
+    .reset-card {
+      width: 550px;
+    }
+  }
+}

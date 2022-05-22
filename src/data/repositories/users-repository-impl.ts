@@ -1,4 +1,5 @@
 /* eslint-disable class-methods-use-this */
+import Axios from 'axios';
 import UsersRepository from '../../domain/repositories/users-repository';
 import User from '../../domain/models/user';
 import { axiosRequest } from '../../utils/axios-util';
@@ -44,5 +45,31 @@ export default class UsersRepositoryImpl implements UsersRepository {
     const responseCreate = await axios.delete<boolean>(`api/v1/users/${_id}`);
 
     return responseCreate.data;
+  }
+
+  async updatePass(args: {
+    password: string;
+    confirmPassword: string;
+    email: string;
+    token: string;
+  }): Promise<boolean> {
+    const data = {
+      password: args.password,
+      confirmPassword: args.confirmPassword,
+      email: args.email
+    };
+
+    await Axios.post(
+      `${process.env.REACT_APP_API_URL}/api/v1/users/update-password`,
+      data,
+      {
+        headers: {
+          'x-access-token': args.token,
+          'Content-type': 'application/json'
+        }
+      }
+    );
+
+    return true;
   }
 }
