@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import React from 'react';
 // eslint-disable-next-line object-curly-newline
 import { Button, Form, Input, Select } from 'antd';
@@ -38,7 +39,6 @@ const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 14 }}
       onFinish={(values: any) => onFinishForm(values, lat, lng)}
-      onValuesChange={() => {}}
       className="form"
     >
       <Form.Item
@@ -85,6 +85,7 @@ const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
       >
         <Input />
       </Form.Item>
+
       <Form.Item
         label="Tipo de lugar"
         name="typePlace"
@@ -99,6 +100,7 @@ const FormPlace: React.FC<FormPlaceProps> = ({ initValues }) => {
           </Select.Option>
         </Select>
       </Form.Item>
+
       <Form.Item label="Ubicación">
         <FormPlaceMap
           setLatParent={setLatitude}

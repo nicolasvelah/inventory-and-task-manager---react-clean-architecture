@@ -9,12 +9,23 @@ import { useCatalogContext } from '../../../../../context/materials/CatalogConte
 
 const useFormCatalogState = (initValues?: Catalog) => {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [isControlled, setIsControlled] = useState(false);
 
   const [form] = Form.useForm();
 
   const { categoriesRepository, catalogRepository } = repository;
 
   const { catalogs, setCatalogs } = useCatalogContext();
+
+  const getCategories = () => {
+    categoriesRepository?.getCategories().then((categoriesData) => {
+      setCategories(categoriesData);
+    });
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   const onFinishForm = async (values: CatalogRequest) => {
     if (initValues) {
@@ -44,26 +55,32 @@ const useFormCatalogState = (initValues?: Catalog) => {
       return;
     }
     const hide = message.loading('Creando un item en el catálogo ...');
-    const newCatalog = await catalogRepository?.createCatalog(values);
-    if (newCatalog) {
-      setCatalogs([newCatalog, ...catalogs]);
-    }
-    hide();
+
+    catalogRepository
+      ?.createCatalog(values)
+      .then((newCatalog) => {
+        setCatalogs([newCatalog, ...catalogs]);
+        message.success('Catálogo creado.');
+      })
+      .finally(() => {
+        hide();
+      })
+      .catch(() => {
+        message.error('No se pudo crear el catálogo.');
+      });
   };
 
   const onValuesChange = (value: { [k: string]: any }) => {
-    console.log('value -->', value);
+    if (value.type) {
+      const verifyType = value.type === 'controlled';
+      setIsControlled(verifyType);
+    }
   };
-
-  useEffect(() => {
-    categoriesRepository?.getCategories().then((categoriesData) => {
-      setCategories(categoriesData);
-    });
-  }, []);
 
   return {
     form,
     categories,
+    isControlled,
     actions: {
       onFinishForm,
       onValuesChange

@@ -25,18 +25,16 @@ const useModalLinkedInventoryTechnical = () => {
     const hide = message.loading('Obteniendo técnicos ...');
 
     usersRepository
-      ?.getCoordinatorsAndTechnicals()
+      ?.getTechnicals()
       .then((users) => {
-        const table = users
-          .filter((item) => item.role === 'technical')
-          .map((item) => ({
-            key: item._id,
-            name: item.name,
-            lastName: item.lastName,
-            dateOfBirth: item.dateOfBirth ? momentFormat(item.dateOfBirth) : '',
-            email: item.email,
-            phone: item.phone
-          }));
+        const table = users.map((item) => ({
+          key: item._id,
+          name: item.name,
+          lastName: item.lastName,
+          dateOfBirth: item.dateOfBirth ? momentFormat(item.dateOfBirth) : '',
+          email: item.email,
+          phone: item.phone
+        }));
         setDataTable(table);
       })
       .finally(() => {
@@ -57,8 +55,24 @@ const useModalLinkedInventoryTechnical = () => {
   };
 
   const onSearchText = async (value: string) => {
-    // TODO: implemente search for text
-    console.log('value -->', value);
+    const hide = message.loading('Buscando técnicos ...');
+
+    usersRepository
+      ?.getTechnicals(value)
+      .then((users) => {
+        const table = users.map((item) => ({
+          key: item._id,
+          name: item.name,
+          lastName: item.lastName,
+          dateOfBirth: item.dateOfBirth ? momentFormat(item.dateOfBirth) : '',
+          email: item.email,
+          phone: item.phone
+        }));
+        setDataTable(table);
+      })
+      .finally(() => {
+        hide();
+      });
   };
 
   const reloadInventory = () => {

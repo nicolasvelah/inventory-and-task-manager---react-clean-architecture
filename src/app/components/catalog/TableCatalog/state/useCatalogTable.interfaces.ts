@@ -8,7 +8,7 @@ export interface DataCatalogTable {
   brand: string;
   model: string;
   interface: string;
-  placeType: string;
+  typePlace: string;
   type: string;
   unity: string;
   category: string;

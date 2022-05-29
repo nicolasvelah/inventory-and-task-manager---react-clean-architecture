@@ -22,6 +22,7 @@ export interface DataTableBox {
   name: string;
   identifiers: DataCollectedBox[];
   total: string;
+  cellar: string;
   totalFragment: FragmentValue[];
   remainingFragment: FragmentValue[];
   technicalFragment: FragmentValue[];

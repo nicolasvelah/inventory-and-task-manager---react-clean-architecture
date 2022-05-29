@@ -9,6 +9,7 @@ const FormCatalog: React.FC<{ initValues?: Catalog }> = ({ initValues }) => {
   const {
     form,
     categories,
+    isControlled,
     actions: { onFinishForm, onValuesChange }
   } = useFormCatalogState(initValues);
 
@@ -81,17 +82,18 @@ const FormCatalog: React.FC<{ initValues?: Catalog }> = ({ initValues }) => {
           <Select.Option value="unidades">unidades</Select.Option>
         </Select>
       </Form.Item>
-
-      <Form.Item
-        label="Tipo de lugar"
-        name="typePlace"
-        rules={[{ required: true, message: 'Tipo de lugar es requerida' }]}
-      >
-        <Select showSearch>
-          <Select.Option value="ATM">ATM</Select.Option>
-          <Select.Option value="sucursal">Sucursal</Select.Option>
-        </Select>
-      </Form.Item>
+      {isControlled && (
+        <Form.Item
+          label="Tipo de lugar"
+          name="typePlace"
+          rules={[{ required: true, message: 'Tipo de lugar es requerida' }]}
+        >
+          <Select showSearch>
+            <Select.Option value="ATM">ATM</Select.Option>
+            <Select.Option value="sucursal">Sucursal</Select.Option>
+          </Select>
+        </Form.Item>
+      )}
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
         <Button type="primary" htmlType="submit" className="button-submit">

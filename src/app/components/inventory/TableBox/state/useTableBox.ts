@@ -34,8 +34,11 @@ const useTableBox = () => {
     const total: FragmentValue[] = [];
     const remaining: FragmentValue[] = [];
     const technical: FragmentValue[] = [];
+    let totalFragment = 0;
 
     fragment.forEach((item) => {
+      totalFragment += item.attributes.totalFragment;
+
       total.push({
         unitOfMeasurement: unitOfMeasurement ?? '',
         value: item.attributes.totalFragment.toString()
@@ -63,14 +66,15 @@ const useTableBox = () => {
     return {
       total,
       remaining,
-      technical
+      technical,
+      totalFragment
     };
   };
 
   useEffect(() => {
     const newData: DataTableBox[] = boxList.map((box) => {
       const { unitOfMeasurement } = box.attributes.device;
-      const { total, remaining, technical } = getFragments(
+      const { total, remaining, technical, totalFragment } = getFragments(
         box.fragments,
         unitOfMeasurement ?? ''
       );
@@ -80,6 +84,9 @@ const useTableBox = () => {
         identifiers: box.attributes.dataCollected ?? [],
         state: box.attributes.device.state ?? '',
         total: `${box.attributes?.totalMaterial ?? 0} ${
+          unitOfMeasurement ?? ''
+        }`,
+        cellar: `${(box.attributes?.totalMaterial ?? 0) - totalFragment} ${
           unitOfMeasurement ?? ''
         }`,
         remaining: `${box.attributes?.remainingMaterial ?? 0} ${

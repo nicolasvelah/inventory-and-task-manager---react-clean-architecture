@@ -48,9 +48,9 @@ export const COLUMNS_TABLE_CATALOG: ColumnsTable = [
     key: 'categoryDescription'
   },
   {
-    title: 'Tipo de sitio',
-    dataIndex: 'placeType',
-    key: 'placeType',
+    title: 'Tipo de lugar',
+    dataIndex: 'typePlace',
+    key: 'typePlace',
     width: 150
   },
   {

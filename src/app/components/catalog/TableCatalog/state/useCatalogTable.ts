@@ -27,7 +27,7 @@ const useCatalogTable: UseCatalogTable = () => {
       brand: catalog.brand,
       model: catalog.referenceModel,
       interface: '', // TODO: Verify parameter
-      placeType: '', // TODO: Verify parameter
+      typePlace: catalog.typePlace, // TODO: Verify parameter
       type:
         TypeSpanishCatalogEnum[
           catalog.type as 'controlled' | 'notControlled'

@@ -23,6 +23,17 @@ export default class UsersRepositoryImpl implements UsersRepository {
     return responseUsers.data.users;
   }
 
+  async getTechnicals(search?: string): Promise<User[]> {
+    const axios = await axiosRequest();
+    let url = 'api/v1/users/technicals';
+    if (search) {
+      url += `?search=${search}`;
+    }
+    const responseUsers = await axios.get<{ users: User[] }>(url);
+
+    return responseUsers.data.users;
+  }
+
   async update(_id: string, data: Partial<User>): Promise<User> {
     const axios = await axiosRequest();
     const responseUsers = await axios.put<{ user: User }>(

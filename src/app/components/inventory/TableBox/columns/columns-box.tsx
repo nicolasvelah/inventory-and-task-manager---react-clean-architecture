@@ -125,6 +125,13 @@ export const COLUMNS_TABLE_BOX: ColumnsTable = [
     isFilterableBySearch: true
   },
   {
+    title: 'Bodega',
+    dataIndex: 'cellar',
+    key: 'cellar',
+    width: 150,
+    isFilterableBySearch: true
+  },
+  {
     title: 'Restante',
     dataIndex: 'remaining',
     key: 'remaining',

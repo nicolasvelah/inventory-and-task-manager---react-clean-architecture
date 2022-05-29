@@ -96,6 +96,7 @@ export const tasksRepository: TasksRepository = {
 export const usersRepository: UsersRepository = {
   findByValue: callbackPromiseEmptyArray,
   getCoordinatorsAndTechnicals: callbackPromiseEmptyArray,
+  getTechnicals: callbackPromiseEmptyArray,
   update: () => Promise.resolve(user),
   create: () => Promise.resolve(user),
   delete: () => Promise.resolve(true),

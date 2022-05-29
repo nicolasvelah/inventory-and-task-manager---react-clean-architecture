@@ -44,6 +44,17 @@ export const implementSearchFilter = (column: any): ColumnTable => {
   try {
     return {
       ...column,
+      sorter: (a, b) => {
+        const { dataIndex } = column;
+        if (
+          typeof a[dataIndex] === 'string' &&
+          typeof b[dataIndex] === 'string'
+        ) {
+          return a[dataIndex].localeCompare(b[dataIndex]);
+        }
+
+        return false;
+      },
       filterIcon: (filtered: boolean) => (
         <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
       ),
