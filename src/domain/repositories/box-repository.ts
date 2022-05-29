@@ -3,6 +3,7 @@ import { PayloadCreateBox } from '../models/boxes';
 import Catalog from '../models/catalog';
 import Fragments from '../models/fragment';
 import Inventory from '../models/inventory';
+import User from '../models/user';
 
 export interface DataCollectedBox {
   name: string;
@@ -14,6 +15,7 @@ type InventoryBox = Inventory & { spentMaterial: number };
 export interface FragmentBox {
   attributes: {
     remainingFragment: number;
+    owner: User;
     totalFragment: number;
     _id: string;
   };

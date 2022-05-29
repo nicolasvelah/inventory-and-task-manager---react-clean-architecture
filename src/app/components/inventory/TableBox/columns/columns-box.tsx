@@ -1,7 +1,10 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-confusing-arrow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import { Tag } from 'antd';
+import { List, Tag } from 'antd';
 import { FragmentValue } from '../../../../context/inventory/BoxContext/BoxContext';
 import {
   ArgsBuildColumnEditAndDelete,
@@ -23,43 +26,39 @@ export const COLUMNS_TABLE_FRAGMENTS: ColumnsTable = [
     title: 'Total del fragmento',
     dataIndex: 'totalFragment',
     key: 'totalFragment',
-    width: 115,
+    width: 200,
     className: 'fragment',
-    render: (totalFragments: FragmentValue[]) => (
-      <table>
-        <tbody>
-          {(totalFragments ?? []).map((total, index) => {
-            const value = `${total.value} ${total.unitOfMeasurement}`;
-            return (
-              <tr key={`row_total_${index}`}>
-                <td>{value}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    )
+    render: (totalFragments: FragmentValue[]) =>
+      totalFragments.length > 0 ? (
+        <List
+          size="small"
+          header={null}
+          bordered
+          dataSource={totalFragments}
+          renderItem={(item) => (
+            <List.Item>{`${item.value} ${item.unitOfMeasurement}`}</List.Item>
+          )}
+        />
+      ) : undefined
   },
   {
     title: 'Total usado del fragmento',
     dataIndex: 'remainingFragment',
     key: 'remainingFragment',
-    width: 115,
+    width: 200,
     className: 'fragment',
-    render: (remainingFragment: FragmentValue[]) => (
-      <table>
-        <tbody>
-          {(remainingFragment ?? []).map((remaining, index) => {
-            const value = `${remaining.value} ${remaining.unitOfMeasurement}`;
-            return (
-              <tr key={`row_remaining_${index}`}>
-                <td>{value}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    )
+    render: (remainingFragment: FragmentValue[]) =>
+      remainingFragment.length > 0 ? (
+        <List
+          size="small"
+          header={null}
+          bordered
+          dataSource={remainingFragment}
+          renderItem={(item) => (
+            <List.Item>{`${item.value} ${item.unitOfMeasurement}`}</List.Item>
+          )}
+        />
+      ) : undefined
   },
   {
     title: 'Técnico del fragmento',
@@ -67,20 +66,16 @@ export const COLUMNS_TABLE_FRAGMENTS: ColumnsTable = [
     key: 'technicalFragment',
     width: 200,
     className: 'fragment',
-    render: (technicalFragment: FragmentValue[]) => (
-      <table>
-        <tbody>
-          {(technicalFragment ?? []).map((technical, index) => {
-            const value = `${technical.value} ${technical.unitOfMeasurement}`;
-            return (
-              <tr key={`row_technical_${index}`}>
-                <td>{value}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    )
+    render: (technicalFragment: FragmentValue[]) =>
+      technicalFragment.length > 0 ? (
+        <List
+          size="small"
+          header={null}
+          bordered
+          dataSource={technicalFragment}
+          renderItem={(item) => <List.Item>{`${item.value}`}</List.Item>}
+        />
+      ) : undefined
   }
 ];
 
@@ -95,6 +90,7 @@ export const COLUMNS_TABLE_BOX: ColumnsTable = [
     title: 'Nombre',
     dataIndex: 'name',
     key: 'name',
+    width: 150,
     isFilterableBySearch: true
   },
   {

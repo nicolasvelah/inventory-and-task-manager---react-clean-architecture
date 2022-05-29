@@ -50,14 +50,12 @@ const useTableBox = () => {
         value: remainingValue.toString()
       });
 
-      if (
-        item.inventory.length > 0 &&
-        typeof item.inventory[0].user === 'object'
-      ) {
-        const { user } = item.inventory[0];
+      if (item.attributes.owner && typeof item.attributes.owner === 'object') {
+        const { owner } = item.attributes;
+
         technical.push({
           unitOfMeasurement: unitOfMeasurement ?? '',
-          value: `${user.name} ${user.lastName}`
+          value: `${owner.name} ${owner.lastName}`
         });
       }
     });
